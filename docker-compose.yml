@@ -1,17 +1,17 @@
 version: '2'
 services:
   shopfront:
-    image: danielbryantuk/djshopfront
+    image: quiram/djshopfront
     ports:
      - "8010:8010"
     links:
       - productcatalogue
       - stockmanager
   productcatalogue:
-    image: danielbryantuk/djproductcatalogue
+    image: quiram/djproductcatalogue
     ports:
      - "8020:8020"
   stockmanager:
-    image: danielbryantuk/djstockmanager
+    image: quiram/djstockmanager
     ports:
      - "8030:8030"

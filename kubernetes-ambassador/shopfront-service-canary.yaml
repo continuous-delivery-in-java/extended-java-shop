@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: djshopfront-canary
-        image: danielbryantuk/djshopfront:1.1
+        image: quiram/djshopfront:1.1
         ports:
         - containerPort: 8010
         livenessProbe:
