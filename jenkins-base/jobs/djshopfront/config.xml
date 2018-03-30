@@ -42,7 +42,7 @@
       <repoName>quiram/djshopfront</repoName>
       <noCache>false</noCache>
       <forcePull>true</forcePull>
-      <dockerfilePath>shopfront/Dockerfile</dockerfilePath>
+      <buildContext>shopfront</buildContext>
       <skipBuild>false</skipBuild>
       <skipDecorate>false</skipDecorate>
       <repoTag></repoTag>

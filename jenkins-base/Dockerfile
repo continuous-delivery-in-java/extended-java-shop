@@ -1,14 +1,25 @@
 FROM jenkins/jenkins
+
 USER root
-# Configure Docker to be auto-installed
+
+# Add sudo capabilities
+# TODO: this is useful, but is it needed?
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+# Configure Docker to be auto-installed in Jenkins
 COPY --chown=jenkins:jenkins docker/org.jenkinsci.plugins.docker.commons.tools.DockerTool.xml /var/jenkins_home/
 
-# Configure Maven to be auto-installed
-COPY --chown=jenkins:jenkins mvn/ /var/jenkins_home/
+# Configure Maven to be auto-installed in Jenkins
+COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
 
 # Pre-load all necessary plugins
 RUN /usr/local/bin/install-plugins.sh ace-editor ant antisamy-markup-formatter apache-httpcomponents-client-4-api authentication-tokens bouncycastle-api branch-api build-timeout cloudbees-folder command-launcher credentials credentials-binding display-url-api docker-build-publish docker-commons docker-workflow durable-task email-ext git git-client git-server github github-api github-branch-source gradle handlebars jackson2-api jdk-tool jquery-detached jsch junit ldap mailer mapdb-api matrix-auth matrix-project momentjs pam-auth pipeline-build-step pipeline-github-lib pipeline-graph-analysis pipeline-input-step pipeline-milestone-step pipeline-model-api pipeline-model-declarative-agent pipeline-model-definition pipeline-model-extensions pipeline-rest-api pipeline-stage-step pipeline-stage-tags-metadata pipeline-stage-view plain-credentials resource-disposer scm-api script-security ssh-credentials ssh-slaves structs subversion timestamper token-macro workflow-aggregator workflow-api workflow-basic-steps workflow-cps workflow-cps-global-lib workflow-durable-task-step workflow-job workflow-multibranch workflow-scm-step workflow-step-api workflow-support ws-cleanup
 
 # Configure build pipeline for shopfront
 COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
+
+USER jenkins
 
