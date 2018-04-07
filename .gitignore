@@ -24,3 +24,8 @@ buildNumber.properties
 
 #logs
 *.log
+
+# Generated files
+jenkins-kubernetes/kubernetes/secrets/
+jenkins-kubernetes/kubernetes/kubeconfig
+
