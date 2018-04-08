@@ -18,13 +18,26 @@
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
-    <extensions/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
+        <sparseCheckoutPaths>
+          <hudson.plugins.git.extensions.impl.SparseCheckoutPath>
+            <path>productcatalogue</path>
+          </hudson.plugins.git.extensions.impl.SparseCheckoutPath>
+        </sparseCheckoutPaths>
+      </hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>* * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
@@ -38,7 +51,9 @@
     </hudson.tasks.Maven>
     <com.cloudbees.dockerpublish.DockerBuilder plugin="docker-build-publish@1.3.2">
       <server plugin="docker-commons@1.11"/>
-      <registry plugin="docker-commons@1.11"/>
+      <registry plugin="docker-commons@1.11">
+        <credentialsId>DockerHub</credentialsId>
+      </registry>
       <repoName>quiram/djproductcatalogue</repoName>
       <noCache>false</noCache>
       <forcePull>true</forcePull>
