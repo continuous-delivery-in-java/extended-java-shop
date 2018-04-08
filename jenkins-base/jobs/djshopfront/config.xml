@@ -22,7 +22,7 @@
       <hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
         <sparseCheckoutPaths>
           <hudson.plugins.git.extensions.impl.SparseCheckoutPath>
-            <path>shoptfront</path>
+            <path>shopfront</path>
           </hudson.plugins.git.extensions.impl.SparseCheckoutPath>
         </sparseCheckoutPaths>
       </hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
