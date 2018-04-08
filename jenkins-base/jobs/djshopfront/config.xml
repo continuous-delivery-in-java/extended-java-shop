@@ -19,13 +19,10 @@
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
     <extensions>
-      <hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
-        <sparseCheckoutPaths>
-          <hudson.plugins.git.extensions.impl.SparseCheckoutPath>
-            <path>shopfront</path>
-          </hudson.plugins.git.extensions.impl.SparseCheckoutPath>
-        </sparseCheckoutPaths>
-      </hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
+      <hudson.plugins.git.extensions.impl.PathRestriction>
+        <includedRegions>shopfront/*</includedRegions>
+        <excludedRegions></excludedRegions>
+      </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>
   </scm>
   <canRoam>true</canRoam>
