@@ -15,9 +15,25 @@ public class Stock {
     }
 
     public Stock(String productId, String sku, int amountAvailable) {
+        ensureAmount(amountAvailable);
+        ensureString(productId, "productId");
+        ensureString(sku, "sku");
+
         this.productId = productId;
         this.sku = sku;
         this.amountAvailable = amountAvailable;
+    }
+
+    private void ensureAmount(int amountAvailable) {
+        if (amountAvailable < 0) {
+            throw new IllegalArgumentException("amountAvailable cannot be negative");
+        }
+    }
+
+    private void ensureString(String productId, final String fieldName) {
+        if (productId == null || productId.trim().isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " must have an actual value");
+        }
     }
 
     public String getProductId() {
