@@ -3,6 +3,9 @@ package uk.co.danielbryant.djshopping.stockmanager.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 @Entity
 public class Stock {
 
@@ -30,8 +33,8 @@ public class Stock {
         }
     }
 
-    private void ensureString(String productId, final String fieldName) {
-        if (productId == null || productId.trim().isEmpty()) {
+    private void ensureString(String field, final String fieldName) {
+        if (isBlank(field)) {
             throw new IllegalArgumentException(fieldName + " must have an actual value");
         }
     }
@@ -46,5 +49,10 @@ public class Stock {
 
     public int getAmountAvailable() {
         return amountAvailable;
+    }
+
+    @Override
+    public String toString() {
+        return reflectionToString(this);
     }
 }
