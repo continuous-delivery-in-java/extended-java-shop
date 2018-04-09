@@ -1,13 +1,15 @@
 package uk.co.danielbryant.djshopping.stockmanager.model;
 
+import com.amarinperez.utils.ReflectiveToStringCompareEquals;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
+import static com.amarinperez.utils.ArgumentChecks.ensureNotNegative;
 
 @Entity
-public class Stock {
+public class Stock extends ReflectiveToStringCompareEquals<Stock> {
 
     @Id
     private String productId;
@@ -19,25 +21,13 @@ public class Stock {
     }
 
     public Stock(String productId, String sku, int amountAvailable) {
-        ensureAmount(amountAvailable);
-        ensureString(productId, "productId");
-        ensureString(sku, "sku");
+        ensureNotNegative(amountAvailable, "amountAvailable");
+        ensureNotBlank(productId, "productId");
+        ensureNotBlank(sku, "sku");
 
         this.productId = productId;
         this.sku = sku;
         this.amountAvailable = amountAvailable;
-    }
-
-    private void ensureAmount(int amountAvailable) {
-        if (amountAvailable < 0) {
-            throw new IllegalArgumentException("amountAvailable cannot be negative");
-        }
-    }
-
-    private void ensureString(String field, final String fieldName) {
-        if (isBlank(field)) {
-            throw new IllegalArgumentException(fieldName + " must have an actual value");
-        }
     }
 
     public String getProductId() {
@@ -50,10 +40,5 @@ public class Stock {
 
     public int getAmountAvailable() {
         return amountAvailable;
-    }
-
-    @Override
-    public String toString() {
-        return reflectionToString(this);
     }
 }
