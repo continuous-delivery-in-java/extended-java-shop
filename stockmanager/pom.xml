@@ -56,7 +56,7 @@
         <dependency>
             <groupId>com.github.quiram</groupId>
             <artifactId>java-utils</artifactId>
-            <version>v2.0.2</version>
+            <version>v3.0.0</version>
         </dependency>
         <!-- Test -->
         <dependency>
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>com.github.quiram</groupId>
             <artifactId>java-test-utils</artifactId>
-            <version>v2.0.0</version>
+            <version>v3.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
