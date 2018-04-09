@@ -13,14 +13,12 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
+import static com.amarinperez.utils.Collections.toMap;
+import static com.amarinperez.utils.Random.randomString;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static java.util.function.Function.identity;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -53,10 +51,6 @@ public class ProductServiceTest {
         assertThat(actualProducts, containsInAnyOrder(expectedProducts.toArray(new Product[0])));
     }
 
-    private <T> Map<String, T> toMap(List<T> items, Function<T, String> id) {
-        return items.stream().collect(Collectors.toMap(id, identity()));
-    }
-
     @Parameters(name = "{0}")
     public static List<Object[]> data() {
         return asList(new Object[][]{
@@ -85,9 +79,5 @@ public class ProductServiceTest {
                         asList(new StockDTO("5", "sku-5", 5), new StockDTO("4", "sku-4", 4)),
                         asList(new Product("4", "sku-4", "name-4", "description-4", new BigDecimal(40), 4), new Product("5", "sku-5", "name-5", "description-5", new BigDecimal(50), 5))}
         });
-    }
-
-    private static String randomString() {
-        return "" + new Random().nextLong();
     }
 }
