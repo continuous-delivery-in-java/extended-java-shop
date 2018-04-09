@@ -1,9 +1,12 @@
 package uk.co.danielbryant.djshopping.productcatalogue.model;
 
+import com.amarinperez.utils.ArgumentChecks;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
+import static com.amarinperez.utils.ArgumentChecks.ensureGreaterThanZero;
+import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Product {
@@ -17,9 +20,9 @@ public class Product {
     }
 
     public Product(String id, String name, String description, BigDecimal price) {
-        ensureString(id, "id");
-        ensureString(name, "name");
-        ensureString(description, "description");
+        ensureNotBlank(id, "id");
+        ensureNotBlank(name, "name");
+        ensureNotBlank(description, "description");
         ensureAmount(price);
 
         this.id = id;
@@ -29,17 +32,8 @@ public class Product {
     }
 
     private void ensureAmount(BigDecimal price) {
-        if (price.compareTo(new BigDecimal(0)) <= 0) {
-            throw new IllegalArgumentException("price must be greater than zero");
-        }
+        ensureGreaterThanZero(price.intValue(), "price");
     }
-
-    private void ensureString(String field, final String fieldName) {
-        if (isBlank(field)) {
-            throw new IllegalArgumentException(fieldName + " must have an actual value");
-        }
-    }
-
 
     @JsonProperty
     public String getId() {

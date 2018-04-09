@@ -8,6 +8,13 @@
     <artifactId>productcatalogue</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard.version>1.1.4</dropwizard.version>
@@ -25,11 +32,22 @@
             <artifactId>guice</artifactId>
             <version>${guice.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.quiram</groupId>
+            <artifactId>java-utils</artifactId>
+            <version>v2.0.2</version>
+        </dependency>
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.quiram</groupId>
+            <artifactId>java-test-utils</artifactId>
+            <version>v2.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

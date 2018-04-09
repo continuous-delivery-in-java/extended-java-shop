@@ -5,13 +5,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
-import java.util.Random;
 import java.util.function.Function;
 
+import static com.amarinperez.test_utils.Exceptions.expectException;
+import static com.amarinperez.utils.Random.randomString;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
 
 public class ProductTest {
     @Rule
@@ -47,20 +46,9 @@ public class ProductTest {
     }
 
     private static void assertCannotCreate(Function<String, Product> constructor, String field) {
-        asList(null, "", "    ").forEach(value -> expectException(constructor, field, value, format("Exception expected when testing value '%s' for field '%s;", value, field)));
-    }
-
-    private static void expectException(Function<String, Product> constructor, String expectedMessage, String value, String failureMessage) {
-        try {
-            constructor.apply(value);
-            fail(failureMessage);
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage(), containsString(expectedMessage));
-        }
-    }
-
-    private static String randomString() {
-        return "" + new Random().nextLong();
+        asList(null, "", "    ").forEach(value ->
+                expectException(() -> constructor.apply(value), IllegalArgumentException.class,
+                        field, format("Exception expected when testing value '%s' for field '%s;", value, field)));
     }
 
 }
