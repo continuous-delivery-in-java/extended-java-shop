@@ -10,7 +10,8 @@ import java.util.function.Function;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class StockTest {
     @Rule
@@ -56,7 +57,6 @@ public class StockTest {
                 constructor.apply(value);
                 fail(format("Exception expected when testing value '%s' for field '%s;", value, field));
             } catch (IllegalArgumentException e) {
-                assertEquals(e.getClass(), IllegalArgumentException.class);
                 assertThat(e.getMessage(), containsString(field));
             }
         });
