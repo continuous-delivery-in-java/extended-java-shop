@@ -1,8 +1,10 @@
 package uk.co.danielbryant.djshopping.shopfront.model;
 
+import com.amarinperez.utils.ReflectiveToStringCompareEquals;
+
 import java.math.BigDecimal;
 
-public class Product {
+public class Product extends ReflectiveToStringCompareEquals<Product> {
     private String id;
     private String sku;
     private String name;
