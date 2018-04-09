@@ -12,7 +12,7 @@ public class Product {
     private String description;
     private BigDecimal price;
 
-    public Product() {
+    private Product() {
         // Needed for Jackson deserialization
     }
 

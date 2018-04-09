@@ -14,7 +14,8 @@ public class Stock {
     private String sku;
     private int amountAvailable;
 
-    protected Stock() {
+    private Stock() {
+        // Needed by Spring
     }
 
     public Stock(String productId, String sku, int amountAvailable) {
