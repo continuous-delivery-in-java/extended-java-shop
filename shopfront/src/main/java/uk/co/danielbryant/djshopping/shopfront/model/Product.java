@@ -12,6 +12,10 @@ public class Product extends ReflectiveToStringCompareEquals<Product> {
     private BigDecimal price;
     private int amountAvailable;
 
+    private Product() {
+        // For deserialisation
+    }
+
     public Product(String id, String name, String description, BigDecimal price) {
         this.id = id;
         this.name = name;
