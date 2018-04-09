@@ -1,13 +1,13 @@
 package uk.co.danielbryant.djshopping.productcatalogue.model;
 
-import com.amarinperez.utils.ArgumentChecks;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import static com.amarinperez.utils.ArgumentChecks.ensureGreaterThanZero;
 import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static com.amarinperez.utils.ArgumentChecks.ensureNotNull;
 
 public class Product {
     private String id;
@@ -23,7 +23,7 @@ public class Product {
         ensureNotBlank(id, "id");
         ensureNotBlank(name, "name");
         ensureNotBlank(description, "description");
-        ensureAmount(price);
+        ensurePrice(price);
 
         this.id = id;
         this.name = name;
@@ -31,7 +31,8 @@ public class Product {
         this.price = price;
     }
 
-    private void ensureAmount(BigDecimal price) {
+    private void ensurePrice(BigDecimal price) {
+        ensureNotNull(price, "price");
         ensureGreaterThanZero(price.intValue(), "price");
     }
 

@@ -31,6 +31,13 @@ public class ProductTest {
     }
 
     @Test
+    public void priceCannotBeNull() {
+        onBadData.expect(IllegalArgumentException.class);
+        onBadData.expectMessage("price");
+        new Product(randomString(), randomString(), randomString(), null);
+    }
+
+    @Test
     public void idMustBePresent() {
         assertCannotCreate(id -> new Product(id, randomString(), randomString(), new BigDecimal(10)), "id");
     }
