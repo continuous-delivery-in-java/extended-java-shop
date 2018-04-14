@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 import static com.amarinperez.test_utils.Exceptions.expectException;
@@ -19,27 +20,27 @@ public class FlagTest {
 
     @Test
     public void portionMustBeValidPercentage() {
-        assertCannotCreate(portion -> new Flag(randomString(), randomString(), portion), "portionIn", asList(-1, 101));
+        assertCannotCreate(portion -> new Flag(randomLong(), randomString(), portion), "portionIn", asList(-1, 101));
     }
 
     @Test
     public void portionInCanBeZero() {
-        new Flag(randomString(), randomString(), 0);
+        new Flag(randomLong(), randomString(), 0);
     }
 
     @Test
     public void portionInCanBePositive() {
-        new Flag(randomString(), randomString(), 10);
+        new Flag(randomLong(), randomString(), 10);
     }
 
     @Test
     public void portionInCanBeUpTo100() {
-        new Flag(randomString(), randomString(), 100);
+        new Flag(randomLong(), randomString(), 100);
     }
 
     @Test
     public void nameMustHaveValue() {
-        Function<String, Flag> constructor = name -> new Flag(randomString(), name, 1);
+        Function<String, Flag> constructor = name -> new Flag(randomLong(), name, 1);
         final String field = "name";
 
         assertCannotCreate(constructor, field, blankValues);
@@ -50,5 +51,9 @@ public class FlagTest {
                 expectException(() -> constructor.apply(value), IllegalArgumentException.class,
                         field, format("Exception expected when testing value '%s' for field '%s;", value, field)
                 ));
+    }
+
+    private long randomLong() {
+        return new Random().nextLong();
     }
 }

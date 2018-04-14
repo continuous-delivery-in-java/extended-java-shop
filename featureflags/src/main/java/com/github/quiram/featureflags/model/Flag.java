@@ -13,7 +13,7 @@ public class Flag extends ReflectiveToStringCompareEquals<Flag> {
 
     @Id
     @GeneratedValue
-    private String flagId;
+    private Long flagId;
     private String name;
     private int portionIn;
 
@@ -21,7 +21,7 @@ public class Flag extends ReflectiveToStringCompareEquals<Flag> {
         // Needed by Spring
     }
 
-    public Flag(String flagId, String name, int portionIn) {
+    public Flag(Long flagId, String name, int portionIn) {
         ensurePortionIsValid(portionIn, "portionIn");
         ensureNotBlank(name, "name");
 
@@ -35,7 +35,7 @@ public class Flag extends ReflectiveToStringCompareEquals<Flag> {
         ensure(portionIn, fieldName, i -> i > 100, fieldName + " cannot be higher than 100%");
     }
 
-    public String getFlagId() {
+    public Long getFlagId() {
         return flagId;
     }
 

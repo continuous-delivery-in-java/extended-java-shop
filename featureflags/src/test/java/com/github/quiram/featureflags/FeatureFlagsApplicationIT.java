@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Random;
 
 import static com.amarinperez.utils.Random.randomString;
 import static java.util.Arrays.asList;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -47,7 +47,7 @@ public class FeatureFlagsApplicationIT {
     @Test
     public void getSpecificFlag() {
         final Flag flag = get("/flags/1", Flag.class);
-        assertThat(flag.getFlagId(), is("1"));
+        assertThat(flag.getFlagId(), is(1L));
         assertThat(flag.getName(), is("offers"));
         assertThat(flag.getPortionIn(), is(20));
     }
@@ -74,12 +74,12 @@ public class FeatureFlagsApplicationIT {
         final Flag savedFlag = get(flagLocator, Flag.class);
         assertThat(savedFlag.getName(), is(newFlag.getName()));
         assertThat(savedFlag.getPortionIn(), is(newFlag.getPortionIn()));
-        assertFalse(isBlank(savedFlag.getFlagId()));
+        assertNotNull(savedFlag.getFlagId());
     }
 
     @Test
     public void cannotCreateFlagIndicatingTheId() {
-        final ResponseEntity<String> response = rawPost("/flags", new Flag(randomString(), randomString(), 20), String.class);
+        final ResponseEntity<String> response = rawPost("/flags", new Flag(randomLong(), randomString(), 20), String.class);
 
         assertThat(response.getStatusCode(), is(BAD_REQUEST));
     }
@@ -96,7 +96,7 @@ public class FeatureFlagsApplicationIT {
 
     @Test
     public void canDeleteFlagThatExists() {
-        final String flagId = flagRepository.save(new Flag(null, randomString(), 20)).getFlagId();
+        final Long flagId = flagRepository.save(new Flag(null, randomString(), 20)).getFlagId();
         final long flagCount = flagRepository.count();
 
         final ResponseEntity<String> response = rawDelete("/flags/" + flagId, String.class);
@@ -118,5 +118,9 @@ public class FeatureFlagsApplicationIT {
 
     private <T> ResponseEntity<T> rawDelete(String path, Class<T> responseType) {
         return restTemplate.exchange(path, DELETE, null, responseType);
+    }
+
+    private long randomLong() {
+        return new Random().nextLong();
     }
 }

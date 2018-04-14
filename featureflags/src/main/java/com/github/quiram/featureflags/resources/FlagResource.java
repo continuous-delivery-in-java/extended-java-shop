@@ -41,13 +41,13 @@ public class FlagResource {
     }
 
     @RequestMapping(value = "{flagId}", method = GET)
-    public Flag getFlag(@PathVariable("flagId") String flagId) throws FlagNotFoundException {
+    public Flag getFlag(@PathVariable("flagId") Long flagId) throws FlagNotFoundException {
         LOGGER.info("getFlag with flagId: {}", flagId);
         return flagService.getFlag(flagId);
     }
 
     @RequestMapping(value = "{flagId}", method = DELETE)
-    public ResponseEntity<?> deleteFlag(@PathVariable("flagId") String flagId) throws FlagNotFoundException {
+    public ResponseEntity<?> deleteFlag(@PathVariable("flagId") Long flagId) throws FlagNotFoundException {
         LOGGER.info("deleteFlag with flagId: {}", flagId);
         flagService.removeFlag(flagId);
         return ResponseEntity.ok().build();

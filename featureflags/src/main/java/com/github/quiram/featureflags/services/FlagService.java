@@ -28,7 +28,7 @@ public class FlagService {
         return stream(flagRepository.findAll().spliterator(), false).collect(toList());
     }
 
-    public Flag getFlag(String id) throws FlagNotFoundException {
+    public Flag getFlag(Long id) throws FlagNotFoundException {
         return Optional.ofNullable(flagRepository.findOne(id))
                 .orElseThrow(() -> new FlagNotFoundException("Flag not found with id: " + id));
     }
@@ -45,7 +45,7 @@ public class FlagService {
         return flagRepository.save(flag);
     }
 
-    public void removeFlag(String id) throws FlagNotFoundException {
+    public void removeFlag(Long id) throws FlagNotFoundException {
         getFlag(id);
         flagRepository.delete(id);
     }

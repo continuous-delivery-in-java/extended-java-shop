@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Random;
+
 import static com.amarinperez.test_utils.Exceptions.expectException;
 import static com.amarinperez.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;
@@ -32,7 +34,7 @@ public class FlagServiceTest {
     @Test
     public void canAddFlag() throws FlagCreatedWithIdException, FlagNameAlreadyExistsException {
         final Flag newFlag = new Flag(null, randomString(), 10);
-        final String generatedId = randomString();
+        final Long generatedId = randomLong();
         when(repository.save(newFlag))
                 .thenReturn(new Flag(generatedId, newFlag.getName(), newFlag.getPortionIn()));
 
@@ -42,7 +44,7 @@ public class FlagServiceTest {
 
     @Test
     public void flagMustComeWithoutId() {
-        final Flag flag = new Flag(randomString(), randomString(), 10);
+        final Flag flag = new Flag(randomLong(), randomString(), 10);
         expectException(() -> flagService.addFlag(flag), FlagCreatedWithIdException.class, "flag includes the id",
                 "flag was created successfully");
     }
@@ -51,7 +53,7 @@ public class FlagServiceTest {
     public void flagNamesMustBeUnique() {
         final String name = randomString();
         final Flag newFlag = new Flag(null, name, 10);
-        final Flag existingFlag = new Flag(randomString(), name, 20);
+        final Flag existingFlag = new Flag(randomLong(), name, 20);
         when(repository.findByName(name)).thenReturn(existingFlag);
 
         expectException(() -> flagService.addFlag(newFlag), FlagNameAlreadyExistsException.class, "name",
@@ -60,7 +62,7 @@ public class FlagServiceTest {
 
     @Test
     public void canDeleteFlag() throws FlagNotFoundException {
-        final String id = randomString();
+        final Long id = randomLong();
         when(repository.findOne(id)).thenReturn(new Flag(id, randomString(), 10));
 
         flagService.removeFlag(id);
@@ -69,9 +71,13 @@ public class FlagServiceTest {
 
     @Test
     public void cannotDeleteFlagThatDoesNotExist() {
-        final String id = randomString();
+        final Long id = randomLong();
         when(repository.findOne(id)).thenReturn(null);
 
-        expectException(() -> flagService.removeFlag(id), FlagNotFoundException.class, id, "successfully deleted");
+        expectException(() -> flagService.removeFlag(id), FlagNotFoundException.class, id.toString(), "successfully deleted");
+    }
+
+    private long randomLong() {
+        return new Random().nextLong();
     }
 }
