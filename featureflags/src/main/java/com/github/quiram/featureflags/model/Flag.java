@@ -3,6 +3,7 @@ package com.github.quiram.featureflags.model;
 import com.amarinperez.utils.ReflectiveToStringCompareEquals;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import static com.amarinperez.utils.ArgumentChecks.*;
@@ -11,6 +12,7 @@ import static com.amarinperez.utils.ArgumentChecks.*;
 public class Flag extends ReflectiveToStringCompareEquals<Flag> {
 
     @Id
+    @GeneratedValue
     private String flagId;
     private String name;
     private int portionIn;

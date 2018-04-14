@@ -1,15 +1,23 @@
 package com.github.quiram.featureflags.resources;
 
+import com.github.quiram.featureflags.exceptions.FlagCreatedWithIdException;
+import com.github.quiram.featureflags.exceptions.FlagNameAlreadyExistsException;
 import com.github.quiram.featureflags.exceptions.FlagNotFoundException;
 import com.github.quiram.featureflags.model.Flag;
 import com.github.quiram.featureflags.services.FlagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/flags")
@@ -20,10 +28,17 @@ public class FlagResource {
     @Autowired
     private FlagService flagService;
 
-    @RequestMapping()
+    @RequestMapping(method = GET)
     public List<Flag> getFlags() {
         LOGGER.info("getFlags (All flags)");
         return flagService.getFlags();
+    }
+
+    @RequestMapping(method = POST)
+    public ResponseEntity<?> createFlag(@RequestBody Flag flag) throws FlagCreatedWithIdException, FlagNameAlreadyExistsException {
+        LOGGER.info("createFlag: ");
+        final Flag savedFlag = flagService.addFlag(flag);
+        return ResponseEntity.created(URI.create("/flags/" + savedFlag.getFlagId())).build();
     }
 
     @RequestMapping("{flagId}")
@@ -33,7 +48,19 @@ public class FlagResource {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(NOT_FOUND)
     public void handleFlagNotFound(FlagNotFoundException e) {
     }
+
+    @ExceptionHandler
+    @ResponseStatus(BAD_REQUEST)
+    public void handleFlagWithId(FlagCreatedWithIdException e) {
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(BAD_REQUEST)
+    public void handleFlagNameAlreadyExists(FlagNameAlreadyExistsException e) {
+    }
+
+
 }
