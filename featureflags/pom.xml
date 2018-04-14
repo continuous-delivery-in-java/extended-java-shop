@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.github.quiram</groupId>
             <artifactId>java-utils</artifactId>
-            <version>v3.0.0</version>
+            <version>v3.1.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>

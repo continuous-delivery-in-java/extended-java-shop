@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 import static com.amarinperez.test_utils.Exceptions.expectException;
+import static com.amarinperez.utils.Random.randomLong;
 import static com.amarinperez.utils.Random.randomString;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -51,9 +52,5 @@ public class FlagTest {
                 expectException(() -> constructor.apply(value), IllegalArgumentException.class,
                         field, format("Exception expected when testing value '%s' for field '%s;", value, field)
                 ));
-    }
-
-    private long randomLong() {
-        return new Random().nextLong();
     }
 }

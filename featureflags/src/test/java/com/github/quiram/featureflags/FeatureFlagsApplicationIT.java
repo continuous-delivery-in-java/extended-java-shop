@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Random;
 
+import static com.amarinperez.utils.Random.randomLong;
 import static com.amarinperez.utils.Random.randomString;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.hasSize;
@@ -118,9 +119,5 @@ public class FeatureFlagsApplicationIT {
 
     private <T> ResponseEntity<T> rawDelete(String path, Class<T> responseType) {
         return restTemplate.exchange(path, DELETE, null, responseType);
-    }
-
-    private long randomLong() {
-        return new Random().nextLong();
     }
 }

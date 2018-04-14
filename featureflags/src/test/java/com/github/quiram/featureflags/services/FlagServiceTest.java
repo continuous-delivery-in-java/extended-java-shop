@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Random;
 
 import static com.amarinperez.test_utils.Exceptions.expectException;
+import static com.amarinperez.utils.Random.randomLong;
 import static com.amarinperez.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -75,9 +76,5 @@ public class FlagServiceTest {
         when(repository.findOne(id)).thenReturn(null);
 
         expectException(() -> flagService.removeFlag(id), FlagNotFoundException.class, id.toString(), "successfully deleted");
-    }
-
-    private long randomLong() {
-        return new Random().nextLong();
     }
 }
