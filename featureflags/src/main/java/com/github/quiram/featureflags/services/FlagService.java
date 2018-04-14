@@ -20,7 +20,7 @@ public class FlagService {
     private FlagRepository flagRepository;
 
     @Autowired
-    public FlagService(FlagRepository flagRepository) {
+    FlagService(FlagRepository flagRepository) {
         this.flagRepository = flagRepository;
     }
 
@@ -43,5 +43,10 @@ public class FlagService {
         }
 
         return flagRepository.save(flag);
+    }
+
+    public void removeFlag(String id) throws FlagNotFoundException {
+        getFlag(id);
+        flagRepository.delete(id);
     }
 }

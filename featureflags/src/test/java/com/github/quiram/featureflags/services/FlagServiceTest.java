@@ -2,6 +2,7 @@ package com.github.quiram.featureflags.services;
 
 import com.github.quiram.featureflags.exceptions.FlagCreatedWithIdException;
 import com.github.quiram.featureflags.exceptions.FlagNameAlreadyExistsException;
+import com.github.quiram.featureflags.exceptions.FlagNotFoundException;
 import com.github.quiram.featureflags.model.Flag;
 import com.github.quiram.featureflags.repositories.FlagRepository;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import static com.amarinperez.test_utils.Exceptions.expectException;
 import static com.amarinperez.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,5 +56,22 @@ public class FlagServiceTest {
 
         expectException(() -> flagService.addFlag(newFlag), FlagNameAlreadyExistsException.class, "name",
                 "flag was created successfully");
+    }
+
+    @Test
+    public void canDeleteFlag() throws FlagNotFoundException {
+        final String id = randomString();
+        when(repository.findOne(id)).thenReturn(new Flag(id, randomString(), 10));
+
+        flagService.removeFlag(id);
+        verify(repository).delete(id);
+    }
+
+    @Test
+    public void cannotDeleteFlagThatDoesNotExist() {
+        final String id = randomString();
+        when(repository.findOne(id)).thenReturn(null);
+
+        expectException(() -> flagService.removeFlag(id), FlagNotFoundException.class, id, "successfully deleted");
     }
 }

@@ -21,8 +21,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpHeaders.LOCATION;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpStatus.*;
 
 @RunWith(SpringRunner.class)
@@ -42,7 +41,7 @@ public class FeatureFlagsApplicationIT {
     @Test
     public void getAllFlags() {
         final List<Flag> flags = asList(get("/flags", Flag[].class));
-        assertThat(flags, hasSize(1));
+        assertTrue(flags.size() > 0);
     }
 
     @Test
@@ -61,9 +60,11 @@ public class FeatureFlagsApplicationIT {
 
     @Test
     public void canCreateAndRetrieveFlag() {
+        final long flagCount = flagRepository.count();
+
         final Flag newFlag = new Flag(null, randomString(), 20);
         final ResponseEntity<String> response = rawPost("/flags", newFlag, String.class);
-        assertThat(flagRepository.count(), is(2L));
+        assertThat(flagRepository.count(), is(flagCount + 1));
         assertThat(response.getStatusCode(), is(CREATED));
         assertTrue(response.getHeaders().containsKey(LOCATION));
         final List<String> locations = response.getHeaders().get(LOCATION);
@@ -93,6 +94,16 @@ public class FeatureFlagsApplicationIT {
         assertThat(response.getStatusCode(), is(BAD_REQUEST));
     }
 
+    @Test
+    public void canDeleteFlagThatExists() {
+        final String flagId = flagRepository.save(new Flag(null, randomString(), 20)).getFlagId();
+        final long flagCount = flagRepository.count();
+
+        final ResponseEntity<String> response = rawDelete("/flags/" + flagId, String.class);
+        assertThat(response.getStatusCode(), is(OK));
+        assertThat(flagRepository.count(), is(flagCount - 1));
+    }
+
     private <T> T get(String path, Class<T> responseType) {
         return restTemplate.getForObject(path, responseType);
     }
@@ -105,4 +116,7 @@ public class FeatureFlagsApplicationIT {
         return restTemplate.exchange(path, POST, new HttpEntity<>(requestBody), responseType);
     }
 
+    private <T> ResponseEntity<T> rawDelete(String path, Class<T> responseType) {
+        return restTemplate.exchange(path, DELETE, null, responseType);
+    }
 }

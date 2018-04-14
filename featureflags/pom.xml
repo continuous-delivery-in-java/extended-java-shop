@@ -29,6 +29,7 @@
         <java.version>1.8</java.version>
         <java-utils.version>v3.0.1</java-utils.version>
         <hamcrest-core.version>1.3</hamcrest-core.version>
+        <java-test-utils.version>v3.1.0</java-test-utils.version>
     </properties>
 
     <dependencies>
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>com.github.quiram</groupId>
             <artifactId>java-test-utils</artifactId>
-            <version>v3.0.0</version>
+            <version>${java-test-utils.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
