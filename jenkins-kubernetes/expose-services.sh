@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-services="shopfront stockmanager productcatalogue"
+services="shopfront stockmanager productcatalogue featureflags"
 
 ip=$(minikube ip)
 for service in ${services}; do
