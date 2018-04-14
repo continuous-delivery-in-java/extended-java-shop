@@ -12,7 +12,7 @@ spec:
   ports:
   - protocol: TCP
     port: 5432
-    name: jdbc:postgresql
+    name: jdbc-postgresql
 
 ---
 apiVersion: v1
