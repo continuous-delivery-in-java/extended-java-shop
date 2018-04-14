@@ -11,6 +11,6 @@ spec:
     app: featureflags-db
   ports:
   - protocol: TCP
-    port: 3306
-    name: mysql
+    port: 5432
+    name: postgresql
 
