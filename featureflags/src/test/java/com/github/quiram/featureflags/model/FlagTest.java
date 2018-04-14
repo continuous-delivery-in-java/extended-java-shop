@@ -38,14 +38,6 @@ public class FlagTest {
     }
 
     @Test
-    public void idMustHaveValue() {
-        Function<String, Flag> constructor = id -> new Flag(id, randomString(), 1);
-        final String field = "flagId";
-
-        assertCannotCreate(constructor, field, blankValues);
-    }
-
-    @Test
     public void nameMustHaveValue() {
         Function<String, Flag> constructor = name -> new Flag(randomString(), name, 1);
         final String field = "name";

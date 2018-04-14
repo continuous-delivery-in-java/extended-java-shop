@@ -1,5 +1,7 @@
 package com.github.quiram.featureflags.services;
 
+import com.github.quiram.featureflags.exceptions.FlagCreatedWithIdException;
+import com.github.quiram.featureflags.exceptions.FlagNameAlreadyExistsException;
 import com.github.quiram.featureflags.exceptions.FlagNotFoundException;
 import com.github.quiram.featureflags.model.Flag;
 import com.github.quiram.featureflags.repositories.FlagRepository;
@@ -29,5 +31,17 @@ public class FlagService {
     public Flag getFlag(String id) throws FlagNotFoundException {
         return Optional.ofNullable(flagRepository.findOne(id))
                 .orElseThrow(() -> new FlagNotFoundException("Flag not found with id: " + id));
+    }
+
+    public Flag addFlag(Flag flag) throws FlagCreatedWithIdException, FlagNameAlreadyExistsException {
+        if (flag.getFlagId() != null) {
+            throw new FlagCreatedWithIdException("flag includes the id " + flag.getFlagId());
+        }
+
+        if (flagRepository.findByName(flag.getName()) != null) {
+            throw new FlagNameAlreadyExistsException("there is already a flag with name " + flag.getName());
+        }
+
+        return flagRepository.save(flag);
     }
 }

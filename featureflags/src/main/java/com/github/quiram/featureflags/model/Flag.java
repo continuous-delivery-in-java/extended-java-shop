@@ -21,7 +21,6 @@ public class Flag extends ReflectiveToStringCompareEquals<Flag> {
 
     public Flag(String flagId, String name, int portionIn) {
         ensurePortionIsValid(portionIn, "portionIn");
-        ensureNotBlank(flagId, "flagId");
         ensureNotBlank(name, "name");
 
         this.flagId = flagId;
