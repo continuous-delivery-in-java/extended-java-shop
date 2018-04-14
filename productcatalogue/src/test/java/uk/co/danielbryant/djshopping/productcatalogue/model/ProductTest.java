@@ -5,12 +5,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
-import java.util.function.Function;
 
+import static com.amarinperez.test_utils.ArgumentChecks.BLANK_VALUES;
+import static com.amarinperez.test_utils.ArgumentChecks.assertIllegalArguments;
 import static com.amarinperez.test_utils.Exceptions.expectException;
 import static com.amarinperez.utils.Random.randomString;
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
 
 public class ProductTest {
     @Rule
@@ -39,23 +39,16 @@ public class ProductTest {
 
     @Test
     public void idMustBePresent() {
-        assertCannotCreate(id -> new Product(id, randomString(), randomString(), new BigDecimal(10)), "id");
+        assertIllegalArguments(id -> new Product(id, randomString(), randomString(), new BigDecimal(10)), "id", BLANK_VALUES);
     }
 
     @Test
     public void nameMustBePresent() {
-        assertCannotCreate(name -> new Product(randomString(), name, randomString(), new BigDecimal(10)), "name");
+        assertIllegalArguments(name -> new Product(randomString(), name, randomString(), new BigDecimal(10)), "name", BLANK_VALUES);
     }
 
     @Test
     public void descriptionMustBePresent() {
-        assertCannotCreate(description -> new Product(randomString(), randomString(), description, new BigDecimal(10)), "description");
+        assertIllegalArguments(description -> new Product(randomString(), randomString(), description, new BigDecimal(10)), "description", BLANK_VALUES);
     }
-
-    private static void assertCannotCreate(Function<String, Product> constructor, String field) {
-        asList(null, "", "    ").forEach(value ->
-                expectException(() -> constructor.apply(value), IllegalArgumentException.class,
-                        field, format("Exception expected when testing value '%s' for field '%s;", value, field)));
-    }
-
 }
