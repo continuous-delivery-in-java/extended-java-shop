@@ -12,5 +12,22 @@ spec:
   ports:
   - protocol: TCP
     port: 5432
-    name: postgresql
+    name: jdbc:postgresql
 
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: featureflags-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: featureflags-db
+    spec:
+      containers:
+      - name: featureflags-db
+        image: quiram/featureflags-db
+        ports:
+        - containerPort: 5432
