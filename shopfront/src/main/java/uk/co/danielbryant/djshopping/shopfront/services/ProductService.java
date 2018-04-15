@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
+import static uk.co.danielbryant.djshopping.shopfront.model.Constants.ADAPTIVE_PRICING_FLAG_ID;
 import static uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO.DEFAULT_STOCK_DTO;
 
 @Service
@@ -54,7 +55,7 @@ public class ProductService {
     }
 
     private BigDecimal getPrice(ProductDTO productDTO) {
-        if (featureFlagsService.shouldApplyFeatureWithFlag(1L))
+        if (featureFlagsService.shouldApplyFeatureWithFlag(ADAPTIVE_PRICING_FLAG_ID))
             return adaptivePricingRepo.getPriceFor(productDTO.getName());
         else
             return productDTO.getPrice();

@@ -1,19 +1,21 @@
 package uk.co.danielbryant.djshopping.shopfront.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import uk.co.danielbryant.djshopping.shopfront.repo.FeatureFlagsRepo;
 import uk.co.danielbryant.djshopping.shopfront.services.dto.FlagDTO;
 
 import java.util.Optional;
 import java.util.Random;
 
+@Service
 public class FeatureFlagsService {
-    @Autowired
     private final FeatureFlagsRepo featureFlagsRepo;
-    @Autowired
     private final Random random;
 
-    public FeatureFlagsService(FeatureFlagsRepo featureFlagsRepo, Random random) {
+    @Autowired
+    public FeatureFlagsService(FeatureFlagsRepo featureFlagsRepo, @Value("#{new java.util.Random()}") Random random) {
         this.featureFlagsRepo = featureFlagsRepo;
         this.random = random;
     }

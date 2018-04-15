@@ -20,6 +20,6 @@ public class FeatureFlagsRepo {
     private RestTemplate restTemplate;
 
     public Optional<FlagDTO> getFlag(long flagId) {
-        return Optional.ofNullable(restTemplate.getForObject("/flags/" + flagId, FlagDTO.class));
+        return Optional.ofNullable(restTemplate.getForObject(featureFlagsUri + "/flags/" + flagId, FlagDTO.class));
     }
 }

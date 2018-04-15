@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import uk.co.danielbryant.djshopping.shopfront.services.dto.PriceDTO;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,6 @@ public class AdaptivePricingRepo {
 
 
     public BigDecimal getPriceFor(String productName) {
-        return restTemplate.getForObject("prices?" + productName, BigDecimal.class);
+        return restTemplate.getForObject(adaptivePricingUri + "/price?productName=" + productName, PriceDTO.class).getPrice();
     }
 }

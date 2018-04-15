@@ -18,8 +18,7 @@ import java.util.List;
 
 import static com.amarinperez.utils.Random.randomInt;
 import static com.amarinperez.utils.Random.randomString;
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.lang.Math.abs;
 import static java.util.Arrays.asList;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -31,6 +30,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpStatus.OK;
+import static uk.co.danielbryant.djshopping.shopfront.model.Constants.ADAPTIVE_PRICING_FLAG_ID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ShopfrontApplication.class)
@@ -44,6 +44,12 @@ public class ShopfrontApplicationIT {
     @Rule
     public WireMockRule mockStockRepo = new WireMockRule(8030);
 
+    @Rule
+    public WireMockRule mockFeatureFlagsRepo = new WireMockRule(8040);
+
+    @Rule
+    public WireMockRule mockAdaptivePricingRepo = new WireMockRule(8050);
+
     private final String description1 = randomString();
     private final int amount1 = abs(randomInt());
     private final String amountString1 = "" + amount1;
@@ -54,13 +60,30 @@ public class ShopfrontApplicationIT {
                 .get(urlEqualTo("/products"))
                 .willReturn(aResponse()
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                        .withBody("[{\"id\":\"1\",\"name\":\"Object 1\",\"description\":\"" + description1 + "\",\"price\":1.20},{\"id\":\"2\",\"name\":\"Object 2\",\"description\":\"The second object\",\"price\":4.10}]")
+                        .withBody("[{\"id\":\"1\",\"name\":\"Object 1\",\"description\":\"" + description1 + "\",\"price\":1.20},{\"id\":\"2\"," +
+                                "\"name\":\"Object 2\",\"description\":\"The second object\",\"price\":4.10}]")
                 ));
+
         mockStockRepo.stubFor(WireMock
                 .get(urlEqualTo("/stocks"))
                 .willReturn(aResponse()
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON)
-                        .withBody("[{\"productId\":\"1\",\"sku\":\"sku-1\",\"amountAvailable\":" + amountString1 + "},{\"productId\":\"2\",\"sku\":\"sku-2\",\"amountAvailable\":2}]")
+                        .withBody("[{\"productId\":\"1\",\"sku\":\"sku-1\",\"amountAvailable\":" + amountString1 + "},{\"productId\":\"2\"," +
+                                "\"sku\":\"sku-2\",\"amountAvailable\":2}]")
+                ));
+
+        mockFeatureFlagsRepo.stubFor(WireMock
+                .get(urlEqualTo("/flags/" + ADAPTIVE_PRICING_FLAG_ID))
+                .willReturn(aResponse()
+                        .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+                        .withBody("{\"flagId\":" + ADAPTIVE_PRICING_FLAG_ID + ", \"name\":\"adaptive-pricing\", \"portionIn\":100}")
+                ));
+
+        mockAdaptivePricingRepo.stubFor(WireMock
+                .get(urlPathEqualTo("/price"))
+                .willReturn(aResponse()
+                        .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+                        .withBody("{\"price\":12.34}")
                 ));
     }
 
@@ -82,7 +105,7 @@ public class ShopfrontApplicationIT {
         final Product product = products.get(0);
         assertThat(product.getDescription(), is(description1));
         assertThat(product.getAmountAvailable(), is(amount1));
-        assertThat(product.getPrice(), is(new BigDecimal("1.20")));
+        assertThat(product.getPrice(), is(new BigDecimal("12.34")));
     }
 
     private <T> T get(String path, Class<T> responseType) {
