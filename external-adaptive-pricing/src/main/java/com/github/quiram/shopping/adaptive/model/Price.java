@@ -12,4 +12,8 @@ public class Price {
     public Price(BigDecimal price) {
         this.price = price;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 }
