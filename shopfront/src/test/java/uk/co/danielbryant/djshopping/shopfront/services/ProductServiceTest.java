@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mock;
 import uk.co.danielbryant.djshopping.shopfront.model.Product;
+import uk.co.danielbryant.djshopping.shopfront.repo.AdaptivePricingRepo;
 import uk.co.danielbryant.djshopping.shopfront.repo.ProductRepo;
 import uk.co.danielbryant.djshopping.shopfront.repo.StockRepo;
 import uk.co.danielbryant.djshopping.shopfront.services.dto.ProductDTO;
@@ -13,6 +15,7 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static com.amarinperez.utils.Collections.toMap;
 import static com.amarinperez.utils.Random.randomString;
@@ -20,35 +23,66 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(Parameterized.class)
 public class ProductServiceTest {
-    private StockRepo stockRepo = mock(StockRepo.class);
-    private ProductRepo productRepo = mock(ProductRepo.class);
-    private ProductService productService = new ProductService(stockRepo, productRepo);
+    @Mock
+    private StockRepo stockRepo;
+    @Mock
+    private ProductRepo productRepo;
+    @Mock
+    private FeatureFlagsService featureFlagsService;
+    @Mock
+    private AdaptivePricingRepo adaptivePricingRepo;
 
-    private List<ProductDTO> productDTOS;
-    private List<StockDTO> stockDTOS;
+    private ProductService productService;
+
     private List<Product> expectedProducts;
 
     public ProductServiceTest(String testName, List<ProductDTO> productDTOS, List<StockDTO> stockDTOS, List<Product> expectedProducts) {
-        this.productDTOS = productDTOS;
-        this.stockDTOS = stockDTOS;
-        this.expectedProducts = expectedProducts;
-    }
-
-    @Test
-    public void testScenario() {
         final Map<String, ProductDTO> productDTOMap = toMap(productDTOS, ProductDTO::getId);
         final Map<String, StockDTO> stockDTOMap = toMap(stockDTOS, StockDTO::getProductId);
+        this.expectedProducts = expectedProducts;
+
+        initMocks(this);
         when(stockRepo.getStockDTOs()).thenReturn(stockDTOMap);
         when(productRepo.getProductDTOs()).thenReturn(productDTOMap);
 
+        productService = new ProductService(stockRepo, productRepo, featureFlagsService, adaptivePricingRepo);
+    }
+
+    @Test
+    public void originalPricesAreKeptWhenFlagIsOff() {
+        when(featureFlagsService.shouldApplyFeatureWithFlag(anyLong())).thenReturn(false);
+
         final List<Product> actualProducts = productService.getProducts();
         assertThat(actualProducts, containsInAnyOrder(expectedProducts.toArray(new Product[0])));
+    }
+
+    @Test
+    public void noPriceMatchesWhenFlagIsFullyOn() {
+        // Technically some prices could actually match since they are all random, but this is very unlikely
+        when(featureFlagsService.shouldApplyFeatureWithFlag(anyLong())).thenReturn(true);
+        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(new BigDecimal(new Random().nextDouble()));
+
+        final List<Product> actualProducts = productService.getProducts();
+        actualProducts.forEach(actualProduct -> {
+            final Product originalProduct = findOriginalProduct(actualProduct.getId());
+            assertNotEquals(originalProduct.getPrice(), actualProduct.getPrice());
+        });
+    }
+
+    private Product findOriginalProduct(String productId) {
+        return expectedProducts.stream()
+                .filter(p -> p.getId().equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Original product not found for id " + productId));
     }
 
     @Parameters(name = "{0}")
@@ -75,9 +109,11 @@ public class ProductServiceTest {
                         singletonList(new StockDTO("3", "sku-3", 10)),
                         singletonList(new Product("3", "sku-3", "name-3", "description-3", new BigDecimal(30), 10))},
                 {"products can be matched even if provided in different order",
-                        asList(new ProductDTO("4", "name-4", "description-4", new BigDecimal(40)), new ProductDTO("5", "name-5", "description-5", new BigDecimal(50))),
+                        asList(new ProductDTO("4", "name-4", "description-4", new BigDecimal(40)), new ProductDTO("5", "name-5", "description-5",
+                                new BigDecimal(50))),
                         asList(new StockDTO("5", "sku-5", 5), new StockDTO("4", "sku-4", 4)),
-                        asList(new Product("4", "sku-4", "name-4", "description-4", new BigDecimal(40), 4), new Product("5", "sku-5", "name-5", "description-5", new BigDecimal(50), 5))}
+                        asList(new Product("4", "sku-4", "name-4", "description-4", new BigDecimal(40), 4), new Product("5", "sku-5", "name-5",
+                                "description-5", new BigDecimal(50), 5))}
         });
     }
 }
