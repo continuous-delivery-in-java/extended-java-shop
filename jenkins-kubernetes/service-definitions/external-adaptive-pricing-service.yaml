@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-adaptive-pricing
+  labels:
+    app: external-adaptive-pricing
+spec:
+  type: NodePort
+  selector:
+    app: external-adaptive-pricing
+  ports:
+  - protocol: TCP
+    port: 8050
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: external-adaptive-pricing
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: external-adaptive-pricing
+    spec:
+      containers:
+      - name: external-adaptive-pricing
+        image: quiram/external-adaptive-pricing
+        ports:
+        - containerPort: 8050
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8050
+          initialDelaySeconds: 30
+          timeoutSeconds: 1

@@ -1,0 +1,66 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+    <actions/>
+    <description></description>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.com/quiram/oreilly-cd-in-java</url>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/master</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers>
+        <jenkins.triggers.ReverseBuildTrigger>
+            <spec></spec>
+            <upstreamProjects>external-adaptive-pricing, </upstreamProjects>
+            <threshold>
+                <name>SUCCESS</name>
+                <ordinal>0</ordinal>
+                <color>BLUE</color>
+                <completeBuild>true</completeBuild>
+            </threshold>
+        </jenkins.triggers.ReverseBuildTrigger>
+    </triggers>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <com.microsoft.jenkins.kubernetes.KubernetesDeploy plugin="kubernetes-cd@0.2.0">
+            <context>
+                <kubeconfigId>minikube</kubeconfigId>
+                <credentialsType>KubeConfig</credentialsType>
+                <ssh>
+                    <sshServer></sshServer>
+                    <sshCredentialsId>*</sshCredentialsId>
+                </ssh>
+                <kubeConfig>
+                    <path></path>
+                </kubeConfig>
+                <textCredentials>
+                    <serverUrl>https://</serverUrl>
+                    <certificateAuthorityData></certificateAuthorityData>
+                    <clientCertificateData></clientCertificateData>
+                    <clientKeyData></clientKeyData>
+                </textCredentials>
+                <configs>jenkins-kubernetes/service-definitions/external-adaptive-pricing-service.yaml</configs>
+                <enableConfigSubstitution>true</enableConfigSubstitution>
+                <secretName></secretName>
+            </context>
+        </com.microsoft.jenkins.kubernetes.KubernetesDeploy>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+</project>
