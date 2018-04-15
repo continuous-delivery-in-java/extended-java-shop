@@ -1,5 +1,6 @@
 package com.github.quiram.shopping.adaptive.resources;
 
+import com.github.quiram.shopping.adaptive.model.Price;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,12 @@ public class PriceResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(PriceResource.class);
 
     @RequestMapping(method = GET)
-    public BigDecimal getPrice(@RequestParam(name = "productName") String productName) {
+    public Price getPrice(@RequestParam(name = "productName") String productName) {
         LOGGER.info("getPriceFor '{}'", productName);
         ensureNotBlank(productName, "productName");
         double priceInPence = new Random().nextInt(10000);
         Double priceInPounds = priceInPence / 100;
-        return new BigDecimal(priceInPounds.toString());
+        return new Price(new BigDecimal(priceInPounds.toString()));
     }
 
     @ExceptionHandler
