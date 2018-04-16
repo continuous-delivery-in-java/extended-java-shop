@@ -148,7 +148,7 @@ public class ShopfrontApplicationCT {
     }
 
     private void eventually(Callable<Boolean> eventualCheck) {
-        await().atMost(10, SECONDS).until(eventualCheck);
+        await().atMost(15, SECONDS).until(eventualCheck);
     }
 
     private boolean circuitBreakerOpens() {
