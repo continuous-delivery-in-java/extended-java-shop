@@ -13,6 +13,8 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.PriceDTO;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static uk.co.danielbryant.djshopping.shopfront.model.Constants.ADAPTIVE_PRICING_COMMAND_KEY;
+
 @Component
 public class AdaptivePricingRepo {
 
@@ -25,7 +27,8 @@ public class AdaptivePricingRepo {
     @Qualifier(value = "stdRestTemplate")
     private RestTemplate restTemplate;
 
-    @HystrixCommand(fallbackMethod = "getPriceFallback")
+    @HystrixCommand(commandKey = ADAPTIVE_PRICING_COMMAND_KEY,
+            fallbackMethod = "getPriceFallback")
     public Optional<BigDecimal> getPriceFor(String productName) {
         return Optional.of(restTemplate.getForObject(adaptivePricingUri + "/price?productName=" + productName, PriceDTO.class).getPrice());
     }
