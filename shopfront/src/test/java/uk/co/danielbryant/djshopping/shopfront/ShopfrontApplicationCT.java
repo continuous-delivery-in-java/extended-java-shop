@@ -39,7 +39,7 @@ import static wiremock.org.eclipse.jetty.http.HttpStatus.INTERNAL_SERVER_ERROR_5
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ShopfrontApplication.class)
-public class ShopfrontApplicationIT {
+public class ShopfrontApplicationCT {
     @Autowired
     private TestRestTemplate restTemplate;
 

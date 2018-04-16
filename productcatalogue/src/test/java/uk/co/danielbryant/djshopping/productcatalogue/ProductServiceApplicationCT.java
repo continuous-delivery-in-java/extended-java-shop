@@ -19,7 +19,7 @@ import static org.eclipse.jetty.http.HttpStatus.NOT_FOUND_404;
 import static org.eclipse.jetty.http.HttpStatus.OK_200;
 import static org.junit.Assert.assertEquals;
 
-public class ProductServiceApplicationIT {
+public class ProductServiceApplicationCT {
     @ClassRule
     public static final DropwizardAppRule<ProductServiceConfiguration> RULE = new DropwizardAppRule<>(
             ProductServiceApplication.class,

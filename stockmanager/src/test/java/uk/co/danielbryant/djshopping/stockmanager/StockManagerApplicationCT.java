@@ -9,7 +9,7 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-public class StockManagerApplicationIT {
+public class StockManagerApplicationCT {
 
     private RequestSpecification when;
     private final String baseUrl = "http://localhost:8030";

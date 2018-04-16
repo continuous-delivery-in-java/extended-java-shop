@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FeatureFlagsApplication.class)
-public class FeatureFlagsApplicationIT {
+public class FeatureFlagsApplicationCT {
     @Autowired
     private TestRestTemplate restTemplate;
 

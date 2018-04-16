@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AdaptivePricingApplication.class)
-public class AdaptivePricingApplicationIT {
+public class AdaptivePricingApplicationCT {
     @Autowired
     private TestRestTemplate restTemplate;
 
