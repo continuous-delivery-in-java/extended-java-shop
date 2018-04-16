@@ -111,7 +111,7 @@ public class ShopfrontApplicationCT {
     }
 
     @Test
-    public void circuitBreakerOpensForAdaptivePricingAndServiceDeliversOriginalPrice() {
+    public void originalPriceIsUsedIfCallToAdaptiveServiceFails() {
         givenAdaptivePricingServiceFails();
 
         final List<Product> products = getProducts();
