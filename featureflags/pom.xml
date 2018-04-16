@@ -100,6 +100,7 @@
                 <configuration>
                     <includes>
                         <include>**/*CT.java</include>
+                        <include>**/*IT.java</include>
                     </includes>
                 </configuration>
                 <executions>
@@ -108,6 +109,49 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.25.2</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>test-db</alias>
+                            <name>centos/postgresql-96-centos7</name>
+                            <run>
+                                <ports>
+                                    <port>5432:5432</port>
+                                </ports>
+                                <env>
+                                    <POSTGRESQL_USER>testuser</POSTGRESQL_USER>
+                                    <POSTGRESQL_PASSWORD>test-password</POSTGRESQL_PASSWORD>
+                                    <POSTGRESQL_DATABASE>featureflags</POSTGRESQL_DATABASE>
+                                </env>
+                                <wait>
+                                    <log>Starting server...</log>
+                                    <time>20000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-docker</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>stop-docker</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
                     </execution>
                 </executions>
             </plugin>
