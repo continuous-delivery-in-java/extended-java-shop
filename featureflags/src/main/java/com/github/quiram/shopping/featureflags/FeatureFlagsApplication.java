@@ -1,4 +1,4 @@
-package com.github.quiram.featureflags;
+package com.github.quiram.shopping.featureflags;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

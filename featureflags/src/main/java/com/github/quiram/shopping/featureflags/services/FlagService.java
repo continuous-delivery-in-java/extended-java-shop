@@ -1,10 +1,10 @@
-package com.github.quiram.featureflags.services;
+package com.github.quiram.shopping.featureflags.services;
 
-import com.github.quiram.featureflags.exceptions.FlagCreatedWithIdException;
-import com.github.quiram.featureflags.exceptions.FlagNameAlreadyExistsException;
-import com.github.quiram.featureflags.exceptions.FlagNotFoundException;
-import com.github.quiram.featureflags.model.Flag;
-import com.github.quiram.featureflags.repositories.FlagRepository;
+import com.github.quiram.shopping.featureflags.exceptions.FlagCreatedWithIdException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagNameAlreadyExistsException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagNotFoundException;
+import com.github.quiram.shopping.featureflags.model.Flag;
+import com.github.quiram.shopping.featureflags.repositories.FlagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

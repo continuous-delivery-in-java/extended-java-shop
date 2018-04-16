@@ -1,4 +1,4 @@
-package com.github.quiram.featureflags.exceptions;
+package com.github.quiram.shopping.featureflags.exceptions;
 
 public class FlagCreatedWithIdException extends Exception {
     public FlagCreatedWithIdException(String message) {

@@ -1,17 +1,15 @@
-package com.github.quiram.featureflags.services;
+package com.github.quiram.shopping.featureflags.services;
 
-import com.github.quiram.featureflags.exceptions.FlagCreatedWithIdException;
-import com.github.quiram.featureflags.exceptions.FlagNameAlreadyExistsException;
-import com.github.quiram.featureflags.exceptions.FlagNotFoundException;
-import com.github.quiram.featureflags.model.Flag;
-import com.github.quiram.featureflags.repositories.FlagRepository;
+import com.github.quiram.shopping.featureflags.exceptions.FlagCreatedWithIdException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagNameAlreadyExistsException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagNotFoundException;
+import com.github.quiram.shopping.featureflags.model.Flag;
+import com.github.quiram.shopping.featureflags.repositories.FlagRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.Random;
 
 import static com.amarinperez.test_utils.Exceptions.expectException;
 import static com.amarinperez.utils.Random.randomLong;

@@ -1,4 +1,4 @@
-package com.github.quiram.featureflags.model;
+package com.github.quiram.shopping.featureflags.model;
 
 import com.amarinperez.utils.ReflectiveToStringCompareEquals;
 

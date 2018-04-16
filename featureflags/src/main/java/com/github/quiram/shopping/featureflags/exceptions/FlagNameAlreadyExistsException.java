@@ -1,4 +1,4 @@
-package com.github.quiram.featureflags.exceptions;
+package com.github.quiram.shopping.featureflags.exceptions;
 
 public class FlagNameAlreadyExistsException extends Exception {
     public FlagNameAlreadyExistsException(String message) {

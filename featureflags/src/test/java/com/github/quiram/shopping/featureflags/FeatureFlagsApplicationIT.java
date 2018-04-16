@@ -1,7 +1,7 @@
-package com.github.quiram.featureflags;
+package com.github.quiram.shopping.featureflags;
 
-import com.github.quiram.featureflags.model.Flag;
-import com.github.quiram.featureflags.repositories.FlagRepository;
+import com.github.quiram.shopping.featureflags.model.Flag;
+import com.github.quiram.shopping.featureflags.repositories.FlagRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.amarinperez.utils.Random.randomLong;
 import static com.amarinperez.utils.Random.randomString;

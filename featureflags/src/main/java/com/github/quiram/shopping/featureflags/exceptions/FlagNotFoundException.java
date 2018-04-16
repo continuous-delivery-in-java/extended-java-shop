@@ -1,4 +1,4 @@
-package com.github.quiram.featureflags.exceptions;
+package com.github.quiram.shopping.featureflags.exceptions;
 
 public class FlagNotFoundException extends Exception {
 
