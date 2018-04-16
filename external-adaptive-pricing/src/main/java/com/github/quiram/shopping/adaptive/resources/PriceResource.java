@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
-import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotBlank;
+import static com.github.quiram.utils.Random.randomDouble;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -22,9 +22,7 @@ public class PriceResource {
     public Price getPrice(@RequestParam(name = "productName") String productName) {
         LOGGER.info("getPriceFor '{}'", productName);
         ensureNotBlank(productName, "productName");
-        double priceInPence = new Random().nextInt(10000);
-        Double priceInPounds = priceInPence / 100;
-        return new Price(new BigDecimal(priceInPounds.toString()));
+        return new Price(new BigDecimal(Double.toString(randomDouble(100, 2))));
     }
 
     @ExceptionHandler

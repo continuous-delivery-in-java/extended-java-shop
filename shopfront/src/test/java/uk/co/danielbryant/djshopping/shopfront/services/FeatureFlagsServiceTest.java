@@ -11,8 +11,8 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.FlagDTO;
 import java.util.Optional;
 import java.util.Random;
 
-import static com.amarinperez.utils.Random.randomLong;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.utils.Random.randomLong;
+import static com.github.quiram.utils.Random.randomString;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;

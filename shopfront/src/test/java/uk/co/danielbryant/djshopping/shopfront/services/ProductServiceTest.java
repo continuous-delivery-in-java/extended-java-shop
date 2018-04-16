@@ -15,10 +15,10 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import static com.amarinperez.utils.Collections.toMap;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.utils.Collections.toMap;
+import static com.github.quiram.utils.Random.randomDouble;
+import static com.github.quiram.utils.Random.randomString;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -69,7 +69,7 @@ public class ProductServiceTest {
     public void noPriceMatchesWhenFlagIsFullyOn() {
         // Technically some prices could actually match since they are all random, but this is very unlikely
         when(featureFlagsService.shouldApplyFeatureWithFlag(anyLong())).thenReturn(true);
-        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(new BigDecimal(new Random().nextDouble()));
+        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(new BigDecimal(Double.toString(randomDouble(100, 2))));
 
         final List<Product> actualProducts = productService.getProducts();
         actualProducts.forEach(actualProduct -> {

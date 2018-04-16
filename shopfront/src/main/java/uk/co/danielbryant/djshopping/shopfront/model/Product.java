@@ -1,6 +1,6 @@
 package uk.co.danielbryant.djshopping.shopfront.model;
 
-import com.amarinperez.utils.ReflectiveToStringCompareEquals;
+import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
 import java.math.BigDecimal;
 

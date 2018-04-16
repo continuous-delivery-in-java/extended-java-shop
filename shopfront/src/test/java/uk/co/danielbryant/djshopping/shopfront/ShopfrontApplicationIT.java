@@ -16,8 +16,8 @@ import uk.co.danielbryant.djshopping.shopfront.model.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.amarinperez.utils.Random.randomInt;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.utils.Random.randomInt;
+import static com.github.quiram.utils.Random.randomString;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.lang.Math.abs;
 import static java.util.Arrays.asList;
