@@ -1,12 +1,12 @@
 package com.github.quiram.shopping.featureflags.model;
 
-import com.amarinperez.utils.ReflectiveToStringCompareEquals;
+import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import static com.amarinperez.utils.ArgumentChecks.*;
+import static com.github.quiram.utils.ArgumentChecks.*;
 
 @Entity
 public class Flag extends ReflectiveToStringCompareEquals<Flag> {

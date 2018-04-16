@@ -6,10 +6,10 @@ import org.junit.rules.ExpectedException;
 
 import java.util.function.Function;
 
-import static com.amarinperez.test_utils.ArgumentChecks.BLANK_VALUES;
-import static com.amarinperez.test_utils.ArgumentChecks.assertIllegalArguments;
-import static com.amarinperez.utils.Random.randomLong;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.test_utils.ArgumentChecks.BLANK_VALUES;
+import static com.github.quiram.test_utils.ArgumentChecks.assertIllegalArguments;
+import static com.github.quiram.utils.Random.randomLong;
+import static com.github.quiram.utils.Random.randomString;
 import static java.util.Arrays.asList;
 
 public class FlagTest {

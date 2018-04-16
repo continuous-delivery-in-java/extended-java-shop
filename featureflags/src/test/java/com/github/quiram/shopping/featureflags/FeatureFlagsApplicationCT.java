@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static com.amarinperez.utils.Random.randomLong;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.utils.Random.randomLong;
+import static com.github.quiram.utils.Random.randomString;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;

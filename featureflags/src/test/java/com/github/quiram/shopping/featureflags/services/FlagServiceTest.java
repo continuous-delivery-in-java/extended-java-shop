@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.amarinperez.test_utils.Exceptions.expectException;
-import static com.amarinperez.utils.Random.randomLong;
-import static com.amarinperez.utils.Random.randomString;
+import static com.github.quiram.test_utils.Exceptions.expectException;
+import static com.github.quiram.utils.Random.randomLong;
+import static com.github.quiram.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;

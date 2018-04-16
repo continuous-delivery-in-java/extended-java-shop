@@ -1,6 +1,5 @@
 package com.github.quiram.shopping.featureflags.repositories;
 
-import com.amarinperez.utils.Random;
 import com.github.quiram.shopping.featureflags.model.Flag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.stream.StreamSupport;
 
+import static com.github.quiram.utils.Random.randomInt;
+import static com.github.quiram.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -35,7 +36,7 @@ public class FlagRepositoryIT {
 
     @Test
     public void canSeeFlagAfterInserting() {
-        final Flag newFlag = new Flag(null, Random.randomString(), 20);
+        final Flag newFlag = new Flag(null, randomString(), randomInt(100));
         final Flag savedFlag = flagRepository.save(newFlag);
         final Flag retrievedFlag = flagRepository.findOne(savedFlag.getFlagId());
         assertThat(retrievedFlag.getName(), is(newFlag.getName()));
