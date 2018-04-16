@@ -15,6 +15,7 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.github.quiram.utils.Collections.toMap;
 import static com.github.quiram.utils.Random.randomDouble;
@@ -69,13 +70,22 @@ public class ProductServiceTest {
     public void noPriceMatchesWhenFlagIsFullyOn() {
         // Technically some prices could actually match since they are all random, but this is very unlikely
         when(featureFlagsService.shouldApplyFeatureWithFlag(anyLong())).thenReturn(true);
-        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(new BigDecimal(Double.toString(randomDouble(100, 2))));
+        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(Optional.of(new BigDecimal(Double.toString(randomDouble(100, 2)))));
 
         final List<Product> actualProducts = productService.getProducts();
         actualProducts.forEach(actualProduct -> {
             final Product originalProduct = findOriginalProduct(actualProduct.getId());
             assertNotEquals(originalProduct.getPrice(), actualProduct.getPrice());
         });
+    }
+
+    @Test
+    public void originalPriceIsUsedWhenAdaptivePricingFailsEvenIfFlagIsOn() {
+        when(featureFlagsService.shouldApplyFeatureWithFlag(anyLong())).thenReturn(true);
+        when(adaptivePricingRepo.getPriceFor(anyString())).thenReturn(Optional.empty());
+
+        final List<Product> actualProducts = productService.getProducts();
+        assertThat(actualProducts, containsInAnyOrder(expectedProducts.toArray(new Product[0])));
     }
 
     private Product findOriginalProduct(String productId) {

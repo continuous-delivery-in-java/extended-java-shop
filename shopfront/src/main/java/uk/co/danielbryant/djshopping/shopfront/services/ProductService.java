@@ -12,6 +12,7 @@ import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
@@ -48,17 +49,19 @@ public class ProductService {
         return productDTOs.values().stream()
                 .map(productDTO -> {
                     StockDTO stockDTO = stockDTOMap.getOrDefault(productDTO.getId(), DEFAULT_STOCK_DTO);
-                    return new Product(productDTO.getId(), stockDTO.getSku(), productDTO.getName(), productDTO.getDescription(), getPrice
-                            (productDTO), stockDTO.getAmountAvailable());
+                    return new Product(productDTO.getId(), stockDTO.getSku(), productDTO.getName(), productDTO.getDescription(),
+                            getPrice(productDTO), stockDTO.getAmountAvailable());
                 })
                 .collect(toList());
     }
 
     private BigDecimal getPrice(ProductDTO productDTO) {
+        Optional<BigDecimal> maybeAdaptivePrice = Optional.empty();
+
         if (featureFlagsService.shouldApplyFeatureWithFlag(ADAPTIVE_PRICING_FLAG_ID))
-            return adaptivePricingRepo.getPriceFor(productDTO.getName());
-        else
-            return productDTO.getPrice();
+            maybeAdaptivePrice = adaptivePricingRepo.getPriceFor(productDTO.getName());
+
+        return maybeAdaptivePrice.orElse(productDTO.getPrice());
     }
 
     public List<Product> productsNotFound() {

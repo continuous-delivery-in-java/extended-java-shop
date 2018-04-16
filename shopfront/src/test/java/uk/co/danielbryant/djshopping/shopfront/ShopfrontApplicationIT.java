@@ -31,6 +31,7 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpStatus.OK;
 import static uk.co.danielbryant.djshopping.shopfront.model.Constants.ADAPTIVE_PRICING_FLAG_ID;
+import static wiremock.org.eclipse.jetty.http.HttpStatus.INTERNAL_SERVER_ERROR_500;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ShopfrontApplication.class)
@@ -106,6 +107,21 @@ public class ShopfrontApplicationIT {
         assertThat(product.getDescription(), is(description1));
         assertThat(product.getAmountAvailable(), is(amount1));
         assertThat(product.getPrice(), is(new BigDecimal("12.34")));
+    }
+
+    @Test
+    public void circuitBreakerOpensForAdaptivePricingAndServiceDeliversOriginalPrice() {
+        mockAdaptivePricingRepo.stubFor(WireMock
+                .get(urlPathEqualTo("/price"))
+                .willReturn(aResponse()
+                        .withStatus(INTERNAL_SERVER_ERROR_500)
+                ));
+
+        final List<Product> products = asList(get("/products", Product[].class));
+        final Product product = products.get(0);
+        assertThat(product.getDescription(), is(description1));
+        assertThat(product.getAmountAvailable(), is(amount1));
+        assertThat(product.getPrice(), is(new BigDecimal("1.20")));
     }
 
     private <T> T get(String path, Class<T> responseType) {
