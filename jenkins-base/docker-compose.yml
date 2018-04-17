@@ -8,7 +8,14 @@ services:
     volumes:
       - "jenkins_base_home:/var/jenkins_home"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    network_mode: "host"
+    networks:
+      - ci_network
+    environment:
+      - docker_network_name=jenkinsbase_ci_network
 
 volumes:
   jenkins_base_home:
+
+networks:
+  ci_network:
+    driver: bridge
