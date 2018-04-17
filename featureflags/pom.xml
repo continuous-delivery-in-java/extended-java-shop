@@ -160,18 +160,10 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>start-docker</id>
                                 <goals>
                                     <goal>start</goal>
-                                </goals>
-                                <phase>pre-integration-test</phase>
-                            </execution>
-                            <execution>
-                                <id>stop-docker</id>
-                                <goals>
                                     <goal>stop</goal>
                                 </goals>
-                                <phase>post-integration-test</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -193,7 +185,11 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <test_db_ip>${docker.container.test_db.ip}</test_db_ip>
+                                <!-- This will work provided the default subnet is used and that the user is not
+                                running any other docker containers; essentially, we're assuming there will be only two:
+                                the jenkins docker container, and the one we're starting up right now.
+                                Bad hack, but I couldn't find a better way because of docker-in-docker and macOS -->
+                                <test_db_ip>172.19.0.3</test_db_ip>
                             </environmentVariables>
                         </configuration>
                     </plugin>
@@ -211,7 +207,6 @@
                                             <mode>custom</mode>
                                             <name>${env.docker_network_name}</name>
                                         </network>
-
                                         <ports>
                                             <port>5432:5432</port>
                                         </ports>
@@ -230,22 +225,13 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>start-docker</id>
                                 <goals>
                                     <goal>start</goal>
-                                </goals>
-                                <phase>pre-integration-test</phase>
-                            </execution>
-                            <execution>
-                                <id>stop-docker</id>
-                                <goals>
                                     <goal>stop</goal>
                                 </goals>
-                                <phase>post-integration-test</phase>
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>
