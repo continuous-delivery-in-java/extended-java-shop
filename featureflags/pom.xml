@@ -122,6 +122,10 @@
                             <alias>test-db</alias>
                             <name>centos/postgresql-96-centos7</name>
                             <run>
+                                <network>
+                                    <mode>custom</mode>
+                                    <name>ci_network</name>
+                                </network>
                                 <ports>
                                     <port>5432:5432</port>
                                 </ports>
