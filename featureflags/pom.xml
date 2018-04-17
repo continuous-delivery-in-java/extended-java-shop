@@ -124,13 +124,22 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <test_db_ip>localhost</test_db_ip>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>0.25.2</version>
                         <configuration>
                             <images>
                                 <image>
-                                    <alias>test-db</alias>
+                                    <alias>test_db</alias>
                                     <name>centos/postgresql-96-centos7</name>
                                     <run>
                                         <ports>
@@ -180,19 +189,29 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <test_db_ip>${docker.container.test_db.ip}</test_db_ip>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>0.25.2</version>
                         <configuration>
                             <images>
                                 <image>
-                                    <alias>test-db</alias>
+                                    <alias>test_db</alias>
                                     <name>centos/postgresql-96-centos7</name>
                                     <run>
                                         <network>
                                             <mode>custom</mode>
                                             <name>${env.docker_network_name}</name>
                                         </network>
+
                                         <ports>
                                             <port>5432:5432</port>
                                         </ports>
