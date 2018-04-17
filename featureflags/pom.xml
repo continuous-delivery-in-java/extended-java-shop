@@ -185,10 +185,17 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <!-- This will work provided the default subnet is used and that the user is not
-                                running any other docker containers; essentially, we're assuming there will be only two:
-                                the jenkins docker container, and the one we're starting up right now.
-                                Bad hack, but I couldn't find a better way because of docker-in-docker and macOS -->
+                                <!-- This is a bit hacky, but it does the trick. We can safely assume this IP is correct:
+                                    - This profile only activates when we are running inside Dockerised Jenkins
+                                    - Dockerised jenkins is configured to run in the subnet 172.19.0.0/16
+                                    - Docker assigns IP addresses sequentially
+                                    - 172.19.0.1 will be used for routing out of te subnet
+                                    - 172.19.0.2 will be assigned to the Jenkins docker container
+                                    - 172.19.0.3 will be assigned to the PostgreSQL docker container
+
+                                    We can't use localhost because, from Jenkins docker container point of view, the
+                                    PostgreSQL docker container is not really listening on localhost
+                                -->
                                 <test_db_ip>172.19.0.3</test_db_ip>
                             </environmentVariables>
                         </configuration>

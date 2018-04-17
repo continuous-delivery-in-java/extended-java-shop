@@ -19,3 +19,6 @@ volumes:
 networks:
   ci_network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
