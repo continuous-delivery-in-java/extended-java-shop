@@ -118,7 +118,6 @@
                 <configuration>
                     <includes>
                         <include>**/*CT.java</include>
-                        <include>**/*CDC.java</include>
                     </includes>
                 </configuration>
                 <executions>
