@@ -31,7 +31,6 @@
         <spring-cloud-dependencies.version>Edgware.SR3</spring-cloud-dependencies.version>
         <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
         <wiremock-standalone.version>2.1.10</wiremock-standalone.version>
-        <spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
     </properties>
 
     <dependencyManagement>
@@ -130,15 +129,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <version>${spring-cloud-contract.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <contractsDirectory>${project.basedir}/../stockmanager-contracts/src/test/resources/contracts</contractsDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>

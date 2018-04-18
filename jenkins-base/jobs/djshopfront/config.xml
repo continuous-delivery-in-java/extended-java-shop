@@ -21,7 +21,7 @@
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
         <includedRegions>shopfront/.*
-stockmanager-contracts/.*</includedRegions>
+stockmanager/src/test/resources/contracts/.*</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>
@@ -39,9 +39,9 @@ stockmanager-contracts/.*</includedRegions>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean install -DskipTests</targets>
+      <targets>clean spring-cloud-contract:convert spring-cloud-contract:generateStubs install:install</targets>
       <mavenName>Default</mavenName>
-      <pom>shopfront/pom.xml</pom>
+      <pom>stockmanager/pom.xml</pom>
       <usePrivateRepository>false</usePrivateRepository>
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>

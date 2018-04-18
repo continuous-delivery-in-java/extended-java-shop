@@ -135,10 +135,7 @@
                 <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <contractsDirectory>${project.basedir}/../stockmanager-contracts/src/test/resources/contracts
-                    </contractsDirectory>
-                    <baseClassForTests>uk.co.danielbryant.djshopping.stockmanager.StockManagerCDCBase
-                    </baseClassForTests>
+                    <baseClassForTests>uk.co.danielbryant.djshopping.stockmanager.StockManagerCDCBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>
