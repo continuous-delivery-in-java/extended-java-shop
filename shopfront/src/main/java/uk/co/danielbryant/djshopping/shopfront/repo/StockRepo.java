@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static com.github.quiram.utils.Collections.toMap;
+import static java.util.Collections.emptyMap;
 
 @Component
 public class StockRepo {
@@ -31,7 +31,7 @@ public class StockRepo {
     @Qualifier(value = "stdRestTemplate")
     private RestTemplate restTemplate;
 
-    @HystrixCommand(fallbackMethod = "stocksNotFound") // Hystrix circuit breaker for fault-tolernace demo
+    @HystrixCommand(fallbackMethod = "stocksNotFound") // Hystrix circuit breaker for fault-tolerance demo
     public Map<String, StockDTO> getStockDTOs() {
         LOGGER.info("getStocksDTOs");
         ResponseEntity<List<StockDTO>> stockManagerResponse =
@@ -40,12 +40,11 @@ public class StockRepo {
                         });
         List<StockDTO> stockDTOs = stockManagerResponse.getBody();
 
-        return stockDTOs.stream()
-                .collect(Collectors.toMap(StockDTO::getProductId, Function.identity()));
+        return toMap(stockDTOs, StockDTO::getProductId);
     }
 
     public Map<String, StockDTO> stocksNotFound() {
         LOGGER.info("stocksNotFound *** FALLBACK ***");
-        return Collections.EMPTY_MAP;
+        return emptyMap();
     }
 }
