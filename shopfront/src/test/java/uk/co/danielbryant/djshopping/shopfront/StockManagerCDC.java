@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.co.danielbryant.djshopping.shopfront.repo.StockRepo;
 import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureStubRunner(ids = {"uk.co.danielbryant.djshopping:stockmanager:+:stubs:8030"}, workOffline = true)
+@DirtiesContext
 public class StockManagerCDC {
     @Autowired
     private StockRepo stockRepo;
