@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureStubRunner(ids = {"uk.co.danielbryant.djshopping:shopfront:+:stubs:8030"}, workOffline = true)
+@AutoConfigureStubRunner(ids = {"uk.co.danielbryant.djshopping:stockmanager:+:stubs:8030"}, workOffline = true)
 public class StockManagerCDC {
     @Autowired
     private StockRepo stockRepo;
