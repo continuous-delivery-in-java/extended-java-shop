@@ -31,6 +31,7 @@
         <spring-cloud-dependencies.version>Camden.SR7</spring-cloud-dependencies.version>
         <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
         <wiremock-standalone.version>2.1.10</wiremock-standalone.version>
+        <spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
     </properties>
 
     <dependencyManagement>
@@ -118,6 +119,7 @@
                 <configuration>
                     <includes>
                         <include>**/*CT.java</include>
+                        <include>**/*CDC.java</include>
                     </includes>
                 </configuration>
                 <executions>

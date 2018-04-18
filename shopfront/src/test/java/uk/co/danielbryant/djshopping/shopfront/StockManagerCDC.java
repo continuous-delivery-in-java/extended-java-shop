@@ -27,7 +27,7 @@ public class StockManagerCDC {
     private StockRepo stockRepo;
 
     @Test
-    public void name() {
+    public void stockCanBeReadFromProducerResponse() {
         final StockDTO expected = new StockDTO("123", "sku-123", 10);
         final StockDTO actual = stockRepo.getStockDTO("123");
         assertEquals(expected, actual);
