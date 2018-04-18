@@ -30,7 +30,6 @@
         <java-utils.version>v4.0.0</java-utils.version>
         <spring-cloud-dependencies.version>Edgware.SR3</spring-cloud-dependencies.version>
         <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
-        <wiremock-standalone.version>2.1.10</wiremock-standalone.version>
     </properties>
 
     <dependencyManagement>
@@ -38,7 +37,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR7</version>
+                <version>Edgware.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -89,7 +88,6 @@
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock-standalone</artifactId>
-            <version>${wiremock-standalone.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.awaitility/awaitility -->
