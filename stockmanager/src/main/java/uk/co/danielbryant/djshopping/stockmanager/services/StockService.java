@@ -14,9 +14,13 @@ import java.util.stream.StreamSupport;
 @Service
 public class StockService {
 
+    @Autowired
     private StockRepository stockRepository;
 
-    @Autowired
+    public StockService() {
+
+    }
+
     public StockService(StockRepository stockRepository) {
         this.stockRepository = stockRepository;
     }

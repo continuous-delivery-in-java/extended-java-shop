@@ -20,7 +20,8 @@
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
-        <includedRegions>stockmanager/.*</includedRegions>
+        <includedRegions>stockmanager/.*
+stockmanager-contracts/.*</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>

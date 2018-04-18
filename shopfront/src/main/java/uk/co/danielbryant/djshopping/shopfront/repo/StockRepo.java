@@ -31,6 +31,15 @@ public class StockRepo {
     @Qualifier(value = "stdRestTemplate")
     private RestTemplate restTemplate;
 
+    public StockRepo() {
+        // Needed by Spring
+    }
+
+    public StockRepo(String stockManagerUri, RestTemplate restTemplate) {
+        this.stockManagerUri = stockManagerUri;
+        this.restTemplate = restTemplate;
+    }
+
     @HystrixCommand(fallbackMethod = "stocksNotFound") // Hystrix circuit breaker for fault-tolerance demo
     public Map<String, StockDTO> getStockDTOs() {
         LOGGER.info("getStocksDTOs");
@@ -41,6 +50,10 @@ public class StockRepo {
         List<StockDTO> stockDTOs = stockManagerResponse.getBody();
 
         return toMap(stockDTOs, StockDTO::getProductId);
+    }
+
+    public StockDTO getStockDTO(String id) {
+        return restTemplate.getForObject(stockManagerUri + "/stocks/" + id, StockDTO.class);
     }
 
     public Map<String, StockDTO> stocksNotFound() {

@@ -1,6 +1,8 @@
 package uk.co.danielbryant.djshopping.shopfront.services.dto;
 
-public class StockDTO {
+import com.github.quiram.utils.ReflectiveToStringCompareEquals;
+
+public class StockDTO extends ReflectiveToStringCompareEquals<StockDTO> {
     private String productId;
     private String sku;
     private int amountAvailable;

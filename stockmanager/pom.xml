@@ -30,6 +30,7 @@
         <junit.version>4.12</junit.version>
         <hamcrest-core.version>1.3</hamcrest-core.version>
         <java-test-utils.version>v4.0.0</java-test-utils.version>
+        <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
     </properties>
 
     <dependencies>
@@ -89,6 +90,12 @@
             <version>3.0.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>${spring-cloud-contract.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,6 +118,7 @@
                 <configuration>
                     <includes>
                         <include>**/*CT.java</include>
+                        <include>**/*CDC.java</include>
                     </includes>
                 </configuration>
                 <executions>
@@ -121,6 +129,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <contractsDirectory>${project.basedir}/../stockmanager-contracts/src/test/resources/contracts
+                    </contractsDirectory>
+                    <baseClassForTests>uk.co.danielbryant.djshopping.stockmanager.StockManagerCDCBase
+                    </baseClassForTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>

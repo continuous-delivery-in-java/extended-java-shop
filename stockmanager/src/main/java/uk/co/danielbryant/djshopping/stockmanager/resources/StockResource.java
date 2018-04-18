@@ -20,6 +20,13 @@ public class StockResource {
     @Autowired
     private StockService stockService;
 
+    public StockResource() {
+    }
+
+    public StockResource(StockService stockService) {
+        this.stockService = stockService;
+    }
+
     @RequestMapping()
     public List<Stock> getStocks() {
         LOGGER.info("getStocks (All stocks)");

@@ -20,7 +20,8 @@
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
-        <includedRegions>shopfront/.*</includedRegions>
+        <includedRegions>shopfront/.*
+stockmanager-contracts/.*</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>
@@ -37,6 +38,15 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.tasks.Maven>
+      <targets>clean install -DskipTests</targets>
+      <mavenName>Default</mavenName>
+      <pom>shopfront/pom.xml</pom>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
     <hudson.tasks.Maven>
       <targets>clean install</targets>
       <mavenName>Default</mavenName>
