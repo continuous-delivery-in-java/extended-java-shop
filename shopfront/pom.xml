@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <java-utils.version>v4.0.0</java-utils.version>
-        <spring-cloud-dependencies.version>Camden.SR7</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>Edgware.SR3</spring-cloud-dependencies.version>
         <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
         <wiremock-standalone.version>2.1.10</wiremock-standalone.version>
         <spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
