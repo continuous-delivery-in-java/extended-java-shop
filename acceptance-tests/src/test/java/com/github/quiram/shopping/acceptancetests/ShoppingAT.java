@@ -1,4 +1,4 @@
-package uk.co.danielbryant.shopping.functionale2etests;
+package com.github.quiram.shopping.acceptancetests;
 
 import io.restassured.http.ContentType;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-public class ShopRestIntegrationTest {
+public class ShoppingAT {
 
     private static final ContentType CONTENT_TYPE = ContentType.JSON;
     private static final String SUT_BASE_URI = "http://localhost:8010/";

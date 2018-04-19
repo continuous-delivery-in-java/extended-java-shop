@@ -7,6 +7,7 @@ services:
     links:
       - productcatalogue
       - stockmanager
+      - featureflags
   productcatalogue:
     image: quiram/productcatalogue
     ports:
@@ -15,3 +16,13 @@ services:
     image: quiram/stockmanager
     ports:
      - "8030:8030"
+  featureflags:
+    image: quiram/featureflags
+    ports:
+     - "8040:8040"
+    links:
+     - featureflags-db
+  featureflags-db:
+    image: quiram/featureflags-db
+    ports:
+     - "5432:5432"

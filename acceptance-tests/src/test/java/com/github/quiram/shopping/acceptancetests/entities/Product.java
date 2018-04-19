@@ -1,4 +1,4 @@
-package uk.co.danielbryant.shopping.functionale2etests.entities;
+package com.github.quiram.shopping.acceptancetests.entities;
 
 import java.math.BigDecimal;
 
