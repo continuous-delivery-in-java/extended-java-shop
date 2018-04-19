@@ -23,23 +23,9 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.tasks.Shell>
-            <command>echo &quot;Running acceptance tests for ${project_name}&quot;</command>
+            <command>echo &quot;This is where we would deploy service ${project_name}; the actual deployment is performed in different Jenkins instances according to different strategies.&quot;</command>
         </hudson.tasks.Shell>
     </builders>
-    <publishers>
-        <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.35.2">
-            <configs>
-                <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-                    <configs>
-                        <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
-                    </configs>
-                    <projects>deploy,</projects>
-                    <condition>SUCCESS</condition>
-                    <triggerWithNoParameters>false</triggerWithNoParameters>
-                    <triggerFromChildProjects>false</triggerFromChildProjects>
-                </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-            </configs>
-        </hudson.plugins.parameterizedtrigger.BuildTrigger>
-    </publishers>
+    <publishers/>
     <buildWrappers/>
 </project>
