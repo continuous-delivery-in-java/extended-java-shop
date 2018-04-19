@@ -12,25 +12,11 @@
     <description>Docker Java application Shopfront</description>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.7.RELEASE</version>
+        <groupId>com.github.quiram.shopping</groupId>
+        <artifactId>spring-boot-master-pom</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../spring-boot-master-pom.xml</relativePath>
     </parent>
-
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <java-utils.version>v4.0.0</java-utils.version>
-        <spring-cloud-dependencies.version>Edgware.SR3</spring-cloud-dependencies.version>
-        <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
