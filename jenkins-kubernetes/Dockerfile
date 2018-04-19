@@ -5,7 +5,7 @@ USER root
 # Load plugin for kubernetes deployment
 RUN /usr/local/bin/install-plugins.sh kubernetes-cd
 
-# Configure jobs to deploy to Kubernetes
+# Override deploy job to use Kubernetes
 COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
 
 # Configure kubernetes client
