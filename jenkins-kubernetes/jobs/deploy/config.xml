@@ -22,6 +22,9 @@
     <triggers/>
     <concurrentBuild>false</concurrentBuild>
     <builders>
+        <hudson.tasks.Shell>
+            <command>cp jenkins-kubernetes/service-definitions/${project_name}-service.yaml jenkins-kubernetes/service-definitions/service.yaml</command>
+        </hudson.tasks.Shell>
         <com.microsoft.jenkins.kubernetes.KubernetesDeploy plugin="kubernetes-cd@0.2.0">
             <context>
                 <kubeconfigId>minikube</kubeconfigId>
@@ -39,7 +42,7 @@
                     <clientCertificateData></clientCertificateData>
                     <clientKeyData></clientKeyData>
                 </textCredentials>
-                <configs>jenkins-kubernetes/service-definitions/${project_name}-service.yaml</configs>
+                <configs>jenkins-kubernetes/service-definitions/service.yaml</configs>
                 <enableConfigSubstitution>true</enableConfigSubstitution>
                 <secretName></secretName>
             </context>
