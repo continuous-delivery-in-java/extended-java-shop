@@ -36,6 +36,7 @@ matrix-auth
 matrix-project
 momentjs
 pam-auth
+parameterized-trigger
 pipeline-build-step
 pipeline-github-lib
 pipeline-graph-analysis
