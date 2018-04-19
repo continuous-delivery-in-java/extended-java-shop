@@ -18,18 +18,6 @@
         <relativePath>../spring-boot-master-pom.xml</relativePath>
     </parent>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Edgware.SR3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -55,7 +43,7 @@
         <dependency>
             <groupId>com.github.quiram</groupId>
             <artifactId>java-utils</artifactId>
-            <version>v3.0.0</version>
+            <version>${java-utils.version}</version>
         </dependency>
         <!-- Test -->
         <dependency>
@@ -90,7 +78,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
-            <version>${spring-cloud-contract.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -110,26 +97,8 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*CT.java</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <baseClassForTests>uk.co.danielbryant.shopping.stockmanager.StockManagerCDCBase</baseClassForTests>
