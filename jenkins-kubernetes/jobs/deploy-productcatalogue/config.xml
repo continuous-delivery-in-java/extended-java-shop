@@ -27,7 +27,7 @@
     <triggers>
         <jenkins.triggers.ReverseBuildTrigger>
             <spec></spec>
-            <upstreamProjects>djproductcatalogue, </upstreamProjects>
+            <upstreamProjects>productcatalogue, </upstreamProjects>
             <threshold>
                 <name>SUCCESS</name>
                 <ordinal>0</ordinal>

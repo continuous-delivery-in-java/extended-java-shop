@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: stockmanager
-        image: quiram/djstockmanager
+        image: quiram/stockmanager
         ports:
         - containerPort: 8030
         livenessProbe:

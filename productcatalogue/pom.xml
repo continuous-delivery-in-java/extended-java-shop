@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uk.co.danielbryant.djshopping</groupId>
+    <groupId>uk.co.danielbryant.shopping</groupId>
     <artifactId>productcatalogue</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -120,7 +120,7 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>
-                                        uk.co.danielbryant.djshopping.productcatalogue.ProductServiceApplication
+                                        uk.co.danielbryant.shopping.productcatalogue.ProductServiceApplication
                                     </mainClass>
                                 </transformer>
                             </transformers>

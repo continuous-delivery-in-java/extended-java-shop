@@ -10,37 +10,37 @@ This README is intended to provide high-level guidance of the project, and detai
  * Currently the installation is undertaken using [Vagrant](https://www.vagrantup.com/) and Oracle's [VirtualBox](https://www.virtualbox.org/)
  * Once Vagrant and VirtualBox are installed locally, the Jenkins box can be built from this directory using the `vagrant up` command
 * functional-e2e-tests
- * Simple examples of functional end-to-end tests that use JUnit and [REST-assured](http://rest-assured.io/) to test the DJShopping application
+ * Simple examples of functional end-to-end tests that use JUnit and [REST-assured](http://rest-assured.io/) to test the Shopping application
 * performance-e2e-tests
  * Simple examples of performance/load end-to-end tests that use [Gatling](http://gatling.io/#/) with SBT and Scala
 * shopfront
- * The 'shopfront' microservice of the DJShopping example application that provides the primary entry point for the end-user (both Web UI and API-driven)
+ * The 'shopfront' microservice of the Shopping example application that provides the primary entry point for the end-user (both Web UI and API-driven)
 * productcatalogue
-  * The 'product catalogue' microservice of the DJShopping example application, which provides product details like name and price
+  * The 'product catalogue' microservice of the Shopping example application, which provides product details like name and price
 * stockmanager
-  * The 'stock manager' microservice of the DJShopping example application, which provides stock information, such as SKU and quantity
+  * The 'stock manager' microservice of the Shopping example application, which provides stock information, such as SKU and quantity
 * build_all.sh
   * Convenience shell script for triggering Maven builds of all of the application microservices. This script does not build the associated Docker images, but the minibook contains instructions for doing so, alongside the suggestion that the resulting Docker images are pushed to your own DockerHub account
 * build_all_and_publish_dockerhub.yml
   * Convenience build and publish shell script for triggering Maven builds of all of the application microservices, building an associated Docker image, and (if successful) a push of the image to DockerHub. If you wish to use this script you will have to create a DockerHub account and substitute the existing account details ('danielbryantuk') with your own.
 * docker-compose.yml
- * [Docker Compose](https://docs.docker.com/compose/) file that starts all of the DJShopping application microservice containers. Note that if you push your own version of the Docker images to your DockerHub account you will have to change the image names details within this file to run these (i.e. remove the 'danielbryantuk' account name)
+ * [Docker Compose](https://docs.docker.com/compose/) file that starts all of the Shopping application microservice containers. Note that if you push your own version of the Docker images to your DockerHub account you will have to change the image names details within this file to run these (i.e. remove the 'danielbryantuk' account name)
  * Run the file via the command `docker-compose up`
 * docker-compose-build.yml
-  * [Docker Compose](https://docs.docker.com/compose/) file that contains the build configuration of the DJShopping application microservices.
+  * [Docker Compose](https://docs.docker.com/compose/) file that contains the build configuration of the Shopping application microservices.
   * Build the Docker images via the command `docker-compose -f docker-compose-build.yml build`
   * Build and run the Docker images via the command `docker-compose -f docker-compose-build.yml up --build`
 
 ## Example Jenkins Pipelines
 
-Once the Jenkins instance has been built and configured as specified in the accompanying minibook, and the DJShopping build items have been configured and run, it will be possible to create Jenkins Pipeline examples for running end-to-end tests. The examples contained within the book are included here for reference:
+Once the Jenkins instance has been built and configured as specified in the accompanying minibook, and the Shopping build items have been configured and run, it will be possible to create Jenkins Pipeline examples for running end-to-end tests. The examples contained within the book are included here for reference:
 
 ### Single Service Initialisation Test
 
 ```
 node {
     stage ('Successful startup check') {
-        docker.image('quiram/djshopfront').withRun('-p 8010:8010') {
+        docker.image('quiram/shopfront').withRun('-p 8010:8010') {
             timeout(time: 30, unit: 'SECONDS') {
                 waitUntil {
                     def r = sh script: 'curl -s http://localhost:8010/health | grep "UP"', returnStatus: true

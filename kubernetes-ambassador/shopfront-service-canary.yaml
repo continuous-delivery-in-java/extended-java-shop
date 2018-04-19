@@ -27,8 +27,8 @@ spec:
         app: shopfront-canary
     spec:
       containers:
-      - name: djshopfront-canary
-        image: quiram/djshopfront:1.1
+      - name: shopfront-canary
+        image: quiram/shopfront:1.1
         ports:
         - containerPort: 8010
         livenessProbe:

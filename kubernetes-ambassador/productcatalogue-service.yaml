@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: productcatalogue
-        image: quiram/djproductcatalogue:1.0
+        image: quiram/productcatalogue:1.0
         ports:
         - containerPort: 8020
         livenessProbe:
