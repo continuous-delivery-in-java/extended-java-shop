@@ -16,7 +16,8 @@ COPY --chown=jenkins:jenkins docker/org.jenkinsci.plugins.docker.commons.tools.D
 COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
 
 # Pre-load all necessary plugins
-RUN /usr/local/bin/install-plugins.sh ace-editor ant antisamy-markup-formatter apache-httpcomponents-client-4-api authentication-tokens bouncycastle-api branch-api build-timeout cloudbees-folder command-launcher credentials credentials-binding display-url-api docker-build-publish docker-commons docker-workflow durable-task email-ext git git-client git-server github github-api github-branch-source gradle handlebars jackson2-api jdk-tool jquery-detached jsch junit ldap mailer mapdb-api matrix-auth matrix-project momentjs pam-auth pipeline-build-step pipeline-github-lib pipeline-graph-analysis pipeline-input-step pipeline-milestone-step pipeline-model-api pipeline-model-declarative-agent pipeline-model-definition pipeline-model-extensions pipeline-rest-api pipeline-stage-step pipeline-stage-tags-metadata pipeline-stage-view plain-credentials resource-disposer scm-api script-security ssh-credentials ssh-slaves structs subversion timestamper token-macro workflow-aggregator workflow-api workflow-basic-steps workflow-cps workflow-cps-global-lib workflow-durable-task-step workflow-job workflow-multibranch workflow-scm-step workflow-step-api workflow-support ws-cleanup
+COPY --chown=jenkins:jenkins plugins/plugins-list /var/jenkins_home/
+RUN /usr/local/bin/install-plugins.sh `cat /var/jenkins_home/plugins-list`
 
 # Configure build all three pipelines
 COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
