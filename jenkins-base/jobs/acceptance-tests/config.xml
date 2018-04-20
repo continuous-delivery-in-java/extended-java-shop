@@ -39,6 +39,15 @@
         <hudson.tasks.Shell>
             <command>echo &quot;Running acceptance tests for ${project_name}&quot;</command>
         </hudson.tasks.Shell>
+        <hudson.tasks.Maven>
+            <targets>clean verify</targets>
+            <mavenName>Default</mavenName>
+            <pom>acceptance-tests/pom.xml</pom>
+            <usePrivateRepository>false</usePrivateRepository>
+            <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+            <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+            <injectBuildVariables>false</injectBuildVariables>
+        </hudson.tasks.Maven>
     </builders>
     <publishers>
         <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.35.2">
