@@ -148,6 +148,22 @@
                             <composeFile>${project.basedir}/src/test/resources/docker-compose-ci.yml</composeFile>
                             <detachedMode>true</detachedMode>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-services</id>
+                                <goals>
+                                    <goal>up</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>stop-services</id>
+                                <goals>
+                                    <goal>down</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
