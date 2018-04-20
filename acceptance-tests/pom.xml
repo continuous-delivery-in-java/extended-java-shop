@@ -32,6 +32,12 @@
             <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -39,6 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*AT.java</include>
@@ -59,6 +66,7 @@
                 <version>${docker-compose-maven-plugin.version}</version>
                 <configuration>
                     <composeFile>${project.basedir}/src/test/resources/docker-compose.yml</composeFile>
+                    <detachedMode>true</detachedMode>
                 </configuration>
                 <executions>
                     <execution>

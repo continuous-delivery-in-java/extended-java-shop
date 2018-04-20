@@ -4,6 +4,10 @@ services:
     image: quiram/shopfront
     ports:
      - "8010:8010"
+    depends_on:
+      - productcatalogue
+      - stockmanager
+      - featureflags
     links:
       - productcatalogue
       - stockmanager
@@ -20,6 +24,8 @@ services:
     image: quiram/featureflags
     ports:
      - "8040:8040"
+    depends_on:
+     - featureflags-db
     links:
      - featureflags-db
   featureflags-db:

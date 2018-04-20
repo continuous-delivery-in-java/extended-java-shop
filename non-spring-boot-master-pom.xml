@@ -27,6 +27,7 @@
         <java-test-utils.version>v4.0.0</java-test-utils.version>
         <jackson-databind.version>2.6.6</jackson-databind.version>
         <rest-assured.version>3.0.1</rest-assured.version>
+        <awaitility.version>3.1.0</awaitility.version>
     </properties>
 
     <repositories>
