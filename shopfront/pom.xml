@@ -54,8 +54,8 @@
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>${hamcrest-core.version}}</version>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest-all.version}}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-standalone -->
