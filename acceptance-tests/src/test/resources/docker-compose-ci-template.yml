@@ -12,20 +12,14 @@ services:
       - productcatalogue
       - stockmanager
       - featureflags
-    networks:
-      - %network_placeholder%
   productcatalogue:
     image: quiram/productcatalogue
     ports:
      - "8020:8020"
-    networks:
-      - %network_placeholder%
   stockmanager:
     image: quiram/stockmanager
     ports:
      - "8030:8030"
-    networks:
-      - %network_placeholder%
   featureflags:
     image: quiram/featureflags
     ports:
@@ -34,11 +28,12 @@ services:
      - featureflags-db
     links:
      - featureflags-db
-    networks:
-      - %network_placeholder%
   featureflags-db:
     image: quiram/featureflags-db
     ports:
      - "5432:5432"
-    networks:
-      - %network_placeholder%
+
+networks:
+  default:
+    external:
+      name: %network_placeholder%
