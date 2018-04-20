@@ -141,6 +141,14 @@
                             </environmentVariables>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>com.dkanejs.maven.plugins</groupId>
+                        <artifactId>docker-compose-maven-plugin</artifactId>
+                        <configuration>
+                            <composeFile>${project.basedir}/src/test/resources/docker-compose-ci.yml</composeFile>
+                            <detachedMode>true</detachedMode>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>

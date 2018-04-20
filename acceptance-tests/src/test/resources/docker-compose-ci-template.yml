@@ -1,0 +1,44 @@
+version: '2'
+services:
+  shopfront:
+    image: quiram/shopfront
+    ports:
+     - "8010:8010"
+    depends_on:
+      - productcatalogue
+      - stockmanager
+      - featureflags
+    links:
+      - productcatalogue
+      - stockmanager
+      - featureflags
+    networks:
+      - %network_placeholder%
+  productcatalogue:
+    image: quiram/productcatalogue
+    ports:
+     - "8020:8020"
+    networks:
+      - %network_placeholder%
+  stockmanager:
+    image: quiram/stockmanager
+    ports:
+     - "8030:8030"
+    networks:
+      - %network_placeholder%
+  featureflags:
+    image: quiram/featureflags
+    ports:
+     - "8040:8040"
+    depends_on:
+     - featureflags-db
+    links:
+     - featureflags-db
+    networks:
+      - %network_placeholder%
+  featureflags-db:
+    image: quiram/featureflags-db
+    ports:
+     - "5432:5432"
+    networks:
+      - %network_placeholder%
