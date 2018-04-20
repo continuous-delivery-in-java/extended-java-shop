@@ -1,12 +1,12 @@
 package uk.co.danielbryant.shopping.stockmanager.model;
 
-import com.amarinperez.utils.ReflectiveToStringCompareEquals;
+import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
-import static com.amarinperez.utils.ArgumentChecks.ensureNotNegative;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotBlank;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotNegative;
 
 @Entity
 public class Stock extends ReflectiveToStringCompareEquals<Stock> {
