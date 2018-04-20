@@ -9,11 +9,15 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+# Configure Maven to be auto-installed in Jenkins
+COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
+
 # Configure Docker to be auto-installed in Jenkins
 COPY --chown=jenkins:jenkins docker/org.jenkinsci.plugins.docker.commons.tools.DockerTool.xml /var/jenkins_home/
 
-# Configure Maven to be auto-installed in Jenkins
-COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
+# Install Docker Compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+RUN chmod a+x /usr/local/bin/docker-compose
 
 # Pre-load all necessary plugins
 COPY --chown=jenkins:jenkins plugins/plugins-list /var/jenkins_home/
