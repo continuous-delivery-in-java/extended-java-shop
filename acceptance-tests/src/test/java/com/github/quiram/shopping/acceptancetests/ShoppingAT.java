@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.awaitility.Awaitility.await;
@@ -13,7 +14,8 @@ import static org.hamcrest.core.Is.is;
 
 public class ShoppingAT {
     private static final ContentType CONTENT_TYPE = ContentType.JSON;
-    private static final String SUT_BASE_URI = "http://localhost:8010/";
+    private static final String SHOPFRONT_IP = System.getenv("shopfront_ip");
+    private static final String SUT_BASE_URI = format("http://%s:8010/", SHOPFRONT_IP);
 
     @BeforeClass
     public static void checkServiceIsUp() {

@@ -87,4 +87,62 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <shopfront_ip>localhost</shopfront_ip>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>within-Jenkins</id>
+            <!-- If there is a docker_network_name environment variable, use it, that means we are running in Jenkins. -->
+            <activation>
+                <property>
+                    <name>env.docker_network_name</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <!-- This is a bit hacky, but it does the trick. We can safely assume this IP is correct:
+                                    - This profile only activates when we are running inside Dockerised Jenkins
+                                    - Dockerised jenkins is configured to run in the subnet 172.19.0.0/16
+                                    - Docker assigns IP addresses sequentially
+                                    - 172.19.0.1 will be used for routing out of te subnet
+                                    - 172.19.0.2 will be assigned to the Jenkins docker container
+                                    - Five containers will start, with addresses from 172.19.0.3 to 172.19.0.6
+                                    - Shopfront will be the last to start
+                                    - 172.19.0.6 will be assigned to Shopfront
+
+                                    We can't use localhost because, from Jenkins docker container point of view, the
+                                    PostgreSQL docker container is not really listening on localhost
+                                -->
+                                <shopfront_ip>172.19.0.6</shopfront_ip>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
