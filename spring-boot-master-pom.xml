@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
-        <java-utils.version>v4.0.0</java-utils.version>
+        <java-utils.version>v4.1.0</java-utils.version>
         <java-test-utils.version>v5.0.2</java-test-utils.version>
         <hamcrest-core.version>1.3</hamcrest-core.version>
         <postgresql.version>42.2.2</postgresql.version>
