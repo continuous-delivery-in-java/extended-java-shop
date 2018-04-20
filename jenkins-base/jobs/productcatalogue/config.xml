@@ -21,7 +21,7 @@
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
         <includedRegions>productcatalogue/.*
-../non-spring-boot-master-pom.xml</includedRegions>
+non-spring-boot-master-pom.xml</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>

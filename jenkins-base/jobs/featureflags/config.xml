@@ -21,7 +21,7 @@
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
         <includedRegions>featureflags/.*
-../spring-boot-master-pom.xml</includedRegions>
+spring-boot-master-pom.xml</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>
