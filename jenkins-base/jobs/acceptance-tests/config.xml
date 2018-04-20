@@ -39,9 +39,6 @@
         <hudson.tasks.Shell>
             <command>echo &quot;Running acceptance tests for ${project_name}&quot;</command>
         </hudson.tasks.Shell>
-        <hudson.tasks.Shell>
-            <command>cat acceptance-tests/src/test/resources/docker-compose-ci-template.yml | sed -e s/"%network_placeholder%"/"${docker_network_name}"/ &gt; acceptance-tests/src/test/resources/docker-compose-ci.yml</command>
-        </hudson.tasks.Shell>
         <hudson.tasks.Maven>
             <targets>clean verify</targets>
             <mavenName>Default</mavenName>

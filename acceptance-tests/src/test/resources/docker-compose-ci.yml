@@ -13,19 +13,19 @@ services:
       - stockmanager
       - featureflags
     networks:
-      - %network_placeholder%
+      - ci_acceptance_test_network
   productcatalogue:
     image: quiram/productcatalogue
     ports:
      - "8020:8020"
     networks:
-      - %network_placeholder%
+      - ci_acceptance_test_network
   stockmanager:
     image: quiram/stockmanager
     ports:
      - "8030:8030"
     networks:
-      - %network_placeholder%
+      - ci_acceptance_test_network
   featureflags:
     image: quiram/featureflags
     ports:
@@ -35,10 +35,17 @@ services:
     links:
      - featureflags-db
     networks:
-      - %network_placeholder%
+      - ci_acceptance_test_network
   featureflags-db:
     image: quiram/featureflags-db
     ports:
      - "5432:5432"
     networks:
-      - %network_placeholder%
+      - ci_acceptance_test_network
+
+networks:
+  ci_acceptance_test_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

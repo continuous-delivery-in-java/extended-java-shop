@@ -126,18 +126,17 @@
                             <environmentVariables>
                                 <!-- This is a bit hacky, but it does the trick. We can safely assume this IP is correct:
                                     - This profile only activates when we are running inside Dockerised Jenkins
-                                    - Dockerised jenkins is configured to run in the subnet 172.19.0.0/16
+                                    - Dockerised jenkins is configured to run in the subnet 172.20.0.0/16
                                     - Docker assigns IP addresses sequentially
-                                    - 172.19.0.1 will be used for routing out of te subnet
-                                    - 172.19.0.2 will be assigned to the Jenkins docker container
-                                    - Five containers will start, with addresses from 172.19.0.3 to 172.19.0.6
-                                    - Shopfront will be the last to start
-                                    - 172.19.0.6 will be assigned to Shopfront
+                                    - 172.20.0.1 will be used for routing out of te subnet
+                                    - Five containers will start, with addresses from 172.20.0.2 to 172.20.0.6
+                                    - Shopfront will be the last to start (because of docker its dependencies)
+                                    - 172.20.0.6 will be assigned to Shopfront
 
                                     We can't use localhost because, from Jenkins docker container point of view, the
                                     PostgreSQL docker container is not really listening on localhost
                                 -->
-                                <shopfront_ip>172.19.0.6</shopfront_ip>
+                                <shopfront_ip>172.20.0.6</shopfront_ip>
                             </environmentVariables>
                         </configuration>
                     </plugin>
