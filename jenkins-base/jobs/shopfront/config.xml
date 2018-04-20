@@ -21,7 +21,8 @@
     <extensions>
       <hudson.plugins.git.extensions.impl.PathRestriction>
         <includedRegions>shopfront/.*
-stockmanager/src/test/resources/contracts/.*</includedRegions>
+stockmanager/src/test/resources/contracts/.*
+../spring-boot-master-pom.xml</includedRegions>
         <excludedRegions></excludedRegions>
       </hudson.plugins.git.extensions.impl.PathRestriction>
     </extensions>
