@@ -18,18 +18,18 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.6.6</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.0.1</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -56,7 +56,7 @@
             <plugin>
                 <groupId>com.dkanejs.maven.plugins</groupId>
                 <artifactId>docker-compose-maven-plugin</artifactId>
-                <version>1.0.3</version>
+                <version>${docker-compose-maven-plugin.version}</version>
                 <configuration>
                     <composeFile>${project.basedir}/src/test/resources/docker-compose.yml</composeFile>
                 </configuration>
