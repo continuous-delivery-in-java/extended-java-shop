@@ -12,8 +12,14 @@ RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 # Configure Maven to be auto-installed in Jenkins
 COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
 
+# Easy access to docker in command-line (once installed)
+RUN echo "alias mvn=/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Default/bin/mvn" >>$HOME/.bashrc
+
 # Configure Docker to be auto-installed in Jenkins
 COPY --chown=jenkins:jenkins docker/org.jenkinsci.plugins.docker.commons.tools.DockerTool.xml /var/jenkins_home/
+
+# Easy access to docker in command-line (once installed)
+RUN echo "alias docker=/var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/Default/bin/docker" >>$HOME/.bashrc
 
 # Install Docker Compose
 RUN curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
@@ -27,4 +33,3 @@ RUN /usr/local/bin/install-plugins.sh `cat /var/jenkins_home/plugins-list`
 COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
 
 USER jenkins
-
