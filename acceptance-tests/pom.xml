@@ -14,6 +14,13 @@
         <relativePath>../non-spring-boot-master-pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <serenity.version>1.0.47</serenity.version>
+        <serenity.maven.version>1.0.47</serenity.maven.version>
+        <webdriver.driver>chrome</webdriver.driver>
+        <slf4j-simple.version>1.7.25</slf4j-simple.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -38,6 +45,24 @@
             <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>core</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,6 +75,9 @@
                     <includes>
                         <include>**/*AT.java</include>
                     </includes>
+                    <systemProperties>
+                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
+                    </systemProperties>
                 </configuration>
                 <executions>
                     <execution>
@@ -82,6 +110,27 @@
                             <goal>down</goal>
                         </goals>
                         <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>core</artifactId>
+                        <version>${serenity.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
