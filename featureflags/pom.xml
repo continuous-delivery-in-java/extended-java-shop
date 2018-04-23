@@ -68,6 +68,10 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <test-db.port>55432</test-db.port>
+    </properties>
+
     <profiles>
         <profile>
             <id>default</id>
@@ -81,7 +85,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <test_db_ip>localhost</test_db_ip>
+                                <test_db_host>localhost:${test-db.port}</test_db_host>
                             </environmentVariables>
                         </configuration>
                     </plugin>
@@ -96,7 +100,7 @@
                                     <name>centos/postgresql-96-centos7</name>
                                     <run>
                                         <ports>
-                                            <port>5432:5432</port>
+                                            <port>${test-db.port}:5432</port>
                                         </ports>
                                         <env>
                                             <POSTGRESQL_USER>testuser</POSTGRESQL_USER>
@@ -149,7 +153,7 @@
                                     We can't use localhost because, from Jenkins docker container point of view, the
                                     PostgreSQL docker container is not really listening on localhost
                                 -->
-                                <test_db_ip>172.19.0.3</test_db_ip>
+                                <test_db_host>172.19.0.3:${test-db.port}</test_db_host>
                             </environmentVariables>
                         </configuration>
                     </plugin>
@@ -168,7 +172,7 @@
                                             <name>${env.docker_network_name}</name>
                                         </network>
                                         <ports>
-                                            <port>5432:5432</port>
+                                            <port>${test-db.port}:5432</port>
                                         </ports>
                                         <env>
                                             <POSTGRESQL_USER>testuser</POSTGRESQL_USER>

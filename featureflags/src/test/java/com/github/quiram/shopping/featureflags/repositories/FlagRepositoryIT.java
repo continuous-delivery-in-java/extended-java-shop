@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource(properties = {
-        "spring.datasource.url= jdbc:postgresql://${test_db_ip}:5432/featureflags",
+        "spring.datasource.url= jdbc:postgresql://${test_db_host}/featureflags",
         "spring.datasource.platform=postgresql",
         "spring.datasource.username=testuser",
         "spring.datasource.password=test-password",
