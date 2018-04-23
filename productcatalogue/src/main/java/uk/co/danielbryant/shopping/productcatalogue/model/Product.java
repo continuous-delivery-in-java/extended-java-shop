@@ -3,11 +3,8 @@ package uk.co.danielbryant.shopping.productcatalogue.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
-import static com.amarinperez.utils.ArgumentChecks.ensureGreaterThanZero;
-import static com.amarinperez.utils.ArgumentChecks.ensureNotBlank;
-import static com.amarinperez.utils.ArgumentChecks.ensureNotNull;
+import static com.github.quiram.utils.ArgumentChecks.*;
 
 public class Product {
     private String id;

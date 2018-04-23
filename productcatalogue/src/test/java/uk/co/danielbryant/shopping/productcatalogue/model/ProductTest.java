@@ -8,9 +8,7 @@ import java.math.BigDecimal;
 
 import static com.amarinperez.test_utils.ArgumentChecks.BLANK_VALUES;
 import static com.amarinperez.test_utils.ArgumentChecks.assertIllegalArguments;
-import static com.amarinperez.test_utils.Exceptions.expectException;
-import static com.amarinperez.utils.Random.randomString;
-import static java.lang.String.format;
+import static com.github.quiram.utils.Random.randomString;
 
 public class ProductTest {
     @Rule
