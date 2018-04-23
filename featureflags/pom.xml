@@ -35,7 +35,6 @@
             <artifactId>java-utils</artifactId>
             <version>${java-utils.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

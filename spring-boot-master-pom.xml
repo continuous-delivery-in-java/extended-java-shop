@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <java-utils.version>v4.1.0</java-utils.version>
-        <java-test-utils.version>v5.0.2</java-test-utils.version>
+        <java-test-utils.version>v5.1.0</java-test-utils.version>
         <awaitility.version>3.1.0</awaitility.version>
         <spring-cloud-dependencies.version>Edgware.SR3</spring-cloud-dependencies.version>
     </properties>

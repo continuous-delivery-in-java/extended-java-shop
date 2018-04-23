@@ -11,13 +11,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.verification.VerificationMode;
 
 import static com.github.quiram.test_utils.Exceptions.expectException;
+import static com.github.quiram.test_utils.MockitoVerifications.once;
 import static com.github.quiram.utils.Random.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FlagServiceTest {
@@ -102,9 +103,5 @@ public class FlagServiceTest {
         final Flag newFlag = new Flag(flagId, randomString(), randomInt(100));
         flagService.updateFlag(newFlag);
         verify(repository, once()).save(newFlag);
-    }
-
-    private static VerificationMode once() {
-        return times(1);
     }
 }
