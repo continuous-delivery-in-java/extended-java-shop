@@ -3,6 +3,7 @@ package com.github.quiram.shopping.featureflags.resources;
 import com.github.quiram.shopping.featureflags.exceptions.FlagCreatedWithIdException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNameAlreadyExistsException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNotFoundException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagWithoutIdException;
 import com.github.quiram.shopping.featureflags.model.Flag;
 import com.github.quiram.shopping.featureflags.services.FlagService;
 import org.slf4j.Logger;
@@ -52,6 +53,15 @@ public class FlagResource {
         flagService.removeFlag(flagId);
         return ResponseEntity.ok().build();
     }
+
+    @RequestMapping(value = "{flagId}", method = PUT)
+    public ResponseEntity<?> updateFlag(@PathVariable("flagId") Long flagId, @RequestBody Flag flag) throws FlagNotFoundException,
+            FlagWithoutIdException {
+        LOGGER.info("updating with flagId: {}", flagId);
+        flagService.updateFlag(new Flag(flagId, flag.getName(), flag.getPortionIn()));
+        return ResponseEntity.ok().build();
+    }
+
 
     @ExceptionHandler
     @ResponseStatus(NOT_FOUND)

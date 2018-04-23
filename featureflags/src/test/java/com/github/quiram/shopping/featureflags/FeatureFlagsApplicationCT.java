@@ -14,8 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static com.github.quiram.utils.Random.randomLong;
-import static com.github.quiram.utils.Random.randomString;
+import static com.github.quiram.utils.Random.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -104,6 +103,30 @@ public class FeatureFlagsApplicationCT {
         assertThat(flagRepository.count(), is(flagCount - 1));
     }
 
+    @Test
+    public void canUpdateFlagThatExists() {
+        final Long flagId = flagRepository.save(new Flag(null, randomString(), 20)).getFlagId();
+
+        final Flag newFlag = new Flag(flagId, randomString(), randomInt(100));
+        final ResponseEntity<String> response = rawPut("/flags/" + flagId, newFlag);
+        assertThat(response.getStatusCode(), is(OK));
+
+        final Flag actualFlag = get("/flags/" + flagId, Flag.class);
+        assertThat(actualFlag, is(newFlag));
+    }
+
+    @Test
+    public void flagIdInPathOverridesIdInBody() {
+        final Long flagId = flagRepository.save(new Flag(null, randomString(), 20)).getFlagId();
+
+        final Flag updatedFlag = new Flag(randomLong(), randomString(), randomInt(100));
+        rawPut("/flags/" + flagId, updatedFlag);
+        final Flag actualFlag = get("/flags/" + flagId, Flag.class);
+        assertThat(actualFlag.getFlagId(), is(flagId));
+        assertThat(actualFlag.getName(), is(updatedFlag.getName()));
+        assertThat(actualFlag.getPortionIn(), is(updatedFlag.getPortionIn()));
+    }
+
     private <T> T get(String path, Class<T> responseType) {
         return restTemplate.getForObject(path, responseType);
     }
@@ -118,5 +141,9 @@ public class FeatureFlagsApplicationCT {
 
     private <T> ResponseEntity<T> rawDelete(String path, Class<T> responseType) {
         return restTemplate.exchange(path, DELETE, null, responseType);
+    }
+
+    private <T> ResponseEntity<String> rawPut(String path, T requestBody) {
+        return restTemplate.exchange(path, PUT, new HttpEntity<>(requestBody), String.class);
     }
 }
