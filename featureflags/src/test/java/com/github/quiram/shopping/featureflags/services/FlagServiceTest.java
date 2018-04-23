@@ -3,6 +3,7 @@ package com.github.quiram.shopping.featureflags.services;
 import com.github.quiram.shopping.featureflags.exceptions.FlagCreatedWithIdException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNameAlreadyExistsException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNotFoundException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagWithoutIdException;
 import com.github.quiram.shopping.featureflags.model.Flag;
 import com.github.quiram.shopping.featureflags.repositories.FlagRepository;
 import org.junit.Before;
@@ -10,14 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.verification.VerificationMode;
 
 import static com.github.quiram.test_utils.Exceptions.expectException;
-import static com.github.quiram.utils.Random.randomLong;
-import static com.github.quiram.utils.Random.randomString;
+import static com.github.quiram.utils.Random.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FlagServiceTest {
@@ -74,5 +74,37 @@ public class FlagServiceTest {
         when(repository.findOne(id)).thenReturn(null);
 
         expectException(() -> flagService.removeFlag(id), FlagNotFoundException.class, id.toString(), "successfully deleted");
+    }
+
+    @Test
+    public void cannotUpdateFlagThatDoesNotExist() {
+        final Long id = randomLong();
+        when(repository.findOne(id)).thenReturn(null);
+        final Flag updatedFlag = new Flag(id, randomString(), randomInt(100));
+
+        expectException(() -> flagService.updateFlag(updatedFlag), FlagNotFoundException.class, id.toString(), "successfully updated");
+    }
+
+    @Test
+    public void cannotUpdateFlagWithoutId() {
+        final String flagName = randomString();
+        final Flag updatedFlag = new Flag(null, flagName, randomInt(100));
+
+        expectException(() -> flagService.updateFlag(updatedFlag), FlagWithoutIdException.class, flagName, "successfully updated");
+    }
+
+    @Test
+    public void canUpdateFlagIfDoneCorrectly() throws FlagWithoutIdException, FlagNotFoundException {
+        final long flagId = randomLong();
+        final Flag originalFlag = new Flag(flagId, randomString(), randomInt(100));
+        when(repository.findOne(flagId)).thenReturn(originalFlag);
+
+        final Flag newFlag = new Flag(flagId, randomString(), randomInt(100));
+        flagService.updateFlag(newFlag);
+        verify(repository, once()).save(newFlag);
+    }
+
+    private static VerificationMode once() {
+        return times(1);
     }
 }

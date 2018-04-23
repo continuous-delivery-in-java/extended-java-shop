@@ -3,6 +3,7 @@ package com.github.quiram.shopping.featureflags.services;
 import com.github.quiram.shopping.featureflags.exceptions.FlagCreatedWithIdException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNameAlreadyExistsException;
 import com.github.quiram.shopping.featureflags.exceptions.FlagNotFoundException;
+import com.github.quiram.shopping.featureflags.exceptions.FlagWithoutIdException;
 import com.github.quiram.shopping.featureflags.model.Flag;
 import com.github.quiram.shopping.featureflags.repositories.FlagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,14 @@ public class FlagService {
     public void removeFlag(Long id) throws FlagNotFoundException {
         getFlag(id);
         flagRepository.delete(id);
+    }
+
+    public void updateFlag(Flag flag) throws FlagNotFoundException, FlagWithoutIdException {
+        if (flag.getFlagId() == null) {
+            throw new FlagWithoutIdException(flag.getName());
+        }
+
+        getFlag(flag.getFlagId());
+        flagRepository.save(flag);
     }
 }
