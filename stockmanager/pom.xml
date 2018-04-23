@@ -18,6 +18,10 @@
         <relativePath>../spring-boot-master-pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <spring-cloud-contract.version>1.2.4.RELEASE</spring-cloud-contract.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,6 +95,7 @@
             <plugin>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <baseClassForTests>uk.co.danielbryant.shopping.stockmanager.StockManagerCDCBase</baseClassForTests>
