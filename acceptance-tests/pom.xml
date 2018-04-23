@@ -63,6 +63,12 @@
             <version>${slf4j-simple.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.quiram</groupId>
+            <artifactId>java-utils</artifactId>
+            <version>${java-utils.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -152,6 +158,7 @@
                         <configuration>
                             <environmentVariables>
                                 <shopfront_ip>localhost</shopfront_ip>
+                                <feature_flags_ip>localhost</feature_flags_ip>
                             </environmentVariables>
                         </configuration>
                     </plugin>
@@ -180,13 +187,16 @@
                                     - 172.19.0.1 will be used for routing out of te subnet
                                     - 172.19.0.2 will be assigned to the Jenkins docker container
                                     - Five containers will start, with addresses from 172.19.0.3 to 172.19.0.7
+                                    - Feature Flags will be the penultimate to start
                                     - Shopfront will be the last to start
+                                    - 172.19.0.6 will be assigned to Feature Flags
                                     - 172.19.0.7 will be assigned to Shopfront
 
                                     We can't use localhost because, from Jenkins docker container point of view, the
                                     Shopfront docker container is not really listening on localhost
                                 -->
                                 <shopfront_ip>172.19.0.7</shopfront_ip>
+                                <feature_flags_ip>172.19.0.6</feature_flags_ip>
                             </environmentVariables>
                         </configuration>
                     </plugin>
