@@ -1,13 +1,14 @@
 package com.github.quiram.shopping.acceptancetests.steps;
 
 import com.github.quiram.shopping.acceptancetests.entities.Product;
+import com.github.quiram.utils.Collections;
 import net.thucydides.core.annotations.Step;
 import org.hamcrest.Matchers;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.github.quiram.utils.Collections.merge;
+import static com.github.quiram.utils.Collections.mergeMaps;
 import static com.github.quiram.utils.Collections.toMap;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
@@ -51,8 +52,7 @@ public class ShopfrontSteps extends StepsBase {
 
     @Step
     public void prices_have_not_changed() {
-        final Optional<Map<Integer, Set<BigDecimal>>> aggregatedPrices = prices.stream().reduce((m1, m2) -> merge(com.github.quiram.utils
-                .Collections::merge, m1, m2));
+        Optional<Map<Integer, Set<BigDecimal>>> aggregatedPrices = prices.stream().reduce((m1, m2) -> mergeMaps(Collections::mergeSets, m1, m2));
         assertTrue(aggregatedPrices.isPresent());
         Map<Integer, Set<BigDecimal>> allPrices = aggregatedPrices.get();
         allPrices.forEach((i, s) -> assertThat(allPrices.get(i), hasSize(1)));
