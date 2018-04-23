@@ -19,7 +19,7 @@ public class ShoppingAT {
 
     @BeforeClass
     public static void checkServiceIsUp() {
-        await().atMost(2, MINUTES).until(ShoppingAT::serviceIsReady);
+        await().atMost(3, MINUTES).until(ShoppingAT::serviceIsReady);
     }
 
     private static boolean serviceIsReady() {
