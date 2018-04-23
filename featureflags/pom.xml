@@ -142,7 +142,9 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <!-- This is a bit hacky, but it does the trick. We can safely assume this IP is correct:
+                                <!--
+                                    CONFIGURING THE IP
+                                    This is a bit hacky, but it does the trick. We can safely assume this IP is correct:
                                     - This profile only activates when we are running inside Dockerised Jenkins
                                     - Dockerised jenkins is configured to run in the subnet 172.19.0.0/16
                                     - Docker assigns IP addresses sequentially
@@ -152,8 +154,11 @@
 
                                     We can't use localhost because, from Jenkins docker container point of view, the
                                     PostgreSQL docker container is not really listening on localhost
-                                -->
-                                <test_db_host>172.19.0.3:${test-db.port}</test_db_host>
+
+                                    CONFIGURING THE PORT
+                                    When inside the docker network the port is already forwarded, which means
+                                    we don't need to use the external port, but the internal one. -->
+                                <test_db_host>172.19.0.3:5432</test_db_host>
                             </environmentVariables>
                         </configuration>
                     </plugin>
