@@ -135,7 +135,7 @@
                                     - 172.19.0.7 will be assigned to Shopfront
 
                                     We can't use localhost because, from Jenkins docker container point of view, the
-                                    PostgreSQL docker container is not really listening on localhost
+                                    Shopfront docker container is not really listening on localhost
                                 -->
                                 <shopfront_ip>172.19.0.7</shopfront_ip>
                             </environmentVariables>
