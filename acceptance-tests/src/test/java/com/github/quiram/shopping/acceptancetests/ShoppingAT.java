@@ -47,4 +47,25 @@ public class ShoppingAT {
         // THEN
         shopfrontSteps.prices_have_not_changed();
     }
+
+    @Test
+    public void enableAdaptivePricingFeature() {
+        // GIVEN
+        featureFlagsSteps.feature_flags_service_is_ready();
+
+        // AND
+        shopfrontSteps.shopfront_service_is_ready();
+
+        // WHEN
+        featureFlagsSteps.admin_sets_the_adaptive_pricing_feature_flag_to(100);
+
+        // AND
+        shopfrontSteps.check_all_prices();
+
+        // AND
+        shopfrontSteps.check_all_prices_again();
+
+        // THEN
+        shopfrontSteps.all_prices_have_changed();
+    }
 }

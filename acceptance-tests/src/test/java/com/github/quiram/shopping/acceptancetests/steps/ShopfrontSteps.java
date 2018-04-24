@@ -52,10 +52,20 @@ public class ShopfrontSteps extends StepsBase {
 
     @Step
     public void prices_have_not_changed() {
+        Map<Integer, Set<BigDecimal>> allPrices = getAggregatedPrices();
+        allPrices.forEach((i, s) -> assertThat(allPrices.get(i), hasSize(1)));
+    }
+
+    @Step
+    public void all_prices_have_changed() {
+        Map<Integer, Set<BigDecimal>> allPrices = getAggregatedPrices();
+        allPrices.forEach((i, s) -> assertThat(allPrices.get(i), hasSize(2)));
+    }
+
+    private Map<Integer, Set<BigDecimal>> getAggregatedPrices() {
         Optional<Map<Integer, Set<BigDecimal>>> aggregatedPrices = prices.stream().reduce((m1, m2) -> mergeMaps(Collections::mergeSets, m1, m2));
         assertTrue(aggregatedPrices.isPresent());
-        Map<Integer, Set<BigDecimal>> allPrices = aggregatedPrices.get();
-        allPrices.forEach((i, s) -> assertThat(allPrices.get(i), hasSize(1)));
+        return aggregatedPrices.get();
     }
 
     private void checkPrices() {
