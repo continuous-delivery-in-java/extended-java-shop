@@ -83,6 +83,7 @@
                     </includes>
                     <systemProperties>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
+                        <spring.profiles.active>test</spring.profiles.active>
                     </systemProperties>
                 </configuration>
                 <executions>

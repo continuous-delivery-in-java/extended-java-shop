@@ -31,10 +31,10 @@ services:
     ports:
      - "8040:8040"
     depends_on:
-     - featureflags-db
+     - test-featureflags-db
     links:
-     - featureflags-db
-  featureflags-db:
+     - test-featureflags-db
+  test-featureflags-db:
     image: quiram/test-featureflags-db
     ports:
      - "5432:5432"
