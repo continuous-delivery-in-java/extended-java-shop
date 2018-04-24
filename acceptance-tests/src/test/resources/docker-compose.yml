@@ -8,10 +8,12 @@ services:
       - productcatalogue
       - stockmanager
       - featureflags
+      - external-adaptive-pricing
     links:
       - productcatalogue
       - stockmanager
       - featureflags
+      - external-adaptive-pricing
   productcatalogue:
     image: quiram/productcatalogue
     ports:
@@ -20,6 +22,10 @@ services:
     image: quiram/stockmanager
     ports:
      - "8030:8030"
+  external-adaptive-pricing:
+    image: quiram/fake-adaptive-pricing
+    ports:
+     - "8050:8050"
   featureflags:
     image: quiram/featureflags
     ports:
@@ -29,6 +35,6 @@ services:
     links:
      - featureflags-db
   featureflags-db:
-    image: quiram/featureflags-db
+    image: quiram/test-featureflags-db
     ports:
      - "5432:5432"

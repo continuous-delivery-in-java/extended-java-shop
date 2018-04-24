@@ -186,17 +186,17 @@
                                     - Docker assigns IP addresses sequentially
                                     - 172.19.0.1 will be used for routing out of te subnet
                                     - 172.19.0.2 will be assigned to the Jenkins docker container
-                                    - Five containers will start, with addresses from 172.19.0.3 to 172.19.0.7
+                                    - Six containers will start, with addresses from 172.19.0.3 to 172.19.0.8
                                     - Feature Flags will be the penultimate to start
                                     - Shopfront will be the last to start
-                                    - 172.19.0.6 will be assigned to Feature Flags
-                                    - 172.19.0.7 will be assigned to Shopfront
+                                    - 172.19.0.7 will be assigned to Feature Flags
+                                    - 172.19.0.8 will be assigned to Shopfront
 
                                     We can't use localhost because, from Jenkins docker container point of view, the
                                     Shopfront docker container is not really listening on localhost
                                 -->
-                                <shopfront_ip>172.19.0.7</shopfront_ip>
-                                <feature_flags_ip>172.19.0.6</feature_flags_ip>
+                                <shopfront_ip>172.19.0.8</shopfront_ip>
+                                <feature_flags_ip>172.19.0.7</feature_flags_ip>
                             </environmentVariables>
                         </configuration>
                     </plugin>
