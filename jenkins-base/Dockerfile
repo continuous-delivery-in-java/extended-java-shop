@@ -8,6 +8,9 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+# Install vim (useful to have there)
+RUN apt-get install -y vim
+
 # Configure Maven to be auto-installed in Jenkins
 COPY --chown=jenkins:jenkins mvn/* /var/jenkins_home/
 
