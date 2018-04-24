@@ -24,6 +24,7 @@ github-api
 github-branch-source
 gradle
 handlebars
+htmlpublisher
 jackson2-api
 jdk-tool
 jquery-detached

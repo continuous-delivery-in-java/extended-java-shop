@@ -3,7 +3,6 @@ FROM jenkins/jenkins
 USER root
 
 # Add sudo capabilities
-# TODO: this is useful, but is it needed?
 RUN apt-get update \
       && apt-get install -y sudo \
       && rm -rf /var/lib/apt/lists/*
@@ -31,5 +30,8 @@ RUN /usr/local/bin/install-plugins.sh `cat /var/jenkins_home/plugins-list`
 
 # Configure build all three pipelines
 COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
+
+# Relax security rules to be able to display Serenity BDD reports correctly
+ENV JAVA_OPTS -Dhudson.model.DirectoryBrowserSupport.CSP=\"\"
 
 USER jenkins

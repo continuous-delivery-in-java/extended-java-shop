@@ -40,7 +40,8 @@
             <command>echo &quot;Running acceptance tests for ${project_name}&quot;</command>
         </hudson.tasks.Shell>
         <hudson.tasks.Shell>
-            <command>cat acceptance-tests/src/test/resources/docker-compose-ci-template.yml | sed -e s/"%network_placeholder%"/"${docker_network_name}"/ &gt; acceptance-tests/src/test/resources/docker-compose-ci.yml</command>
+            <command>cat acceptance-tests/src/test/resources/docker-compose-ci-template.yml | \
+sed -e s/"%network_placeholder%"/"${docker_network_name}"/ &gt; acceptance-tests/src/test/resources/docker-compose-ci.yml</command>
         </hudson.tasks.Shell>
         <hudson.tasks.Maven>
             <targets>clean verify</targets>
@@ -53,6 +54,20 @@
         </hudson.tasks.Maven>
     </builders>
     <publishers>
+        <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.16">
+            <reportTargets>
+                <htmlpublisher.HtmlPublisherTarget>
+                    <reportName>SerenityBDD</reportName>
+                    <reportDir>acceptance-tests/target/site/serenity</reportDir>
+                    <reportFiles>index.html</reportFiles>
+                    <alwaysLinkToLastBuild>true</alwaysLinkToLastBuild>
+                    <reportTitles>SerenityBDD</reportTitles>
+                    <keepAll>true</keepAll>
+                    <allowMissing>false</allowMissing>
+                    <includes>**/*</includes>
+                </htmlpublisher.HtmlPublisherTarget>
+            </reportTargets>
+        </htmlpublisher.HtmlPublisher>
         <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.35.2">
             <configs>
                 <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
