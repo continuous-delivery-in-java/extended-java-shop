@@ -34,6 +34,8 @@ services:
      - test-featureflags-db
     links:
      - test-featureflags-db
+    environment:
+      - spring.profiles.active=test
   test-featureflags-db:
     image: quiram/test-featureflags-db
     ports:

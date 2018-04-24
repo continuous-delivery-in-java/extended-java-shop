@@ -80,9 +80,6 @@
                     <includes>
                         <include>**/*AT.java</include>
                     </includes>
-                    <systemProperties>
-                        <spring.profiles.active>test</spring.profiles.active>
-                    </systemProperties>
                 </configuration>
                 <executions>
                     <execution>
