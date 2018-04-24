@@ -17,7 +17,6 @@
     <properties>
         <serenity.version>1.0.47</serenity.version>
         <serenity.maven.version>1.0.47</serenity.maven.version>
-        <webdriver.driver>chrome</webdriver.driver>
         <slf4j-simple.version>1.7.25</slf4j-simple.version>
     </properties>
 
@@ -82,7 +81,6 @@
                         <include>**/*AT.java</include>
                     </includes>
                     <systemProperties>
-                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
                         <spring.profiles.active>test</spring.profiles.active>
                     </systemProperties>
                 </configuration>
