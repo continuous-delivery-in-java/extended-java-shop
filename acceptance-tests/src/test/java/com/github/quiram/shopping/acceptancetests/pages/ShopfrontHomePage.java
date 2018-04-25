@@ -32,7 +32,7 @@ public class ShopfrontHomePage extends PageObject {
             openAt(SHOPFRONT_URL);
             waitFor(titleContains("Java Shopfront"));
             return true;
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | UnsupportedOperationException e) {
             return false;
         }
     }

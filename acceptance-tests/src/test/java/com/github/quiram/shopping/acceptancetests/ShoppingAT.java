@@ -11,7 +11,8 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
 public class ShoppingAT {
-    @Managed(driver = "chrome")
+
+    @Managed(driver = "htmlunit")
     WebDriver driver;
 
     @Steps
@@ -19,6 +20,7 @@ public class ShoppingAT {
 
     @Steps
     private FeatureFlagsSteps featureFlagsSteps;
+
 
     @Test
     public void numberOfProductsAsExpected() {
