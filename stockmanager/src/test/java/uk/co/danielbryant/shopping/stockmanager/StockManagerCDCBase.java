@@ -3,7 +3,7 @@ package uk.co.danielbryant.shopping.stockmanager;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import uk.co.danielbryant.shopping.stockmanager.exceptions.StockNotFoundException;
-import uk.co.danielbryant.shopping.stockmanager.model.Stock;
+import uk.co.danielbryant.shopping.stockmanager.model.v1.Stock;
 import uk.co.danielbryant.shopping.stockmanager.resources.StockResource;
 import uk.co.danielbryant.shopping.stockmanager.services.StockService;
 

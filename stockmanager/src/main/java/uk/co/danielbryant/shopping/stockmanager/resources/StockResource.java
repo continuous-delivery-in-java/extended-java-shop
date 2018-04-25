@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import uk.co.danielbryant.shopping.stockmanager.exceptions.StockNotFoundException;
-import uk.co.danielbryant.shopping.stockmanager.model.Stock;
+import uk.co.danielbryant.shopping.stockmanager.model.v1.Stock;
 import uk.co.danielbryant.shopping.stockmanager.services.StockService;
 
 import java.util.List;

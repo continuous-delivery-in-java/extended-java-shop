@@ -1,4 +1,4 @@
-package uk.co.danielbryant.shopping.stockmanager.model;
+package uk.co.danielbryant.shopping.stockmanager.model.v1;
 
 import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 

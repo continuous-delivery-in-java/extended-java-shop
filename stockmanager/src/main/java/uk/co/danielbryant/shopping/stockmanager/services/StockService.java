@@ -3,7 +3,7 @@ package uk.co.danielbryant.shopping.stockmanager.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.co.danielbryant.shopping.stockmanager.exceptions.StockNotFoundException;
-import uk.co.danielbryant.shopping.stockmanager.model.Stock;
+import uk.co.danielbryant.shopping.stockmanager.model.v1.Stock;
 import uk.co.danielbryant.shopping.stockmanager.repositories.StockRepository;
 
 import java.util.List;

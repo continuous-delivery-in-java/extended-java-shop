@@ -1,4 +1,4 @@
-package uk.co.danielbryant.shopping.stockmanager.model;
+package uk.co.danielbryant.shopping.stockmanager.model.v2;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,33 +8,25 @@ import java.util.function.Function;
 
 import static com.github.quiram.test_utils.ArgumentChecks.BLANK_VALUES;
 import static com.github.quiram.test_utils.ArgumentChecks.assertIllegalArguments;
+import static com.github.quiram.utils.Random.randomInt;
 import static com.github.quiram.utils.Random.randomString;
+import static java.lang.Math.abs;
 
 public class StockTest {
     @Rule
     public ExpectedException onBadInput = ExpectedException.none();
 
     @Test
-    public void cannotHaveNegativeAmountOfStock() {
+    public void mustHaveAmount() {
         onBadInput.expect(IllegalArgumentException.class);
         onBadInput.expectMessage("amount");
-        onBadInput.expectMessage("negative");
-        new Stock(randomString(), randomString(), -1);
-    }
-
-    @Test
-    public void availableAmountCanBeZero() {
-        new Stock(randomString(), randomString(), 0);
-    }
-
-    @Test
-    public void availableAmountCanBePositive() {
-        new Stock(randomString(), randomString(), 10);
+        onBadInput.expectMessage("null");
+        new Stock(randomString(), randomString(), null);
     }
 
     @Test
     public void idMustHaveValue() {
-        Function<String, Stock> constructor = id -> new Stock(id, randomString(), 1);
+        Function<String, Stock> constructor = id -> new Stock(id, randomString(), randomAmount());
         final String field = "productId";
 
         assertIllegalArguments(constructor, field, BLANK_VALUES);
@@ -42,9 +34,13 @@ public class StockTest {
 
     @Test
     public void skuMustHaveValue() {
-        Function<String, Stock> constructor = sku -> new Stock(randomString(), sku, 1);
+        Function<String, Stock> constructor = sku -> new Stock(randomString(), sku, randomAmount());
         final String field = "sku";
 
         assertIllegalArguments(constructor, field, BLANK_VALUES);
+    }
+
+    private static AmountAvailable randomAmount() {
+        return new AmountAvailable(abs(randomInt()), abs(randomInt()));
     }
 }
