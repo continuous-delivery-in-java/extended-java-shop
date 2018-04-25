@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Silence noisy warnings about CSS and JavaScript (which we are importing from Bootstrap CDN) -->
+    <logger name="com.gargoylesoftware.htmlunit.javascript.host.css" level="ERROR"/>
+    <logger name="com.gargoylesoftware.htmlunit.DefaultCssErrorHandler" level="ERROR"/>
+
+    <!-- Silence retry messages when attempting to connect while the target application is starting up -->
+    <logger name="org.apache.http.impl.execchain.RetryExec" level="ERROR"/>
+
+    <!-- log warnings and errors by default -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

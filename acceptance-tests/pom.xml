@@ -17,7 +17,8 @@
     <properties>
         <serenity.version>1.9.10</serenity.version>
         <serenity.maven.version>1.9.9</serenity.maven.version>
-        <slf4j-simple.version>1.7.25</slf4j-simple.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <jcl-over-slf4j.version>1.7.25</jcl-over-slf4j.version>
     </properties>
 
     <dependencies>
@@ -57,10 +58,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-simple.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${jcl-over-slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.quiram</groupId>
