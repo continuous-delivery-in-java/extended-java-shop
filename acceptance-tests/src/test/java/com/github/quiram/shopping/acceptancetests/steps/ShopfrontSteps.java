@@ -4,10 +4,10 @@ import com.github.quiram.shopping.acceptancetests.pages.ShopfrontHomePage;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.github.quiram.utils.Collections.transpose;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
@@ -18,6 +18,7 @@ public class ShopfrontSteps extends StepsBase {
     private static final String PRICES_COLLECTION_KEY = "prices_collection";
     private List<String> productNames;
 
+    @SuppressWarnings("unused")
     private ShopfrontHomePage page;
 
     @Step
@@ -58,13 +59,16 @@ public class ShopfrontSteps extends StepsBase {
 
     @Step
     public void all_prices_have_changed() {
-        final long numberOfDifferentSetsOfPrices = getPricesCollection().stream().distinct().count();
-        assertThat(numberOfDifferentSetsOfPrices, is(2L));
+        List<List<String>> pricesLists = transpose(getPricesCollection());
+        pricesLists.forEach(pricesList -> {
+            final long numberOfDifferentSetsOfPrices = pricesList.stream().distinct().count();
+            assertThat(numberOfDifferentSetsOfPrices, is(2L));
+        });
     }
 
     @SuppressWarnings("unchecked")
-    private Collection<List<String>> getPricesCollection() {
-        Collection<List<String>> pricesCollection = (Collection<List<String>>) sessionVariableCalled(PRICES_COLLECTION_KEY);
+    private List<List<String>> getPricesCollection() {
+        List<List<String>> pricesCollection = (List<List<String>>) sessionVariableCalled(PRICES_COLLECTION_KEY);
         return pricesCollection == null ? new LinkedList<>() : pricesCollection;
     }
 
@@ -74,7 +78,7 @@ public class ShopfrontSteps extends StepsBase {
     }
 
     private void addToPrices(List<String> prices) {
-        final Collection<List<String>> pricesCollection = getPricesCollection();
+        final List<List<String>> pricesCollection = getPricesCollection();
         pricesCollection.add(prices);
         Serenity.setSessionVariable(PRICES_COLLECTION_KEY).to(pricesCollection);
     }
