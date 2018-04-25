@@ -2,20 +2,16 @@ package uk.co.danielbryant.shopping.stockmanager.model.v1;
 
 import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import static com.github.quiram.utils.ArgumentChecks.ensureNotBlank;
 import static com.github.quiram.utils.ArgumentChecks.ensureNotNegative;
 
-@Entity
 public class Stock extends ReflectiveToStringCompareEquals<Stock> {
 
-    @Id
     private String productId;
     private String sku;
     private int amountAvailable;
 
+    @SuppressWarnings("unused")
     private Stock() {
         // Needed by Spring
     }

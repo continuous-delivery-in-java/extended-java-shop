@@ -2,6 +2,7 @@ package uk.co.danielbryant.shopping.stockmanager.model.v2;
 
 import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,6 +15,7 @@ public class Stock extends ReflectiveToStringCompareEquals<Stock> {
     @Id
     private String productId;
     private String sku;
+    @Embedded
     private AmountAvailable amountAvailable;
 
     private Stock() {

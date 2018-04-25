@@ -3,9 +3,17 @@ package uk.co.danielbryant.shopping.stockmanager.model.v2;
 import com.github.quiram.utils.ArgumentChecks;
 import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class AmountAvailable extends ReflectiveToStringCompareEquals<AmountAvailable> {
     private int total;
     private int perPurchase;
+
+    @SuppressWarnings("unused")
+    public AmountAvailable() {
+        // Needed for Spring
+    }
 
     public AmountAvailable(int total, int perPurchase) {
         ArgumentChecks.ensureNotNegative(total, "total");

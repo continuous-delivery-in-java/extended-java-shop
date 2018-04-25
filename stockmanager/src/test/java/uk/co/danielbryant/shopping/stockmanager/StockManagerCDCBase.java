@@ -3,7 +3,8 @@ package uk.co.danielbryant.shopping.stockmanager;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import uk.co.danielbryant.shopping.stockmanager.exceptions.StockNotFoundException;
-import uk.co.danielbryant.shopping.stockmanager.model.v1.Stock;
+import uk.co.danielbryant.shopping.stockmanager.model.v2.AmountAvailable;
+import uk.co.danielbryant.shopping.stockmanager.model.v2.Stock;
 import uk.co.danielbryant.shopping.stockmanager.resources.StockResource;
 import uk.co.danielbryant.shopping.stockmanager.services.StockService;
 
@@ -37,7 +38,7 @@ public class StockManagerCDCBase {
         }
 
         private Stock newStock(String productId, int amountAvailable) {
-            return new Stock(productId, "sku-" + productId, amountAvailable);
+            return new Stock(productId, "sku-" + productId, new AmountAvailable(amountAvailable, amountAvailable));
         }
     }
 }
