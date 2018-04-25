@@ -41,4 +41,9 @@ public class Stock extends ReflectiveToStringCompareEquals<Stock> {
     public AmountAvailable getAmountAvailable() {
         return amountAvailable;
     }
+
+
+    public uk.co.danielbryant.shopping.stockmanager.model.v1.Stock asV1Stock() {
+        return new uk.co.danielbryant.shopping.stockmanager.model.v1.Stock(productId, sku, amountAvailable.getTotal());
+    }
 }

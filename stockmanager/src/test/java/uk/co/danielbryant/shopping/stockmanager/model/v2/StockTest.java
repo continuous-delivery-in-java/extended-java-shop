@@ -11,6 +11,8 @@ import static com.github.quiram.test_utils.ArgumentChecks.assertIllegalArguments
 import static com.github.quiram.utils.Random.randomInt;
 import static com.github.quiram.utils.Random.randomString;
 import static java.lang.Math.abs;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class StockTest {
     @Rule
@@ -40,7 +42,20 @@ public class StockTest {
         assertIllegalArguments(constructor, field, BLANK_VALUES);
     }
 
+    @Test
+    public void canTransformToV1() {
+        final String productId = randomString();
+        final String sku = randomString();
+        final AmountAvailable amountAvailable = randomAmount();
+        final Stock v2Stock = new Stock(productId, sku, amountAvailable);
+        final uk.co.danielbryant.shopping.stockmanager.model.v1.Stock v1Stock = v2Stock.asV1Stock();
+        assertThat(v1Stock.getProductId(), is(productId));
+        assertThat(v1Stock.getSku(), is(sku));
+        assertThat(v1Stock.getAmountAvailable(), is(amountAvailable.getTotal()));
+    }
+
     private static AmountAvailable randomAmount() {
-        return new AmountAvailable(abs(randomInt()), abs(randomInt()));
+        final int total = abs(randomInt());
+        return new AmountAvailable(total, total - 1);
     }
 }
