@@ -83,6 +83,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Wait up to one minute check if the app is up and running (60 attempts, separated by 1s)-->
+                    <wait>1000</wait>
+                    <maxAttempts>60</maxAttempts>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
