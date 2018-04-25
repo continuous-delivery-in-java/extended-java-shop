@@ -38,7 +38,7 @@ public class StockManagerCDCBase {
         }
 
         private Stock newStock(String productId, int amountAvailable) {
-            return new Stock(productId, "sku-" + productId, new AmountAvailable(amountAvailable, amountAvailable));
+            return new Stock(productId, "sku-" + productId, new AmountAvailable(amountAvailable, amountAvailable / 2));
         }
     }
 }
