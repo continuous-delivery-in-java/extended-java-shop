@@ -24,14 +24,6 @@ public class UnitPrice extends ReflectiveToStringCompareEquals<UnitPrice> {
         this(new BigDecimal(value));
     }
 
-    public static Price singlePrice(int singlePrice) {
-        return new Price(new UnitPrice(singlePrice), null);
-    }
-
-    public static Price complexPrice(int singlePrice, int bulkPrice, int bulkMinAmount) {
-        return new Price(new UnitPrice(singlePrice), new BulkPrice(new UnitPrice(bulkPrice), bulkMinAmount));
-    }
-
     public BigDecimal getValue() {
         return value;
     }

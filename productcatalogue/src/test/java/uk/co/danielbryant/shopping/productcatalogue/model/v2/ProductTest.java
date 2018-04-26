@@ -21,17 +21,17 @@ public class ProductTest {
 
     @Test
     public void idMustBePresent() {
-        assertIllegalArguments(id -> new Product(id, randomString(), randomString(), UnitPrice.singlePrice(10)), "id", BLANK_VALUES);
+        assertIllegalArguments(id -> new Product(id, randomString(), randomString(), Price.singlePrice(10)), "id", BLANK_VALUES);
     }
 
     @Test
     public void nameMustBePresent() {
-        assertIllegalArguments(name -> new Product(randomString(), name, randomString(), UnitPrice.singlePrice(15)), "name", BLANK_VALUES);
+        assertIllegalArguments(name -> new Product(randomString(), name, randomString(), Price.singlePrice(15)), "name", BLANK_VALUES);
     }
 
     @Test
     public void descriptionMustBePresent() {
-        assertIllegalArguments(description -> new Product(randomString(), randomString(), description, UnitPrice.singlePrice(20)), "description", BLANK_VALUES);
+        assertIllegalArguments(description -> new Product(randomString(), randomString(), description, Price.singlePrice(20)), "description", BLANK_VALUES);
     }
 
 }
