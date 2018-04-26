@@ -1,5 +1,8 @@
 package com.github.quiram.shopping.acceptancetests.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Flag {
     private Long flagId;
     private String name;
