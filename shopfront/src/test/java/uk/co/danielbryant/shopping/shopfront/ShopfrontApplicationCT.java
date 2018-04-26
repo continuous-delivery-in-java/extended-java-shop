@@ -1,5 +1,6 @@
 package uk.co.danielbryant.shopping.shopfront;
 
+import com.github.quiram.utils.Random;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import static com.github.quiram.utils.Random.randomInt;
+import static com.github.quiram.utils.Random.randomPositiveInt;
 import static com.github.quiram.utils.Random.randomString;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.lang.Math.abs;
@@ -56,7 +58,7 @@ public class ShopfrontApplicationCT {
     public WireMockRule mockAdaptivePricingRepo = new WireMockRule(8050);
 
     private final String description1 = randomString();
-    private final int amount1 = abs(randomInt());
+    private final int amount1 = randomPositiveInt();
     private final String amountString1 = "" + amount1;
 
     @Before

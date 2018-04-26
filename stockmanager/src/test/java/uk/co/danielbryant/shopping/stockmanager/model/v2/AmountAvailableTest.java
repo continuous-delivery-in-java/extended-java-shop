@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.github.quiram.utils.Random.randomInt;
+import static com.github.quiram.utils.Random.randomPositiveInt;
 
 public class AmountAvailableTest {
     @Rule
@@ -14,14 +14,14 @@ public class AmountAvailableTest {
     public void cannotHaveNegativeTotalAmount() {
         onBadInput.expect(IllegalArgumentException.class);
         onBadInput.expectMessage("total");
-        new AmountAvailable(-1, Math.abs(randomInt()));
+        new AmountAvailable(-1, randomPositiveInt());
     }
 
     @Test
     public void cannotHaveNegativePerPurchaseAmount() {
         onBadInput.expect(IllegalArgumentException.class);
         onBadInput.expectMessage("perPurchase");
-        new AmountAvailable(Math.abs(randomInt()), -1);
+        new AmountAvailable(randomPositiveInt(), -1);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class AmountAvailableTest {
         onBadInput.expect(IllegalArgumentException.class);
         onBadInput.expectMessage("perPurchase");
         onBadInput.expectMessage("total");
-        final int total = Math.abs(randomInt());
+        final int total = randomPositiveInt();
         new AmountAvailable(total, total + 1);
     }
 
@@ -45,12 +45,12 @@ public class AmountAvailableTest {
 
     @Test
     public void perPurchaseAmountCanBeZero() {
-        new AmountAvailable(Math.abs(randomInt()), 0);
+        new AmountAvailable(randomPositiveInt(), 0);
     }
 
     @Test
     public void perPurchaseAmountCanBePositive() {
-        new AmountAvailable(Math.abs(randomInt()), 1);
+        new AmountAvailable(randomPositiveInt(), 1);
     }
 
 }

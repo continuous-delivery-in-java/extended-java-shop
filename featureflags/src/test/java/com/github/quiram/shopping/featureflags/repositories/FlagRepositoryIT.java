@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.stream.StreamSupport;
 
-import static com.github.quiram.shopping.featureflags.services.FlagServiceTest.randomBoolean;
+import static com.github.quiram.utils.Random.randomBoolean;
 import static com.github.quiram.utils.Random.randomInt;
 import static com.github.quiram.utils.Random.randomString;
 import static org.hamcrest.Matchers.is;

@@ -107,8 +107,4 @@ public class FlagServiceTest {
         flagService.updateFlag(newFlag);
         verify(repository, once()).save(newFlag);
     }
-
-    public static boolean randomBoolean() {
-        return new Random().nextBoolean();
-    }
 }

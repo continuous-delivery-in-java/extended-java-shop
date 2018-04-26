@@ -15,7 +15,7 @@ public class BulkPrice extends ReflectiveToStringCompareEquals<BulkPrice> {
 
     public BulkPrice(UnitPrice unit, int min) {
         ensureNotNull(unit, "unit price");
-        ensure(min, "minimum amount", n -> n < 2, "be higher than one");
+        ensureGreaterThan(1, min, "minimum amount");
         this.unit = unit;
         this.min = min;
     }

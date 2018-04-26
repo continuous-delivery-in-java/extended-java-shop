@@ -5,6 +5,9 @@ import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
 import javax.persistence.Embeddable;
 
+import static com.github.quiram.utils.ArgumentChecks.ensure;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotNegative;
+
 @Embeddable
 public class AmountAvailable extends ReflectiveToStringCompareEquals<AmountAvailable> {
     private int total;
@@ -16,9 +19,9 @@ public class AmountAvailable extends ReflectiveToStringCompareEquals<AmountAvail
     }
 
     public AmountAvailable(int total, int perPurchase) {
-        ArgumentChecks.ensureNotNegative(total, "total");
-        ArgumentChecks.ensureNotNegative(perPurchase, "perPurchase");
-        ArgumentChecks.ensure(perPurchase, "perPurchase", p -> p > total, "not be higher than total");
+        ensureNotNegative(total, "total");
+        ensureNotNegative(perPurchase, "perPurchase");
+        ensure(() -> perPurchase > total, "perPurchase must not be higher than total");
 
         this.total = total;
         this.perPurchase = perPurchase;

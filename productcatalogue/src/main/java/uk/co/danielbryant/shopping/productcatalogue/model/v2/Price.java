@@ -15,8 +15,8 @@ public class Price {
 
     public Price(UnitPrice single, BulkPrice bulkPrice) {
         ensureNotNull(single, "single price");
-        ensure(bulkPrice, "bulk price", bulk -> bulk != null && bulkPriceNotLowerThanSinglePrice(bulk, single),
-                "be lower than single price or not be there");
+        ensure(() -> bulkPrice != null && bulkPriceNotLowerThanSinglePrice(bulkPrice, single),
+                "bulk price must be lower than single price or not be there");
 
         this.single = single;
         this.bulkPrice = bulkPrice;

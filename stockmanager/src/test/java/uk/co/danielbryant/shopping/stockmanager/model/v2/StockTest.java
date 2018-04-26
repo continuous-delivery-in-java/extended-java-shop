@@ -9,6 +9,7 @@ import java.util.function.Function;
 import static com.github.quiram.test_utils.ArgumentChecks.BLANK_VALUES;
 import static com.github.quiram.test_utils.ArgumentChecks.assertIllegalArguments;
 import static com.github.quiram.utils.Random.randomInt;
+import static com.github.quiram.utils.Random.randomPositiveInt;
 import static com.github.quiram.utils.Random.randomString;
 import static java.lang.Math.abs;
 import static org.hamcrest.Matchers.is;
@@ -55,7 +56,7 @@ public class StockTest {
     }
 
     private static AmountAvailable randomAmount() {
-        final int total = abs(randomInt());
+        final int total = randomPositiveInt();
         return new AmountAvailable(total, total - 1);
     }
 }
