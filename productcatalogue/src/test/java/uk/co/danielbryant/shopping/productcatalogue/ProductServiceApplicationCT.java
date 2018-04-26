@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import uk.co.danielbryant.shopping.productcatalogue.configuration.ProductServiceConfiguration;
-import uk.co.danielbryant.shopping.productcatalogue.model.Product;
+import uk.co.danielbryant.shopping.productcatalogue.model.v1.Product;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.GenericType;

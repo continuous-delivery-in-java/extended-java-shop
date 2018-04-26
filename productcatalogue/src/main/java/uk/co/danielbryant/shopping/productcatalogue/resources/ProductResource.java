@@ -2,8 +2,8 @@ package uk.co.danielbryant.shopping.productcatalogue.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
+import uk.co.danielbryant.shopping.productcatalogue.model.v1.Product;
 import uk.co.danielbryant.shopping.productcatalogue.services.ProductService;
-import uk.co.danielbryant.shopping.productcatalogue.model.Product;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -1,36 +1,30 @@
-package uk.co.danielbryant.shopping.productcatalogue.model;
+package uk.co.danielbryant.shopping.productcatalogue.model.v2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigDecimal;
-
-import static com.github.quiram.utils.ArgumentChecks.*;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotBlank;
+import static com.github.quiram.utils.ArgumentChecks.ensureNotNull;
 
 public class Product {
     private String id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private Price price;
 
     private Product() {
         // Needed for Jackson deserialization
     }
 
-    public Product(String id, String name, String description, BigDecimal price) {
+    public Product(String id, String name, String description, Price price) {
         ensureNotBlank(id, "id");
         ensureNotBlank(name, "name");
         ensureNotBlank(description, "description");
-        ensurePrice(price);
+        ensureNotNull(price, "price");
 
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-    }
-
-    private void ensurePrice(BigDecimal price) {
-        ensureNotNull(price, "price");
-        ensureGreaterThanZero(price.intValue(), "price");
     }
 
     @JsonProperty
@@ -49,7 +43,7 @@ public class Product {
     }
 
     @JsonProperty
-    public BigDecimal getPrice() {
+    public Price getPrice() {
         return price;
     }
 }

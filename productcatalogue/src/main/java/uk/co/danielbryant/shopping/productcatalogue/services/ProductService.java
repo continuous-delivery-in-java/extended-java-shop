@@ -1,6 +1,6 @@
 package uk.co.danielbryant.shopping.productcatalogue.services;
 
-import uk.co.danielbryant.shopping.productcatalogue.model.Product;
+import uk.co.danielbryant.shopping.productcatalogue.model.v1.Product;
 
 import java.math.BigDecimal;
 import java.util.*;

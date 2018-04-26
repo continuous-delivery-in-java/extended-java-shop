@@ -1,4 +1,4 @@
-package uk.co.danielbryant.shopping.productcatalogue.model;
+package uk.co.danielbryant.shopping.productcatalogue.model.v1;
 
 import org.junit.Rule;
 import org.junit.Test;
