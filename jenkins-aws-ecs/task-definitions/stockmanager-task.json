@@ -1,0 +1,18 @@
+{
+  "family": "stockmanager",
+  "containerDefinitions": [
+    {
+      "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
+      "name": "stockmanager",
+      "cpu": 10,
+      "memory": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8030,
+          "hostPort": 8030
+        }
+      ]
+    }
+  ]
+}

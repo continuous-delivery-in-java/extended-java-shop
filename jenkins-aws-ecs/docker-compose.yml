@@ -1,0 +1,24 @@
+version: '3'
+services:
+  jenkins:
+    image: quiram/jenkins-aws-ecs
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - "jenkins_aws_ecs_home:/var/jenkins_home"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - ci_network
+    environment:
+      - docker_network_name=jenkinsaws_ecs_ci_network
+
+volumes:
+  jenkins_aws_ecs_home:
+
+networks:
+  ci_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
