@@ -15,15 +15,15 @@ public class Price {
 
     public Price(UnitPrice single, BulkPrice bulkPrice) {
         ensureNotNull(single, "single price");
-        ensure(() -> bulkPrice != null && bulkPriceNotLowerThanSinglePrice(bulkPrice, single),
+        ensure(() -> bulkPrice == null || bulkPriceLowerThanSinglePrice(bulkPrice, single),
                 "bulk price must be lower than single price or not be there");
 
         this.single = single;
         this.bulkPrice = bulkPrice;
     }
 
-    private static boolean bulkPriceNotLowerThanSinglePrice(BulkPrice bulkPrice, UnitPrice singlePrice) {
-        return bulkPrice.getUnit().compareTo(singlePrice) >= 0;
+    private static boolean bulkPriceLowerThanSinglePrice(BulkPrice bulkPrice, UnitPrice singlePrice) {
+        return bulkPrice.getUnit().compareTo(singlePrice) < 0;
     }
 
     public static Price singlePrice(int singlePrice) {

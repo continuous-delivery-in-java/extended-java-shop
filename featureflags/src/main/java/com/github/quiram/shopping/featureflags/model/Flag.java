@@ -23,18 +23,13 @@ public class Flag extends ReflectiveToStringCompareEquals<Flag> {
     }
 
     public Flag(Long flagId, String name, int portionIn, boolean sticky) {
-        ensurePortionIsValid(portionIn, "portionIn");
+        ensureInRange(0, 100, portionIn, "portionIn");
         ensureNotBlank(name, "name");
 
         this.flagId = flagId;
         this.name = name;
         this.portionIn = portionIn;
         this.sticky = sticky;
-    }
-
-    private static void ensurePortionIsValid(int portionIn, @SuppressWarnings("SameParameterValue") final String fieldName) {
-        ensureNotNegative(portionIn, fieldName);
-        ensure(portionIn, fieldName, i -> i > 100, fieldName + " cannot be higher than 100%");
     }
 
     public Long getFlagId() {

@@ -21,7 +21,7 @@ public class AmountAvailable extends ReflectiveToStringCompareEquals<AmountAvail
     public AmountAvailable(int total, int perPurchase) {
         ensureNotNegative(total, "total");
         ensureNotNegative(perPurchase, "perPurchase");
-        ensure(() -> perPurchase > total, "perPurchase must not be higher than total");
+        ensure(() -> perPurchase <= total, "perPurchase must not be higher than total");
 
         this.total = total;
         this.perPurchase = perPurchase;

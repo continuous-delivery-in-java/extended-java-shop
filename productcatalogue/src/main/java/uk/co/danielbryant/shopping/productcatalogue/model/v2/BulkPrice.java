@@ -3,6 +3,7 @@ package uk.co.danielbryant.shopping.productcatalogue.model.v2;
 import com.github.quiram.utils.ReflectiveToStringCompareEquals;
 
 import static com.github.quiram.utils.ArgumentChecks.ensure;
+import static com.github.quiram.utils.ArgumentChecks.ensureGreaterThan;
 import static com.github.quiram.utils.ArgumentChecks.ensureNotNull;
 
 public class BulkPrice extends ReflectiveToStringCompareEquals<BulkPrice> {
