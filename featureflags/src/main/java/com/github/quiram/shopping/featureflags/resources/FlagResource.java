@@ -58,7 +58,7 @@ public class FlagResource {
     public ResponseEntity<?> updateFlag(@PathVariable("flagId") Long flagId, @RequestBody Flag flag) throws FlagNotFoundException,
             FlagWithoutIdException {
         LOGGER.info("updating with flagId: {}", flagId);
-        flagService.updateFlag(new Flag(flagId, flag.getName(), flag.getPortionIn()));
+        flagService.updateFlag(new Flag(flagId, flag.getName(), flag.getPortionIn(), flag.isSticky()));
         return ResponseEntity.ok().build();
     }
 
@@ -77,6 +77,4 @@ public class FlagResource {
     @ResponseStatus(BAD_REQUEST)
     public void handleFlagNameAlreadyExists(FlagNameAlreadyExistsException e) {
     }
-
-
 }
