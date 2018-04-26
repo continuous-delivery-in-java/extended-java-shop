@@ -9,6 +9,10 @@ public class Price {
     private UnitPrice single;
     private BulkPrice bulkPrice;
 
+    public Price() {
+
+    }
+
     public Price(UnitPrice single, BulkPrice bulkPrice) {
         ensureNotNull(single, "single price");
         ensure(bulkPrice, "bulk price", bulk -> bulk != null && bulkPriceNotLowerThanSinglePrice(bulk, single),
@@ -24,6 +28,10 @@ public class Price {
 
     public static Price singlePrice(int singlePrice) {
         return new Price(new UnitPrice(singlePrice), null);
+    }
+
+    public static Price singlePrice(String singlePrice) {
+        return new Price(new UnitPrice(new BigDecimal(singlePrice)), null);
     }
 
     public static Price complexPrice(String singlePrice, String bulkPrice, int bulkMinAmount) {

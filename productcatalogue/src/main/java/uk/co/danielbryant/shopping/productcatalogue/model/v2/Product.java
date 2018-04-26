@@ -46,4 +46,8 @@ public class Product {
     public Price getPrice() {
         return price;
     }
+
+    public uk.co.danielbryant.shopping.productcatalogue.model.v1.Product asV1Product() {
+        return new uk.co.danielbryant.shopping.productcatalogue.model.v1.Product(id, name, description, price.getSingle().getValue());
+    }
 }

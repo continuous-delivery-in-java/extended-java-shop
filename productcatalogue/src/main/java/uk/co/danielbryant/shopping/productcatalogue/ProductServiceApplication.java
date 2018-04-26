@@ -5,9 +5,9 @@ import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import uk.co.danielbryant.shopping.productcatalogue.healthchecks.BasicHealthCheck;
 import uk.co.danielbryant.shopping.productcatalogue.configuration.ProductServiceConfiguration;
-import uk.co.danielbryant.shopping.productcatalogue.resources.ProductResource;
+import uk.co.danielbryant.shopping.productcatalogue.healthchecks.BasicHealthCheck;
+import uk.co.danielbryant.shopping.productcatalogue.resources.v2.ProductResource;
 
 public class ProductServiceApplication extends Application<ProductServiceConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -31,6 +31,7 @@ public class ProductServiceApplication extends Application<ProductServiceConfigu
         environment.healthChecks().register("template", healthCheck);
 
         Injector injector = Guice.createInjector();
+        environment.jersey().register(injector.getInstance(uk.co.danielbryant.shopping.productcatalogue.resources.v1.ProductResource.class));
         environment.jersey().register(injector.getInstance(ProductResource.class));
     }
 }
