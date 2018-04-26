@@ -37,7 +37,7 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.tasks.Shell>
-            <command>jenkins-aws-ecs/deploy-to-aws.ecs.sh</command>
+            <command>jenkins-aws-ecs/deploy-to-aws-ecs.sh</command>
         </hudson.tasks.Shell>
     </builders>
     <publishers/>

@@ -2,7 +2,7 @@
   "family": "stockmanager",
   "containerDefinitions": [
     {
-      "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
+      "image": "%REPOSITORY_URI%",
       "name": "stockmanager",
       "cpu": 10,
       "memory": 256,

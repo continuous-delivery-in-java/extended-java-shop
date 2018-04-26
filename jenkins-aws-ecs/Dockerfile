@@ -5,6 +5,9 @@ USER root
 # Install AWS client
 RUN apt-get update && sudo apt-get install -y awscli
 
+# Install jq (used by deployment script)
+RUN apt-get update && sudo apt-get install -y jq
+
 ## Load plugin for kubernetes deployment
 #RUN /usr/local/bin/install-plugins.sh kubernetes-cd
 #
