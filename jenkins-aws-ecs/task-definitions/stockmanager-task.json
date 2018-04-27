@@ -2,10 +2,10 @@
   "family": "stockmanager",
   "containerDefinitions": [
     {
-      "image": "%REPOSITORY_URI%",
+      "image": "quiram/stockmanager",
       "name": "stockmanager",
       "cpu": 10,
-      "memory": 256,
+      "memory": 300,
       "essential": true,
       "portMappings": [
         {
