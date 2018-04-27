@@ -12,7 +12,7 @@ count_non_terminated_instances() {
 
 # delete EC2 instances
 echo "Getting current instances..."
-run_aws ec2 describe-instances
+run_aws ec2 describe-instances --filter "'Name=tag:${TAG_KEY},Values=${TAG_VALUE}'"
 instances=`echo ${AWS_LAST_RESULT} | jq .Reservations[].Instances[].InstanceId`
 
 echo "Deleting current instances..."

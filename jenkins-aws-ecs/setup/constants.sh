@@ -11,6 +11,8 @@ export SECURITY_GROUP_NAME=${APP_NAME}-security-group
 export NUMBER_OF_EC2_INSTANCES=5
 export ECS_INSTANCE_ROLE=ecsInstanceRole # AWS needs this role to be called explicitly this, don't change it!
 export EC2_FOR_ECS_POLICY_ARN=arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role # Like previous
+export TAG_KEY=Group
+export TAG_VALUE=${APP_NAME}
 
 run_aws() {
     cmd="aws $*"

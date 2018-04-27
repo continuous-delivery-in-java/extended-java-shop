@@ -90,7 +90,8 @@ run_aws ec2 run-instances \
     --key-name ${KEY_PAIR_NAME} \
     --security-groups "${SECURITY_GROUP_NAME}" \
     --user-data file://${TEMP} \
-    --iam-instance-profile Name=${ECS_INSTANCE_ROLE}
+    --iam-instance-profile Name=${ECS_INSTANCE_ROLE} \
+    --tag-specifications "'ResourceType=instance,Tags=[{Key=${TAG_KEY},Value=${TAG_VALUE}}]'"
 
 rm -f ${TEMP}
 
