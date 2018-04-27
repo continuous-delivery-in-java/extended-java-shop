@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Deploying service '${project_name}'"
+
 cp jenkins-aws-ecs/task-definitions/${project_name}-task.json taskdef.json
 
 # The below has been dapted from https://docs.aws.amazon.com/AWSGettingStartedContinuousDeliveryPipeline/latest/GettingStarted/CICD_Jenkins_Pipeline.html
