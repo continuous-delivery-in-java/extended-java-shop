@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+pushd ${SCRIPT_DIR}
+source ./constants.sh
+
+count_non_terminated_instances() {
+    run_aws ec2 describe-instances
+    number_of_non_terminated_instances=`echo ${AWS_LAST_RESULT} | jq .Reservations[].Instances[].State.Name | grep -v terminated | wc -l`
+}
+
+# delete EC2 instances
+echo "Getting current instances..."
+run_aws ec2 describe-instances
+instances=`echo ${AWS_LAST_RESULT} | jq .Reservations[].Instances[].InstanceId`
+
+echo "Deleting current instances..."
+run_aws ec2 terminate-instances --instance-ids ${instances}
+
+count_non_terminated_instances
+while [ ${number_of_non_terminated_instances} -ne 0 ]; do
+    echo "Waiting for ${number_of_non_terminated_instances} instance(s) to be completely terminated..."
+    count_non_terminated_instances
+    sleep 5
+done
+
+# Delete IAM role
+echo "Deleting IAM role '${ECS_INSTANCE_ROLE}'..."
+run_aws iam detach-role-policy \
+    --role-name ${ECS_INSTANCE_ROLE} \
+    --policy-arn ${EC2_FOR_ECS_POLICY_ARN}
+
+run_aws iam remove-role-from-instance-profile \
+    --instance-profile-name ${ECS_INSTANCE_ROLE} \
+    --role-name ${ECS_INSTANCE_ROLE}
+
+run_aws iam delete-role --role-name ${ECS_INSTANCE_ROLE}
+
+echo "Removing security group ${SECURITY_GROUP_NAME}"
+run_aws ec2 delete-security-group --group-name ${SECURITY_GROUP_NAME}
+
+echo "Removing key ${KEY_PAIR_NAME} associated private key ${PRIVATE_KEY_FILE}"
+[ -f ${PRIVATE_KEY_FILE} ] && rm -f ${PRIVATE_KEY_FILE}
+run_aws ec2 delete-key-pair --key-name ${KEY_PAIR_NAME}
+
+echo "Removing cluster ${CLUSTER_NAME}"
+run_aws ecs delete-cluster --cluster ${CLUSTER_NAME}
+
+
+popd

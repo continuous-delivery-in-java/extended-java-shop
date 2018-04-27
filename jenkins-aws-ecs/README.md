@@ -3,7 +3,9 @@ A sample Jenkins server with pre-created jobs that will deploy the three sample 
 
 ## Pre-requisites
 - An account for AWS ECS is necessary.
-- A cluster named *** in region *** needs to be created prior to this.
+- Install AWS - CLI
+- Set up AWS CLI locally
+- Run setup/create-env.sh
 
 ## Procedure
 1. Run `build.sh` to generate the necessary config files and docker image
