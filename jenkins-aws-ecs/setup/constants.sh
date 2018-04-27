@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 export AWS_LOG_FILE=aws.log
+export REGION=eu-central-1
 export APP_NAME=extended-java-shop
 export CLUSTER_NAME=${APP_NAME}-cluster
 export AMI_ID=ami-9fc39c74 # This is for region eu-central-1 (Frankfurt)

@@ -94,4 +94,7 @@ run_aws ec2 run-instances \
 
 rm -f ${TEMP}
 
+echo ""
+echo "All done. Your cluster should be ready at https://${REGION}.console.aws.amazon.com/ecs/home?region=${REGION}#/clusters/${CLUSTER_NAME}/services"
+
 popd
