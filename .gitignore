@@ -29,3 +29,5 @@ buildNumber.properties
 jenkins-kubernetes/kubernetes/secrets/
 jenkins-kubernetes/kubernetes/kubeconfig
 
+# Private keys for AWS access
+*.pem

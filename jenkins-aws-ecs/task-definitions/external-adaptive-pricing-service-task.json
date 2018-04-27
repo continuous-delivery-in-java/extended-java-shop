@@ -1,0 +1,18 @@
+{
+  "family": "external-adaptive-pricing-service",
+  "containerDefinitions": [
+    {
+      "image": "quiram/external-adaptive-pricing-service",
+      "name": "external-adaptive-pricing-service",
+      "cpu": 10,
+      "memory": 300,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8050,
+          "hostPort": 8050
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,7 @@ A sample Jenkins server with pre-created jobs that will deploy the three sample 
 ## Pre-requisites
 - An account for AWS ECS is necessary.
 - Install AWS - CLI
-- Set up AWS CLI locally
+- Set up AWS CLI locally: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 - Run setup/create-env.sh
 
 ## Procedure

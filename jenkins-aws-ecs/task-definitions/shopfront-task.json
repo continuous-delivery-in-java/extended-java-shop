@@ -1,0 +1,18 @@
+{
+  "family": "shopfront",
+  "containerDefinitions": [
+    {
+      "image": "quiram/shopfront",
+      "name": "shopfront",
+      "cpu": 10,
+      "memory": 300,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8010,
+          "hostPort": 8010
+        }
+      ]
+    }
+  ]
+}

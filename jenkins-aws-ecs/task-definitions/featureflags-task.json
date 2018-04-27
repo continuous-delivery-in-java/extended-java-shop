@@ -1,0 +1,18 @@
+{
+  "family": "featureflags",
+  "containerDefinitions": [
+    {
+      "image": "quiram/featureflags",
+      "name": "featureflags",
+      "cpu": 10,
+      "memory": 300,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8040,
+          "hostPort": 8040
+        }
+      ]
+    }
+  ]
+}

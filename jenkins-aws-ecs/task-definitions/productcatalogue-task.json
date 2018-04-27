@@ -1,0 +1,18 @@
+{
+  "family": "productcatalogue",
+  "containerDefinitions": [
+    {
+      "image": "quiram/productcatalogue",
+      "name": "productcatalogue",
+      "cpu": 10,
+      "memory": 300,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8020,
+          "hostPort": 8020
+        }
+      ]
+    }
+  ]
+}
