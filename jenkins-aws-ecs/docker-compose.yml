@@ -11,7 +11,7 @@ services:
     networks:
       - ci_network
     environment:
-      - docker_network_name=jenkinsaws_ecs_ci_network
+      - docker_network_name=jenkins-aws-ecs_ci_network
 
 volumes:
   jenkins_aws_ecs_home:
