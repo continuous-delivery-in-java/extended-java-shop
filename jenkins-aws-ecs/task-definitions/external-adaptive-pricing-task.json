@@ -1,9 +1,9 @@
 {
-  "family": "external-adaptive-pricing-service",
+  "family": "external-adaptive-pricing",
   "containerDefinitions": [
     {
-      "image": "quiram/external-adaptive-pricing-service",
-      "name": "external-adaptive-pricing-service",
+      "image": "quiram/external-adaptive-pricing",
+      "name": "external-adaptive-pricing",
       "cpu": 10,
       "memory": 300,
       "essential": true,
