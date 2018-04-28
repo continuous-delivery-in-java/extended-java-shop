@@ -20,12 +20,13 @@ SERVICE_NAME=${project_name}-service
 cp taskdef.json ${project_name}-v_${BUILD_NUMBER}.json
 #Register the task definition in the repository
 aws ecs register-task-definition --family ${FAMILY} --cli-input-json file://${WORKSPACE}/${project_name}-v_${BUILD_NUMBER}.json --region ${REGION}
-SERVICES=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER_NAME} --region ${REGION} | jq .failures[]`
+MISSING_SERVICES=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER_NAME} --region ${REGION} | jq .failures[]`
+INACTIVE_SERVICES=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER_NAME} --region ${REGION} | jq .services[].status | grep INACTIVE`
 #Get latest revision
 REVISION=`aws ecs describe-task-definition --task-definition ${project_name} --region ${REGION} | jq .taskDefinition.revision`
 
 #Create or update service
-if [ "$SERVICES" == "" ]; then
+if [ "$MISSING_SERVICES" == "" -a "${INACTIVE_SERVICES}" == "" ]; then
     echo "entered existing service"
     DESIRED_COUNT=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER_NAME} --region ${REGION} | jq .services[].desiredCount`
     if [ "${DESIRED_COUNT}" == "0" ]; then
