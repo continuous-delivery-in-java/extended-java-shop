@@ -2,23 +2,14 @@ FROM quiram/jenkins-base
 
 USER root
 
-# Install AWS client
-RUN apt-get update && sudo apt-get install -y awscli
+# Install PIP
+RUN curl -O https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
+
+# Install latest AWS Client
+RUN pip install awscli --upgrade
 
 # Install jq (used by deployment script)
 RUN apt-get update && sudo apt-get install -y jq
 
-## Load plugin for kubernetes deployment
-#RUN /usr/local/bin/install-plugins.sh kubernetes-cd
-#
-# Override deploy job to use Kubernetes
-COPY --chown=jenkins:jenkins jobs/ /var/jenkins_home/jobs/
-
-## Configure kubernetes client
-#RUN mkdir /var/jenkins_home/kubernetes
-#COPY --chown=jenkins:jenkins kubernetes/ /var/jenkins_home/kubernetes/
-#COPY --chown=jenkins:jenkins credentials/credentials.xml /var/jenkins_home/
-#
-
 USER jenkins
-
