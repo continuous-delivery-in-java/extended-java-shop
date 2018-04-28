@@ -39,6 +39,17 @@ run_aws iam add-role-to-instance-profile \
     --role-name ${ECS_INSTANCE_ROLE} \
     --instance-profile-name ${ECS_INSTANCE_ROLE}
 
+echo "Creating private DNS namespace '${DNS_NAMESPACE}' for service discovery"
+# Get current VPC id
+run_aws ec2 describe-vpcs
+vpc_id=`echo ${AWS_LAST_RESULT} | jq .Vpcs[].VpcId | cut -d\" -f2`
+
+# Create private DNS namespace for service discovery
+run_aws servicediscovery create-private-dns-namespace \
+    --name ${DNS_NAMESPACE} \
+    --vpc ${vpc_id}
+
+
 # Create temporary file for cluster attachment
 TEMP=".tmp.attachment.sh"
 

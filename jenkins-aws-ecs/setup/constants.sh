@@ -2,10 +2,11 @@
 
 # Common constants
 export AWS_LOG_FILE=aws.log
-export REGION=eu-central-1
+export REGION=eu-west-1 # WARNING: not all regions support ECS Service Discovery, details here: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html
 export APP_NAME=extended-java-shop
+export SERVICE_FAMILY=${APP_NAME}-family # This same value is used in task definitions (*-task.json); change there too if you change this value
 export CLUSTER_NAME=${APP_NAME}-cluster
-export AMI_ID=ami-9fc39c74 # This is for region eu-central-1 (Frankfurt)
+export AMI_ID=ami-2d386654 # This is for region eu-west-1 (Ireland), if you change region change AMI as per https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html
 export KEY_PAIR_NAME=${APP_NAME}-key-pair
 export PRIVATE_KEY_FILE=${KEY_PAIR_NAME}_private.pem
 export SECURITY_GROUP_NAME=${APP_NAME}-security-group
@@ -14,6 +15,7 @@ export ECS_INSTANCE_ROLE=ecsInstanceRole # AWS needs this role to be called expl
 export EC2_FOR_ECS_POLICY_ARN=arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role # Like previous
 #export ECS_SERVICE_ROLE=ecsServiceRole # Like previous
 #export EC2_CONTAINER_SERVICE_ARN=arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole  # Like previous
+export DNS_NAMESPACE=javashop
 export TAG_KEY=Group
 export TAG_VALUE=${APP_NAME}
 
@@ -90,3 +92,8 @@ count_non_terminated_instances() {
     number_of_non_terminated_instances=`echo ${AWS_LAST_RESULT} | jq .Reservations[].Instances[].State.Name | grep -v terminated | wc -l`
 }
 
+get_current_namespace() {
+    run_aws servicediscovery list-namespaces
+    namespace_arn=`echo ${AWS_LAST_RESULT} | jq .Namespaces[].Arn | cut -d\" -f2`
+    namespace_id=`echo ${AWS_LAST_RESULT} | jq .Namespaces[].Id | cut -d\" -f2`
+}

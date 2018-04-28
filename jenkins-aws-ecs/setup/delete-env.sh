@@ -20,6 +20,11 @@ while [ ${number_of_non_terminated_instances} -ne 0 ]; do
     sleep 5
 done
 
+# Delete private namespace
+echo "Deleting DNS Service Discovery '${DNS_NAMESPACE}'"
+get_current_namespace # Namespace ID is now available in variable ${namespace_id}
+run_aws servicediscovery delete-namespace --id ${namespace_id}
+
 # Delete IAM roles
 # Removing role from instance profile first
 run_aws iam remove-role-from-instance-profile \
@@ -42,6 +47,14 @@ run_aws ecs list-services --cluster ${CLUSTER_NAME}
 services=`echo ${AWS_LAST_RESULT} | jq .serviceArns[] | cut -d\" -f2 | cut -d\/ -f2`
 for service in ${services}; do
     run_aws ecs delete-service --cluster ${CLUSTER_NAME} --region ${REGION} --service ${service}
+done
+
+echo "De-registering task definitions from cluster"
+run_aws ecs list-task-definitions --family-prefix ${SERVICE_FAMILY}
+task_defs=`echo ${AWS_LAST_RESULT} | jq .taskDefinitionArns[] | cut -d\" -f2 | cut -d\/ -f2`
+
+for task_def in ${task_defs}; do
+    run_aws ecs deregister-task-definition --task-definition ${task_def}
 done
 
 echo "Removing cluster ${CLUSTER_NAME}"

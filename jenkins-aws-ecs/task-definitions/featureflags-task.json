@@ -1,5 +1,5 @@
 {
-  "family": "featureflags",
+  "family": "extended-java-shop-family",
   "containerDefinitions": [
     {
       "image": "quiram/featureflags",
