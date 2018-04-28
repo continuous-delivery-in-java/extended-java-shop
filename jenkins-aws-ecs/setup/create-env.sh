@@ -44,10 +44,11 @@ echo "Creating private DNS namespace '${DNS_NAMESPACE}' for service discovery"
 run_aws ec2 describe-vpcs
 vpc_id=`echo ${AWS_LAST_RESULT} | jq .Vpcs[].VpcId | cut -d\" -f2`
 
-# Create private DNS namespace for service discovery
+echo "Creating private namespace '${DNS_NAMESPACE}'"
 run_aws servicediscovery create-private-dns-namespace \
     --name ${DNS_NAMESPACE} \
     --vpc ${vpc_id}
+
 
 
 # Create temporary file for cluster attachment
