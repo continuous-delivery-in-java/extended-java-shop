@@ -36,6 +36,14 @@ echo "Removing key ${KEY_PAIR_NAME} associated private key ${PRIVATE_KEY_FILE}"
 [ -f ${PRIVATE_KEY_FILE} ] && rm -f ${PRIVATE_KEY_FILE}
 run_aws ec2 delete-key-pair --key-name ${KEY_PAIR_NAME}
 
+echo "Removing services from cluster"
+# Get services names
+run_aws ecs list-services --cluster ${CLUSTER_NAME}
+services=`echo ${AWS_LAST_RESULT} | jq .serviceArns[] | cut -d\" -f2 | cut -d\/ -f2`
+for service in ${services}; do
+    run_aws ecs delete-service --cluster ${CLUSTER_NAME} --region ${REGION} --service ${service}
+done
+
 echo "Removing cluster ${CLUSTER_NAME}"
 run_aws ecs delete-cluster --cluster ${CLUSTER_NAME}
 
