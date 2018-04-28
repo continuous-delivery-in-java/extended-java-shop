@@ -20,11 +20,6 @@ while [ ${number_of_non_terminated_instances} -ne 0 ]; do
     sleep 5
 done
 
-# Delete private namespace
-echo "Deleting DNS Service Discovery '${DNS_NAMESPACE}'"
-get_current_namespace # Namespace ID is now available in variable ${namespace_id}
-run_aws servicediscovery delete-namespace --id ${namespace_id}
-
 # Delete IAM roles
 # Removing role from instance profile first
 run_aws iam remove-role-from-instance-profile \
