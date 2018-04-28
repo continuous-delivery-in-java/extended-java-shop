@@ -36,32 +36,23 @@ if [ "$SERVICES" == "" ]; then
     if [ "${DESIRED_COUNT}" == "0" ]; then
         DESIRED_COUNT="1"
     fi
-    run_aws ecs update-service --cluster ${CLUSTER_NAME} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${FAMILY}:${REVISION} --desired-count ${DESIRED_COUNT}
+    aws ecs update-service --cluster ${CLUSTER_NAME} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${FAMILY}:${REVISION} --desired-count ${DESIRED_COUNT}
 else
     echo "entered new service"
-
-    echo "create namespace"
-    get_current_namespace # namespace's ARN is available in variable ${namespace_arn} after this call
-
-    echo "create service discovery"
-    aws servicediscovery create-service \
-        --name ${project_name} \
-        --dns-config 'NamespaceId='${namespace_id}',RoutingPolicy=\"MULTIVALUE\",DnsRecords=[\{Type="A",TTL=10\}]'
-#        --health-check-donfig "Type=TCP,ResourcePath=/health,FailureThreshold=5"
-
-    service_arn=`echo ${AWS_LAST_RESULT} | jq .Service.Arn | cut -d\" -f2`
-    subnets=`aws ec2 describe-subnets | jq .Subnets[].SubnetId | cut -d\" -f2 | tr -s '\n' ','`
+    subnets=0
+    for x in a b c; do
+        subnets="${REGION}${x},${subnets}"
+    done
     subnets=${subnets%?}
-    security_group_id=`aws ec2 describe-security-groups --group-names extended-java-shop-security-group | jq .SecurityGroups[].GroupId`
-
+    get_current_namespace # namespace's ARN is available in variable ${namespace_arn} after this call
     aws ecs create-service \
     --service-name ${SERVICE_NAME} \
     --desired-count 1 \
     --task-definition ${FAMILY} \
     --cluster ${CLUSTER_NAME} \
     --region ${REGION} \
-    --service-registries "registryArn=${service_arn}" \
-    --network-configuration "awsvpcConfiguration={subnets=[${subnets}],securityGroups=[${security_group_id}],assignPublicIp=DISABLED}"
+    --service-registries registryArn=${namespace_arn} \
+    --network-configuration "awsvpcConfiguration={subnets=[${subnets}],securityGroups=[${SECURITY_GROUP_NAME}],assignPublicIp=ENABLED}"
 
 fi
 
