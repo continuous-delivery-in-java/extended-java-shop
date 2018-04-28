@@ -1,5 +1,5 @@
 {
-  "family": "extended-java-shop-family",
+  "family": "external-adaptive-pricing",
   "containerDefinitions": [
     {
       "image": "quiram/external-adaptive-pricing",

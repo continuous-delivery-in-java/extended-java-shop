@@ -1,5 +1,5 @@
 {
-  "family": "extended-java-shop-family",
+  "family": "productcatalogue",
   "containerDefinitions": [
     {
       "image": "quiram/productcatalogue",

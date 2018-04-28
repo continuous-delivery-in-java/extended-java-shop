@@ -1,5 +1,5 @@
 {
-  "family": "extended-java-shop-family",
+  "family": "stockmanager",
   "containerDefinitions": [
     {
       "image": "quiram/stockmanager",

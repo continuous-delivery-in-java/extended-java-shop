@@ -50,7 +50,7 @@ for service in ${services}; do
 done
 
 echo "De-registering task definitions from cluster"
-run_aws ecs list-task-definitions --family-prefix ${SERVICE_FAMILY}
+run_aws ecs list-task-definitions
 task_defs=`echo ${AWS_LAST_RESULT} | jq .taskDefinitionArns[] | cut -d\" -f2 | cut -d\/ -f2`
 
 for task_def in ${task_defs}; do

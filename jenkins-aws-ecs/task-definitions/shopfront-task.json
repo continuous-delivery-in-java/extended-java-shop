@@ -1,5 +1,5 @@
 {
-  "family": "extended-java-shop-family",
+  "family": "shopfront",
   "containerDefinitions": [
     {
       "image": "quiram/shopfront",
