@@ -2,6 +2,7 @@
 A sample Jenkins server with pre-created jobs that will deploy the three sample services to an Amazon Cloud (ECS)
 
 ## Pre-requisites
+- jq needs to be installed
 - An account for AWS ECS is necessary.
 - Install AWS - CLI
 - Set up AWS CLI locally: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html

@@ -5,11 +5,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd ${SCRIPT_DIR}
 source ./constants.sh
 
-count_non_terminated_instances() {
-    run_aws ec2 describe-instances
-    number_of_non_terminated_instances=`echo ${AWS_LAST_RESULT} | jq .Reservations[].Instances[].State.Name | grep -v terminated | wc -l`
-}
-
 # delete EC2 instances
 echo "Getting current instances..."
 run_aws ec2 describe-instances --filter "'Name=tag:${TAG_KEY},Values=${TAG_VALUE}'"
@@ -25,17 +20,14 @@ while [ ${number_of_non_terminated_instances} -ne 0 ]; do
     sleep 5
 done
 
-# Delete IAM role
-echo "Deleting IAM role '${ECS_INSTANCE_ROLE}'..."
-run_aws iam detach-role-policy \
-    --role-name ${ECS_INSTANCE_ROLE} \
-    --policy-arn ${EC2_FOR_ECS_POLICY_ARN}
-
+# Delete IAM roles
+# Removing role from instance profile first
 run_aws iam remove-role-from-instance-profile \
     --instance-profile-name ${ECS_INSTANCE_ROLE} \
     --role-name ${ECS_INSTANCE_ROLE}
 
-run_aws iam delete-role --role-name ${ECS_INSTANCE_ROLE}
+delete_iam_role ${ECS_INSTANCE_ROLE} ${EC2_FOR_ECS_POLICY_ARN}
+#delete_iam_role ${ECS_SERVICE_ROLE} ${EC2_CONTAINER_SERVICE_ARN}
 
 echo "Removing security group ${SECURITY_GROUP_NAME}"
 run_aws ec2 delete-security-group --group-name ${SECURITY_GROUP_NAME}

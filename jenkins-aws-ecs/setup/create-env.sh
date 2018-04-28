@@ -25,53 +25,19 @@ run_aws ec2 create-security-group \
 
 # Add rules to security group
 echo "Adding rules to security group ${SECURITY_GROUP_NAME}"
-run_aws ec2 authorize-security-group-ingress \
-    --group-name ${SECURITY_GROUP_NAME} \
-    --protocol tcp --port 22 --cidr 0.0.0.0/0
+add_ingress_rule ${SECURITY_GROUP_NAME} 22
+add_ingress_rule ${SECURITY_GROUP_NAME} 8000-8100
+add_ingress_rule ${SECURITY_GROUP_NAME} 5432
 
-run_aws ec2 authorize-security-group-ingress \
-    --group-name ${SECURITY_GROUP_NAME} \
-    --protocol tcp --port 8000-8100 --cidr 0.0.0.0/0
-
-run_aws ec2 authorize-security-group-ingress \
-    --group-name ${SECURITY_GROUP_NAME} \
-    --protocol tcp --port 5432 --cidr 0.0.0.0/0
-
-# Create temporary file for role creation
-TEMP=".tmp.policy.document.json"
-cat >${TEMP} <<EOF
-{
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ec2.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-
-# Create IAM role to allow the ECS agents in the instances register with the cluster
-echo "Creating IAM role to link ECS cluster with EC2 instances"
-run_aws iam create-role \
-    --role-name ${ECS_INSTANCE_ROLE} \
-    --description '"Allows EC2 instances in an ECS cluster to access ECS."' \
-    --assume-role-policy-document file://${TEMP}
-
-rm -f ${TEMP}
+# Create IAM roles
+#create_iam_role ${ECS_SERVICE_ROLE} ${EC2_CONTAINER_SERVICE_ARN} '"Allows ECS to (de)register EC2 instances in and out of load balancers."'
+create_iam_role ${ECS_INSTANCE_ROLE} ${EC2_FOR_ECS_POLICY_ARN} '"Allows EC2 instances in an ECS cluster to access ECS."'
 
 # AWS automatically creates an instance profile when you create a role, with the same name, but it doesn't link the two...
+echo "Adding role '${ECS_INSTANCE_ROLE}' to the relevant instance profile"
 run_aws iam add-role-to-instance-profile \
     --role-name ${ECS_INSTANCE_ROLE} \
     --instance-profile-name ${ECS_INSTANCE_ROLE}
-
-run_aws iam attach-role-policy \
-    --policy-arn ${EC2_FOR_ECS_POLICY_ARN} \
-    --role-name ${ECS_INSTANCE_ROLE}
 
 # Create temporary file for cluster attachment
 TEMP=".tmp.attachment.sh"
