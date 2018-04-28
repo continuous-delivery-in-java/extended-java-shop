@@ -19,12 +19,7 @@ SERVICE_NAME=${project_name}-service
 #Replace the build number and respository URI placeholders with the constants above
 cp taskdef.json ${project_name}-v_${BUILD_NUMBER}.json
 #Register the task definition in the repository
-aws ecs register-task-definition \
-    --family ${FAMILY} \
-    --cli-input-json file://${WORKSPACE}/${project_name}-v_${BUILD_NUMBER}.json \
-    --region ${REGION} \
-    --network-mode awsvpc
-
+aws ecs register-task-definition --family ${FAMILY} --cli-input-json file://${WORKSPACE}/${project_name}-v_${BUILD_NUMBER}.json --region ${REGION}
 SERVICES=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER_NAME} --region ${REGION} | jq .failures[]`
 #Get latest revision
 REVISION=`aws ecs describe-task-definition --task-definition ${project_name} --region ${REGION} | jq .taskDefinition.revision`
