@@ -34,7 +34,6 @@ if [ "$SERVICES" == "" ]; then
     aws ecs update-service --cluster ${CLUSTER_NAME} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${FAMILY}:${REVISION} --desired-count ${DESIRED_COUNT}
 else
     echo "entered new service"
-    get_current_namespace # namespace's ARN is available in variable ${namespace_arn} after this call
-    aws ecs create-service --service-name ${SERVICE_NAME} --desired-count 1 --task-definition ${FAMILY} --cluster ${CLUSTER_NAME} --region ${REGION} --service-registries registryArn=${namespace_arn}
+    aws ecs create-service --service-name ${SERVICE_NAME} --desired-count 1 --task-definition ${FAMILY} --cluster ${CLUSTER_NAME} --region ${REGION}
 fi
 
