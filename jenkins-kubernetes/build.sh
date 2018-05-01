@@ -29,6 +29,8 @@ source_dir=$HOME/.minikube
 dest_dir=kubernetes/secrets
 secret_files="ca.crt client.crt client.key"
 
+mkdir -p ${dest_dir}
+
 for file in ${secret_files}; do
     ensure_file ${source_dir}/${file}
     cp ${source_dir}/${file} ${dest_dir}/${file}
