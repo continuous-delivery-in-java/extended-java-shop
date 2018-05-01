@@ -11,7 +11,7 @@ services:
     networks:
       - ci_network
     environment:
-      - docker_network_name=jenkinskubernetes_ci_network
+      - docker_network_name=jenkins-kubernetes_ci_network
 
 volumes:
   jenkins_kubernetes_home:
