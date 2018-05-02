@@ -25,7 +25,7 @@ public class FeatureFlagsService {
         return flag.map(FlagDTO::getPortionIn).map(this::randomWithinPortion).orElse(false);
     }
 
-    private boolean randomWithinPortion(int i) {
-        return i > random.nextInt(100);
+    private boolean randomWithinPortion(int portionIn) {
+        return random.nextInt(100) < portionIn;
     }
 }
