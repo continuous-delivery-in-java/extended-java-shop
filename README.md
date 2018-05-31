@@ -1,5 +1,5 @@
 # Extended Java Shop
-This repo contains code samples the book ["Continuous Delivery in Java"](http://shop.oreilly.com/product/0636920078777.do).
+This repo contains code samples for the book ["Continuous Delivery in Java"](http://shop.oreilly.com/product/0636920078777.do).
 
 This README is intended to provide high-level guidance of the project, and detailed instructions can be found in the accompanying book.
 
@@ -20,7 +20,7 @@ Further instructions may exist within the following sub-folders.
 * jenkins-aws-ecs
     * A pre-built Jenkins instance that deploys to a known AWS ECS Cluster; this is based on jenkins-base.
 * jenkins-base
-    * A pre-built Jenkins instance with job definitions for all the services and tests. It includes an empty "deploy" job which doesn't do anything; this job is overridden at jenkins-kubernetes and jenkins-aws-ecs to deploy to the right location.
+    * A pre-built Jenkins instance with job definitions for all the services and tests. It includes an empty "deploy" job which doesn't do anything; this job is overridden at `jenkins-kubernetes` and `jenkins-aws-ecs` to deploy to the right location.
 * jenkins-kubernetes
     * A pre-built Jenkins instance that deploys to a locally running Kubernetes Cluster; this is based on jenkins-base. 
 * productcatalogue
