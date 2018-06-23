@@ -15,12 +15,17 @@ spec:
     name: http
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: productcatalogue
+  labels:
+    app: productcatalogue
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: productcatalogue
   template:
     metadata:
       labels:

@@ -15,12 +15,17 @@ spec:
     name: http
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: stockmanager
+  labels:
+    app: stockmanager
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: stockmanager
   template:
     metadata:
       labels:

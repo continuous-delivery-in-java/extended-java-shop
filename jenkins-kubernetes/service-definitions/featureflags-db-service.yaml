@@ -15,12 +15,17 @@ spec:
     name: jdbc-postgresql
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: featureflags-db
+  labels:
+    app: featureflags-db
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: featureflags-db
   template:
     metadata:
       labels:

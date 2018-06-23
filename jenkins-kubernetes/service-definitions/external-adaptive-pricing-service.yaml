@@ -15,12 +15,17 @@ spec:
     name: http
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: external-adaptive-pricing
+  labels:
+    app: external-adaptive-pricing
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: external-adaptive-pricing
   template:
     metadata:
       labels:

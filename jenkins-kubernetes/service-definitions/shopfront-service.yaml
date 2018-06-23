@@ -15,12 +15,17 @@ spec:
     name: http
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: shopfront
+  labels:
+    app: shopfront
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: shopfront
   template:
     metadata:
       labels:
