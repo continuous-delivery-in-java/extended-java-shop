@@ -41,7 +41,8 @@ public class FeatureFlagsRepo {
             final String flagUrl = featureFlagsUri + "/flags/" + flagId;
             LOGGER.info("Fetching flag from {}", flagUrl);
             return Optional.ofNullable(restTemplate.getForObject(flagUrl, FlagDTO.class));
-        } catch (HttpClientErrorException | HttpServerErrorException | ResourceAccessException | HttpMessageNotReadableException e) {
+        } catch (HttpClientErrorException | HttpServerErrorException |
+                ResourceAccessException | HttpMessageNotReadableException e) {
             LOGGER.info("Failed to retrieve flag " + flagId + "; falling back to no flag", e);
             return Optional.empty();
         }
