@@ -1,5 +1,5 @@
 # Extended Java Shop
-This repo contains code samples for the book ["Continuous Delivery in Java"](http://shop.oreilly.com/product/0636920078777.do). It started as a fork of [Daniel Bryant](https://github.com/danielbryantuk)'s [O'Reilly Docker Java Shopping repository](https://github.com/danielbryantuk/oreilly-docker-java-shopping), but it evolved to become a repository on its own right.
+This repo contains code samples for the book ["Continuous Delivery in Java"](http://shop.oreilly.com/product/0636920078777.do). It started as a fork of [Daniel Bryant](https://github.com/danielbryantuk)'s [O'Reilly Docker Java Shopping repository](https://github.com/danielbryantuk/oreilly-docker-java-shopping), but it evolved to become a repository on its own right. Problems running the code? Raise a [new issue](https://github.com/continuous-delivery-in-java/extended-java-shop/issues/new).
 
 This README is intended to provide high-level guidance of the project, and detailed instructions can be found in the accompanying book.
 
