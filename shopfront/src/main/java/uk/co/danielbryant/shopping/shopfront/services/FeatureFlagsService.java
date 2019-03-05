@@ -20,9 +20,11 @@ public class FeatureFlagsService {
         this.random = random;
     }
 
+    // Get value of flag and check if a randomly generated value falls within
     public boolean shouldApplyFeatureWithFlag(long flagId) {
         final Optional<FlagDTO> flag = featureFlagsRepo.getFlag(flagId);
-        return flag.map(FlagDTO::getPortionIn).map(this::randomWithinPortion).orElse(false);
+        return flag.map(FlagDTO::getPortionIn).map(this::randomWithinPortion)
+                .orElse(false);
     }
 
     private boolean randomWithinPortion(int portionIn) {

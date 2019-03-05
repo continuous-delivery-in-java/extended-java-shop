@@ -14,6 +14,7 @@ import uk.co.danielbryant.shopping.shopfront.services.dto.FlagDTO;
 
 import java.util.Optional;
 
+import static java.lang.String.format;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Component
@@ -40,10 +41,12 @@ public class FeatureFlagsRepo {
         try {
             final String flagUrl = featureFlagsUri + "/flags/" + flagId;
             LOGGER.info("Fetching flag from {}", flagUrl);
-            return Optional.ofNullable(restTemplate.getForObject(flagUrl, FlagDTO.class));
+            final FlagDTO flag = restTemplate.getForObject(flagUrl, FlagDTO.class);
+            return Optional.ofNullable(flag);
         } catch (HttpClientErrorException | HttpServerErrorException |
                 ResourceAccessException | HttpMessageNotReadableException e) {
-            LOGGER.info("Failed to retrieve flag " + flagId + "; falling back to no flag", e);
+            final String msg = "Failed to retrieve flag %s; falling back to no flag";
+            LOGGER.info(format(msg, flagId), e);
             return Optional.empty();
         }
     }
