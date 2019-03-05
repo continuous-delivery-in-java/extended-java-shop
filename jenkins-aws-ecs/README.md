@@ -10,7 +10,7 @@ A sample Jenkins server with pre-created jobs that will deploy the three sample 
 
 ## Procedure
 1. Run `build.sh` to generate the necessary config files and docker image
-1. Run `docker-compose -f docker-compose.yaml up` to run the generated service; the Jenkins server is available at `http://localhost:8080/`
+1. Run `docker-compose -f docker-compose.yml up` to run the generated service; the Jenkins server is available at `http://localhost:8080/`
 1. Once the Jenkins image has started, you'll need to ssh into it and open up permissions of the Docker socket file (**warning:** there is a security risk on doing this, see below for details).
     1. Identify the Docker ID of the image: ``docker_id=`docker ps | grep jenkins-kubernetes | cut -f1 -d\  ` ``
     1. SSH into the Docker container: `docker exec -ti ${docker_id} bash` 
